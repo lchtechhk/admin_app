@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>户口操作</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  <ion-content class="page-login" padding>
+    <ion-row class="grid-t">
+      <ion-col style="margin-top:20%;">
+        <div class="logo">
+          <img style="" class="image" src="./assets/images/header_logo.png"/>
+        </div>
+      </ion-col>
+    </ion-row>
+  
+    <form [formGroup]="todo" class="form" (ngSubmit)="login()">
+        <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div>
+                  <ion-item>
+                    <ion-label floating>帳號</ion-label>
+                    <!-- <ion-input type="email" name="email" [(ngModel)]="email" formControlName="email"></ion-input> -->
+                    <ion-input type="text" name="email" [(ngModel)]="email" formControlName="email"></ion-input>
+                  </ion-item>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div>
+                  <ion-item>
+                    <ion-label floating>密碼</ion-label>
+                    <ion-input type="password" name="password" [(ngModel)]="password" formControlName="password"></ion-input>
+                  </ion-item>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                  <div>
+                    <label *ngIf="errorMessage!=''">
+                      <span style="color:red;">{{errorMessage}}</span>
+                    </label>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col>
+                    <div>
+                        <ion-button expand="full" type="submit"  [disabled]="!todo.valid">登入</ion-button>
+                    </div>
+                  </ion-col>
+                </ion-row>
+          </ion-grid>
+    </form>
+  </ion-content>
