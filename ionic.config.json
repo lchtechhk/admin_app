@@ -1,7 +1,8 @@
 {
   "name": "admin_app",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }
