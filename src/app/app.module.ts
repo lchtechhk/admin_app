@@ -18,7 +18,7 @@ import { SharedDataProvider } from './providers/shared-data';
 
 import {HttpClientModule} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { FCM } from '@ionic-native/fcm/ngx';
+// import { FCM } from '@ionic-native/fcm/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +37,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
     UIProvider,
     SharedDataProvider,
     CommonProvider,
-    FCM,
+    // FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
