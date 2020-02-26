@@ -24,7 +24,6 @@ export class SharedDataProvider {
         private uiProvider: UIProvider,
         private platform: Platform,
     ) {
-        console.log("console");
         this.is_login();
     }
 
