@@ -58,16 +58,16 @@ const routes: Routes = [
           }
         ]
       },
-      // {
-      //   path: 'profile',
-      //   children: [
-      //     {
-      //       path: '',
-      //       loadChildren: () =>
-      //         import('../profile/profile.module').then(m => m.ProfilePageModule)
-      //     }
-      //   ]
-      // }
+      {
+        path: 'profile',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../profile/profile.module').then(m => m.ProfilePageModule)
+          }
+        ]
+      }
     ]
   }
 ];

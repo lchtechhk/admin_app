@@ -1,0 +1,56 @@
+<ion-header (click)="logout()">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="secondary">
+            <ion-button>
+                <ion-icon size="large" name="log-out"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>登出</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12">
+                <ion-card class="ion-text-center box-shadow">
+                    <ion-avatar>
+                        <img src="./assets/images/user.png" alt="">
+                    </ion-avatar>
+                    <ion-card-content>
+                        <h1 class="text-size-md text-color-primary font-bold">
+                            {{person_data.last_name}} {{person_data.first_name}}</h1>
+                        <p class="text-size-xs text-color-primary font-light">
+                            {{person_data.company}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-list>
+        <ion-item>
+            <ion-label color="primary" position="stacked">電子郵件</ion-label>
+            <ion-input readonly>{{person_data.email}}</ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" position="stacked">電話</ion-label>
+            <ion-input readonly>{{person_data.phone}}</ion-input>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-list-header style="width:100%;background:#1E90FF;color: #FFF;">
+          <ion-label padding-start>師父簽名</ion-label>
+          <ion-button color="dark" (click)="open_signature()">
+            <ion-icon ios="ios-brush" md="md-brush"></ion-icon>
+            簽署
+          </ion-button>
+        </ion-list-header>
+        <ion-card style="min-width:100px;min-height: 150px;">
+          <ion-card-content *ngIf="person_data.user_signature">
+              <img [src]="person_data.user_signature" >
+          </ion-card-content>
+        </ion-card>
+      </ion-list>
+      
+</ion-content>
