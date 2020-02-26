@@ -25,12 +25,18 @@ export class LoginPage {
    //loading
   private load : any;
 
-  constructor(private sharedDataProvider : SharedDataProvider, private router : Router,private storage: Storage,
-     private ObjectUtils : ObjectUtils,private navCtrl: NavController,
-    private commonProvider: CommonProvider,public datepipe: DatePipe, 
-    public uiProvider: UIProvider,public formBuilder: FormBuilder,
+  constructor(
+    private sharedDataProvider : SharedDataProvider,
+    private router : Router,
+    private storage: Storage,
+    private ObjectUtils : ObjectUtils,
+    private navCtrl: NavController,
+    private commonProvider: CommonProvider,
+    public datepipe: DatePipe, 
+    public uiProvider: UIProvider,
+    public formBuilder: FormBuilder,
     public config : ConfigProvider) {
-    this.email = 'internalstaff';
+    this.email = 'customer@gmail.com';
     this.password = '123123';
 
     this.todo = this.formBuilder.group({
@@ -42,13 +48,15 @@ export class LoginPage {
 
   public login() {
     this.uiProvider.presentLoadingDefault();
-    let login_profile = {username:this.email, password:this.password};
-    this.config.post(this.config.url+'login',login_profile,(data:any)=>{
+    let login_profile = {email:this.email, password:this.password};
+    this.config.post(this.config.url+'login','',login_profile,(data:any)=>{
       if(!this.ObjectUtils.isEmptyField(data)){
         switch(data.status){
           case true :
-            if(!this.ObjectUtils.isEmptyField(data.user)){
-              this.sharedDataProvider.login(data.user);
+            if(!this.ObjectUtils.isEmptyField(data.data.token)){
+              this.sharedDataProvider.login_token(data.data.token);
+              // console.log("token : " + this.sharedDataProvider.token);
+
             }else {
               this.errorMessage = '用戶不存在';
             }

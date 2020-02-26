@@ -13,6 +13,7 @@ import { Platform } from '@ionic/angular';
 export class SharedDataProvider {
     public person_data: any = null;
     public person_id: number = null;
+    public token: any = null;
     constructor(
         // private fcm: FCM,
         public storage: Storage,
@@ -23,7 +24,9 @@ export class SharedDataProvider {
         private ObjectUtils: ObjectUtils,
         private uiProvider: UIProvider,
         private platform: Platform,
+
     ) {
+        console.log("SharedDataProvider");
         this.is_login();
     }
 
@@ -49,10 +52,10 @@ export class SharedDataProvider {
     }
 
     public is_login() {
-        this.storage.get('person_data').then((val) => {
+        this.storage.get('token').then((val) => {
             if (!this.ob.isEmptyField(val)) {
                 this.person_data = val;
-                this.person_id = val.id;
+                // this.person_id = val.id;
                 if (this.platform.is('android') || this.platform.is('ios')) {
                     this.update_fcm();
                 } else {
@@ -67,7 +70,7 @@ export class SharedDataProvider {
         await this.storage.get('person_data').then((val) => {
             if (!this.ob.isEmptyField(val)) {
                 this.person_data = val;
-                this.person_id = val.id;
+                // this.person_id = val.id;
             }
         });
     }
@@ -75,22 +78,31 @@ export class SharedDataProvider {
         await this.storage.remove(key);
 
     }
-    async login(user) {
-        await this.storage.set('person_data', user);
-        await this.storage.set('person_id', user.id);
-        this.storage.get('person_data').then((val) => {
-            if (!this.ob.isEmptyField(val)) {
-                this.person_data = val;
-                this.person_id = val.id;
-                this.update_fcm();
-            }
-        });
+    async login_token(token){
+        this.token = token;
+        await this.storage.set('token', token);
+        this.update_fcm();
     }
+    async authenticate(token,user){
+        await this.storage.set('token', token);
+        await this.storage.set('person_data', user);
+    }
+    // async login(user) {
+    //     await this.storage.set('person_data', user);
+    //     await this.storage.set('person_id', user.id);
+    //     this.storage.get('person_data').then((val) => {
+    //         if (!this.ob.isEmptyField(val)) {
+    //             this.person_data = val;
+    //             this.person_id = val.id;
+    //             this.update_fcm();
+    //         }
+    //     });
+    // }
     async logout() {
         await this.storage.remove("person_data");
         await this.storage.remove("person_id");
         this.person_data = null;
-        this.person_id = null;
+        // this.person_id = null;
         this.router.navigateByUrl("", { replaceUrl: true });
     }
 }

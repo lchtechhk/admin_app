@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ActionSheetController, Platform, AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { SharedDataProvider } from '../providers/shared-data';
 
 
 @Injectable()
 export class UIProvider {
   isLoading = false;
 
-  constructor(private actionSheetController: ActionSheetController, private alertCtrl: AlertController,private loadingCtrl: LoadingController) { 
+  constructor(
+    private actionSheetController: ActionSheetController,
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController) { 
   };
 
   public async presentAlert(title,message,left_action_name,left_action,right_action_name,right_action) {
