@@ -29,17 +29,19 @@ export class AuthService {
         console.log("AuthService");
     }
     async authenticate() {
-        console.log("authenticate first");
         const token = await this.sharedDataProvider.getToken();
-        const result = await this.config.get(this.config.url,token);
-       
-        console.log("authenticate end : " + result);
+        const result = await this.config.get(this.config.url+'refresh_token',token);
+        if(result.status && !this.ObjectUtils.isEmptyField(result.data.token)){
+            await this.sharedDataProvider.setToken(result.data.token);
+        }
+        return result
     }
 
     async login(login_profile) {
         const result : ResponseModel  = await this.config.post(this.config.url + 'login', '',login_profile);
         if(result.status && !this.ObjectUtils.isEmptyField(result.data.token)){
-            this.sharedDataProvider.setToken(result.data.token);
+            await this.sharedDataProvider.setToken(result.data.token);
+            console.log("Token : " + await this.sharedDataProvider.getToken());
         }
         return result;
 

@@ -11,9 +11,6 @@ import { Platform } from '@ionic/angular';
 
 @Injectable()
 export class SharedDataProvider {
-    public person_data: any = null;
-    public person_id: number = null;
-    public token: any = null;
     constructor(
         // private fcm: FCM,
         public storage: Storage,
@@ -30,45 +27,29 @@ export class SharedDataProvider {
         // this.is_login();
     }
     async is_login() {
-        await this.storage.get('token').then((val) => {
-            if (!this.ob.isEmptyField(val)) {
-                this.token = val;
-                if (this.platform.is('android') || this.platform.is('ios')) {
-                    // this.update_fcm();
-                } else {
-                    // this.router.navigateByUrl("/home/tab1", { replaceUrl: true });
-                    console.log("is_login : " + this.token);
-                }
-            } else {
-                // this.router.navigateByUrl("", { replaceUrl: true });
-            }
-        });
+     
     }
     async getToken(){
-        console.log("getToken");
         try {
-            return await this.storage.get('token').then((val) =>{
-                console.log("val : " + val);
-                return this.token = val;
-
-            });
+            let token = await this.storage.get('token');
+            return token;
         }
         catch(e) { console.log(e) }
     }
     async setToken(token){
-        console.log("setToken");
         try {
-            this.token = token;
+            await this.removeToken();
             await this.storage.set('token', token);
         }
         catch(e) { console.log(e) }
     }
-
+    async removeToken(){
+        console.log("removeToken");
+        await this.storage.remove("token");
+    }
     async storage_remove(key) {
         await this.storage.remove(key);
-
     }
-
     public update_fcm() {
     //     if (this.platform.is("android") || this.platform.is("ios")) {
     //         this.fcm.getToken().then(token => {

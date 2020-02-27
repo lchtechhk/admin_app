@@ -59,27 +59,45 @@ export class ConfigProvider {
       'Accept': 'application/json, text/plain',
     };
     const response = new ResponseModel;
-    console.log("post : " + url + '?token=' + token);
-    const result : any = await this.http.post(url, data, {headers : headers, responseType: 'json'}).toPromise();
-    response.status = this.ObjectUtils.isEmptyField(result.status) ? false : result.status;
-    response.data = this.ObjectUtils.isEmptyField(result.data) ? {} : result.data;
-    response.message = this.ObjectUtils.isEmptyField(result.message) ? "" : result.message;
+    console.log("[POST] -- URL : " + url + '?token=' + token);
+    try{
+      const result : any = await this.http.post(url, data, {headers : headers, responseType: 'json'}).toPromise();
+      response.status = this.ObjectUtils.isEmptyField(result.status) ? false : result.status;
+      response.data = this.ObjectUtils.isEmptyField(result.data) ? {} : result.data;
+      response.message = this.ObjectUtils.isEmptyField(result.message) ? "" : result.message;
+    }catch (err){
+      response.status = false;
+      if(!this.ObjectUtils.isEmptyField(err.error.message))response.message = this.httpException(err.error.message);
+    }
+    console.log("[POST] -- Response : " + JSON.stringify(response));
     return response;
   }
 
   async get(url: string, token: string) {
-    console.log("get : " + url + '?token=' + token);
-    this.http.get(url + '?token=' + token, { responseType: 'json' }).subscribe(async (data: any) => {
-      console.log("[Get] - Success");
-      this.uiProvider.dismissLoadingDefault();
-      return data;
-    }, async (err: any) => {
-      console.log("[Get] -Error : " + err);
-      this.uiProvider.dismissLoadingDefault();
-      return err;
-    });
+    const response = new ResponseModel;
+    console.log("[GET] -- URL : " + url + '?token=' + token);
+    try{
+      const result : any = await this.http.get(url + '?token=' + token, { responseType: 'json' }).toPromise();
+      response.status = this.ObjectUtils.isEmptyField(result.status) ? false : result.status;
+      response.data = this.ObjectUtils.isEmptyField(result.data) ? {} : result.data;
+      response.message = this.ObjectUtils.isEmptyField(result.message) ? "" : result.message;
+    }catch (err){
+      response.status = false;
+      if(!this.ObjectUtils.isEmptyField(err.error.message))response.message = this.httpException(err.error.message);
+    }
+    console.log("[GET] -- Response : " + JSON.stringify(response));
+    return response;
   }
 
+  public httpException(message){
+    console.log("[HTTP] -- Error : " + message);
+    switch (message){
+      case 'The token has been blacklisted' :
+      return '登入逾時';
+      default :
+      return '伺服器發生故障,請聯絡開發人員';
+    }
+  }
   // get(url: string, token: string, success: (response: any) => void, error: (error: any) => void) {
   //   console.log("get : " + url + '?token=' + token);
   //    this.http.get(url + '?token=' + token, { responseType: 'json' }).subscribe(async(data: any) => {

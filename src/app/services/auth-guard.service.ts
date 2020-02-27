@@ -25,6 +25,11 @@ export class AuthGuardService implements CanActivate {
     console.log("canActivate");
     const a = await this.authService.authenticate();
     console.log("canActivate end");
-    return a;
+    if(a.status){
+      return true; 
+    }else {
+      this.router.navigateByUrl("", { replaceUrl: true });
+      return false;
+    }
   }
 }

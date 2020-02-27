@@ -1,5 +1,5 @@
 export class ResponseModel{
-    status : Boolean;
+    status : boolean;
     data : any ;
     message : any;
 }
