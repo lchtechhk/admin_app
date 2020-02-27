@@ -38,13 +38,11 @@ export class ProfilePage {
         this.person_data.user_signature = JSON.parse(params["signatureImage"]);
         this.uiProvider.presentLoadingDefault();
         this.config.post(this.config.url+'save_user_signature','',{signature_image : this.person_data.user_signature, user_id : this.sharedDataProvider.person_id},(res:any)=>{
-          this.uiProvider.dismissLoadingDefault();
           if(!this.ObjectUtils.isEmptyField(res) && !this.ObjectUtils.isEmptyField(res.data) && res.status){
           }else {
             alert(JSON.stringify(res.data))
           }
         }, (error:any) => {
-          this.uiProvider.dismissLoadingDefault();
           alert(JSON.stringify(error))
         });
       }

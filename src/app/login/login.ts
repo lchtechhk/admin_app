@@ -9,6 +9,7 @@ import { ObjectUtils } from '../providers/ObjectUtils';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { SharedDataProvider } from '../providers/shared-data';
+import { AuthService } from '../services/AuthService';
 
 import * as moment from 'moment';
 
@@ -26,6 +27,7 @@ export class LoginPage {
   private load : any;
 
   constructor(
+    private AuthService : AuthService,
     private sharedDataProvider : SharedDataProvider,
     private router : Router,
     private storage: Storage,
@@ -45,36 +47,47 @@ export class LoginPage {
     });
   }
   
-
-  public login() {
+  
+   async login() {
     this.uiProvider.presentLoadingDefault();
     let login_profile = {email:this.email, password:this.password};
-    this.config.post(this.config.url+'login','',login_profile,(data:any)=>{
-      if(!this.ObjectUtils.isEmptyField(data)){
-        switch(data.status){
-          case true :
-            if(!this.ObjectUtils.isEmptyField(data.data.token)){
-              this.sharedDataProvider.login_token(data.data.token);
-              // console.log("token : " + this.sharedDataProvider.token);
-
-            }else {
-              this.errorMessage = '用戶不存在';
-            }
-          break;
-
-          case false :
-            if(!this.ObjectUtils.isEmptyField(data.message) && data.message == 'This account is not exsiting'){
-              this.errorMessage = '登入失敗,用戶不存在';
-            }else {
-              this.errorMessage = '登入失敗,請聯繫管理人員';
-            }
-          break;
-        }
-      }
-      this.uiProvider.dismissLoadingDefault();
-    }, (error:any) => {
-      this.uiProvider.dismissLoadingDefault();
-    });
+    const result = await this.AuthService.login(login_profile);
+    this.uiProvider.dismissLoadingDefault();
+    if(result.status){
+      this.router.navigateByUrl("/home/tab1", { replaceUrl: true });
+    }else {
+      this.errorMessage = result.message;
+    }
   }
+
+  // public login() {
+  //   this.uiProvider.presentLoadingDefault();
+  //   let login_profile = {email:this.email, password:this.password};
+  //   this.config.post(this.config.url+'login','',login_profile,(data:any)=>{
+  //     if(!this.ObjectUtils.isEmptyField(data)){
+  //       switch(data.status){
+  //         case true :
+  //           if(!this.ObjectUtils.isEmptyField(data.data.token)){
+  //             this.router.navigateByUrl("/home/tab1", { replaceUrl: true });
+  //             // this.sharedDataProvider.login_token(data.data.token);
+  //             // console.log("token : " + this.sharedDataProvider.token);
+
+  //           }else {
+  //             this.errorMessage = '用戶不存在';
+  //           }
+  //         break;
+
+  //         case false :
+  //           if(!this.ObjectUtils.isEmptyField(data.message) && data.message == 'This account is not exsiting'){
+  //             this.errorMessage = '登入失敗,用戶不存在';
+  //           }else {
+  //             this.errorMessage = '登入失敗,請聯繫管理人員';
+  //           }
+  //         break;
+  //       }
+  //     }
+  //   }, (error:any) => {
+  //   });
+  // }
 
 }

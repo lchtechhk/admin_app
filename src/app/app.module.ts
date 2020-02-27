@@ -15,6 +15,7 @@ import { ObjectUtils } from './providers/ObjectUtils';
 import { ConfigProvider } from './providers/ConfigProvider';
 import { UIProvider } from './providers/UIProvider';
 import { SharedDataProvider } from './providers/shared-data';
+import { AuthService } from './services/AuthService';
 
 import {HttpClientModule} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -37,6 +38,7 @@ import { IonicStorageModule } from '@ionic/storage';
     UIProvider,
     SharedDataProvider,
     CommonProvider,
+    AuthService,
     // FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

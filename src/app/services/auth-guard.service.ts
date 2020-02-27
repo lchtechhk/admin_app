@@ -4,6 +4,7 @@ import { SharedDataProvider } from '../providers/shared-data';
 import { ObjectUtils } from '../providers/ObjectUtils';
 import { ConfigProvider } from '../providers/ConfigProvider';
 import { UIProvider } from '../providers/UIProvider';
+import { AuthService } from '../services/AuthService';
 
 @Injectable({
   providedIn: 'root'
@@ -14,27 +15,16 @@ export class AuthGuardService implements CanActivate {
     public uiProvider: UIProvider,
     public config : ConfigProvider,
     private sharedDataProvider : SharedDataProvider,
+    private authService : AuthService,
     private router: Router,
     public ob: ObjectUtils) {
     console.log("AuthGuardService");
   }
 
-  canActivate(route: ActivatedRouteSnapshot, ): boolean {
-    let token = this.sharedDataProvider.token;
-    console.log("canActivate : " + token);
-    // return true;
-    
-    this.config.get(this.config.url+"authenticate",'',(data:any)=>{
-      console.log("data : " + JSON.stringify(data));
-    }, (error:any) => {
-    });
-    return true;
-    // if(!this.ob.isEmptyField(this.sharedDataProvider.person_id) && this.sharedDataProvider.person_id >0 ){
-    //   console.log('success auth : ' + this.sharedDataProvider.person_id);
-    //   return true;
-    // }
-    // console.log('fail auth');
-    // this.router.navigateByUrl("", { replaceUrl: true });
-    // return false;
+  async canActivate(route: ActivatedRouteSnapshot, ): Promise<boolean> {
+    console.log("canActivate");
+    const a = await this.authService.authenticate();
+    console.log("canActivate end");
+    return a;
   }
 }

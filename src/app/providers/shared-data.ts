@@ -27,7 +27,46 @@ export class SharedDataProvider {
 
     ) {
         console.log("SharedDataProvider");
-        this.is_login();
+        // this.is_login();
+    }
+    async is_login() {
+        await this.storage.get('token').then((val) => {
+            if (!this.ob.isEmptyField(val)) {
+                this.token = val;
+                if (this.platform.is('android') || this.platform.is('ios')) {
+                    // this.update_fcm();
+                } else {
+                    // this.router.navigateByUrl("/home/tab1", { replaceUrl: true });
+                    console.log("is_login : " + this.token);
+                }
+            } else {
+                // this.router.navigateByUrl("", { replaceUrl: true });
+            }
+        });
+    }
+    async getToken(){
+        console.log("getToken");
+        try {
+            return await this.storage.get('token').then((val) =>{
+                console.log("val : " + val);
+                return this.token = val;
+
+            });
+        }
+        catch(e) { console.log(e) }
+    }
+    async setToken(token){
+        console.log("setToken");
+        try {
+            this.token = token;
+            await this.storage.set('token', token);
+        }
+        catch(e) { console.log(e) }
+    }
+
+    async storage_remove(key) {
+        await this.storage.remove(key);
+
     }
 
     public update_fcm() {
@@ -49,60 +88,5 @@ export class SharedDataProvider {
     //     }
         this.router.navigateByUrl("/home/tab1", { replaceUrl: true });
 
-    }
-
-    public is_login() {
-        this.storage.get('token').then((val) => {
-            if (!this.ob.isEmptyField(val)) {
-                this.person_data = val;
-                // this.person_id = val.id;
-                if (this.platform.is('android') || this.platform.is('ios')) {
-                    this.update_fcm();
-                } else {
-                    this.router.navigateByUrl("/home/tab1", { replaceUrl: true });
-                }
-            } else {
-                this.router.navigateByUrl("", { replaceUrl: true });
-            }
-        });
-    }
-    async get_user() {
-        await this.storage.get('person_data').then((val) => {
-            if (!this.ob.isEmptyField(val)) {
-                this.person_data = val;
-                // this.person_id = val.id;
-            }
-        });
-    }
-    async storage_remove(key) {
-        await this.storage.remove(key);
-
-    }
-    async login_token(token){
-        this.token = token;
-        await this.storage.set('token', token);
-        this.update_fcm();
-    }
-    async authenticate(token,user){
-        await this.storage.set('token', token);
-        await this.storage.set('person_data', user);
-    }
-    // async login(user) {
-    //     await this.storage.set('person_data', user);
-    //     await this.storage.set('person_id', user.id);
-    //     this.storage.get('person_data').then((val) => {
-    //         if (!this.ob.isEmptyField(val)) {
-    //             this.person_data = val;
-    //             this.person_id = val.id;
-    //             this.update_fcm();
-    //         }
-    //     });
-    // }
-    async logout() {
-        await this.storage.remove("person_data");
-        await this.storage.remove("person_id");
-        this.person_data = null;
-        // this.person_id = null;
-        this.router.navigateByUrl("", { replaceUrl: true });
     }
 }
