@@ -47,9 +47,26 @@ export class SharedDataProvider {
         console.log("removeToken");
         await this.storage.remove("token");
     }
-    async storage_remove(key) {
+
+    async get_storage_key(key){
+        try {
+            let token = await this.storage.get(key);
+            return token;
+        }
+        catch(e) { console.log(e) }
+    }
+    async set_storage_key(key,value){
+        try {
+            await this.remove_storage_key(key);
+            await this.storage.set(key, value);
+        }
+        catch(e) { console.log(e) }
+    }
+    async remove_storage_key(key){
+        console.log("removeToken");
         await this.storage.remove(key);
     }
+ 
     public update_fcm() {
     //     if (this.platform.is("android") || this.platform.is("ios")) {
     //         this.fcm.getToken().then(token => {

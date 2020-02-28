@@ -38,7 +38,7 @@ export class LoginPage {
     public uiProvider: UIProvider,
     public formBuilder: FormBuilder,
     public config : ConfigProvider) {
-    this.email = 'customer@gmail.com';
+    this.email = 'customerA@gmail.com';
     this.password = '123123';
 
     this.todo = this.formBuilder.group({

@@ -94,6 +94,8 @@ export class ConfigProvider {
     switch (message){
       case 'The token has been blacklisted' :
       return '登入逾時';
+      case 'We cant find an account with this credentials.':
+      return '登入失敗,用戶不存在';
       default :
       return '伺服器發生故障,請聯絡開發人員';
     }

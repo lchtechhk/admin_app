@@ -31,26 +31,33 @@ export class AuthService {
     async authenticate() {
         const token = await this.sharedDataProvider.getToken();
         const result = await this.config.get(this.config.url+'refresh_token',token);
-        if(result.status && !this.ObjectUtils.isEmptyField(result.data.token)){
+        if(result.status && !this.ObjectUtils.isEmptyField(result.data.token) && !this.ObjectUtils.isEmptyField(result.data.owner)){
             await this.sharedDataProvider.setToken(result.data.token);
+            await this.sharedDataProvider.set_storage_key('person_data',result.data.owner);
+            console.log("authenticate Token : " + await this.sharedDataProvider.getToken());
+            console.log("login person_data : " + JSON.stringify(await this.sharedDataProvider.get_storage_key('person_data')));
         }
         return result
     }
 
     async login(login_profile) {
         const result : ResponseModel  = await this.config.post(this.config.url + 'login', '',login_profile);
-        if(result.status && !this.ObjectUtils.isEmptyField(result.data.token)){
+        if(result.status && !this.ObjectUtils.isEmptyField(result.data.token) && !this.ObjectUtils.isEmptyField(result.data.owner)){
             await this.sharedDataProvider.setToken(result.data.token);
-            console.log("Token : " + await this.sharedDataProvider.getToken());
+            await this.sharedDataProvider.set_storage_key('person_data',result.data.owner);
+            console.log("login Token : " + await this.sharedDataProvider.getToken());
+            console.log("login person_data : " + JSON.stringify(await this.sharedDataProvider.get_storage_key('person_data')));
         }
         return result;
 
     }
 
     async logout() {
-        await this.storage.remove("person_data");
-        await this.storage.remove("person_id");
-        // this.person_id = null;
+        const token = await this.sharedDataProvider.getToken();
+        const result = await this.config.get(this.config.url+'logout',token);
+        if(result.status){
+            await this.sharedDataProvider.removeToken();
+        }        
         this.router.navigateByUrl("", { replaceUrl: true });
     }
 

@@ -11,6 +11,7 @@ import { Storage } from '@ionic/storage';
 import { Router, NavigationExtras } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
 import { UIProvider } from '../providers/UIProvider';
+import { AuthService } from '../services/AuthService';
 
 
 CommonProvider
@@ -20,10 +21,12 @@ CommonProvider
   styleUrls: ['profile.page.scss']
 })
 export class ProfilePage {
-  person_data : any;
+  person_data : any = {};
   public schedule_data : any;
 
-  constructor(private config : ConfigProvider,
+  constructor(
+    private AuthService : AuthService,
+    private config : ConfigProvider,
     private ObjectUtils : ObjectUtils,
     private storage: Storage ,
     private datepipe: DatePipe,
@@ -31,20 +34,19 @@ export class ProfilePage {
     private sharedDataProvider : SharedDataProvider,
     private uiProvider : UIProvider,
     private route: ActivatedRoute,) {
-    this.person_data = sharedDataProvider.person_data;
 
     this.route.queryParams.subscribe(params => {
       if(params["signatureImage"] != undefined){
         this.person_data.user_signature = JSON.parse(params["signatureImage"]);
         this.uiProvider.presentLoadingDefault();
-        this.config.post(this.config.url+'save_user_signature','',{signature_image : this.person_data.user_signature, user_id : this.sharedDataProvider.person_id},(res:any)=>{
-          if(!this.ObjectUtils.isEmptyField(res) && !this.ObjectUtils.isEmptyField(res.data) && res.status){
-          }else {
-            alert(JSON.stringify(res.data))
-          }
-        }, (error:any) => {
-          alert(JSON.stringify(error))
-        });
+        // this.config.post(this.config.url+'save_user_signature','',{signature_image : this.person_data.user_signature, user_id : this.sharedDataProvider.person_id},(res:any)=>{
+        //   if(!this.ObjectUtils.isEmptyField(res) && !this.ObjectUtils.isEmptyField(res.data) && res.status){
+        //   }else {
+        //     alert(JSON.stringify(res.data))
+        //   }
+        // }, (error:any) => {
+        //   alert(JSON.stringify(error))
+        // });
       }
     });
 
@@ -59,7 +61,7 @@ export class ProfilePage {
     this.navCtrl.navigateForward("/signature",navigationExtras);
   }
   logout(){
-    this.sharedDataProvider.logout();
+    this.AuthService.logout();
   }
 
 }
