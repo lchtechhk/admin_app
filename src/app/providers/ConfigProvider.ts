@@ -20,38 +20,17 @@ export class ConfigProvider {
     console.log("ConfigProvider");
   };
 
-  public url: string = "http://192.168.1.116/admin/api/app/";
-  public pdf_url: string = "http://192.168.1.116/admin/api/app/";
+  // public url: string = "http://192.168.1.116/admin/api/app/";
+  // public pdf_url: string = "http://192.168.1.116/admin/api/app/";
 
 
-  // public url : string = "http://127.0.0.1/admin/api/app/";
-  // public pdf_url : string = "http://127.0.0.1/admin/api/app/";
+  public url : string = "http://127.0.0.1/admin/api/app/";
+  public pdf_url : string = "http://127.0.0.1/admin/api/app/";
+  public img_url: string = "http://127.0.0.1/admin/";
 
   // public url : string = "http://13.229.0.90/app/api/";
   // public pdf_url : string = "http://13.229.0.90/app/";
-  public img_url: string = "https://13.251.6.226/rainbow_icon/";
-
-
-
-
-  // async post(url: string, token: string, data: any, success: (response: any) => void, error: (error: any) => void) {
-  //   console.log("post : " + url + '?token=' + token);
-  //   const headers = {
-  //     "Content-Type": "application/json",
-  //     'Accept': 'application/json, text/plain',
-  //   };
-  //   // this.http.post(url, data, {headers : headers, responseType: 'json'}).subscribe((data:any) => {
-  //   this.http.post(url + '?token=' + this.token, data, { headers: headers, responseType: 'json' }).subscribe(async (data: any) => {
-  //     console.log("[Post] - Success 1");
-  //     this.uiProvider.dismissLoadingDefault();
-  //     return data;
-
-  //   },async (err:any) => {
-  //     console.log("[Post] -Error : " + err);
-  //     this.uiProvider.dismissLoadingDefault();
-  //     return err;
-  //   });
-  // }
+  // public img_url: string = "https://13.251.6.226/rainbow_icon/";
 
   async post(url: string, token: string, data: any) {
     const headers = {
@@ -69,7 +48,7 @@ export class ConfigProvider {
       response.status = false;
       if(!this.ObjectUtils.isEmptyField(err.error.message))response.message = this.httpException(err.error.message);
     }
-    console.log("[POST] -- Response : " + JSON.stringify(response));
+    // console.log("[POST] -- Response : " + JSON.stringify(response));
     return response;
   }
 
@@ -85,7 +64,7 @@ export class ConfigProvider {
       response.status = false;
       if(!this.ObjectUtils.isEmptyField(err.error.message))response.message = this.httpException(err.error.message);
     }
-    console.log("[GET] -- Response : " + JSON.stringify(response));
+    // console.log("[GET] -- Response : " + JSON.stringify(response));
     return response;
   }
 
@@ -100,19 +79,6 @@ export class ConfigProvider {
       return '伺服器發生故障,請聯絡開發人員';
     }
   }
-  // get(url: string, token: string, success: (response: any) => void, error: (error: any) => void) {
-  //   console.log("get : " + url + '?token=' + token);
-  //    this.http.get(url + '?token=' + token, { responseType: 'json' }).subscribe(async(data: any) => {
-  //      console.log("[Get] - Success");
-  //      await success(data);
-  //      this.uiProvider.dismissLoadingDefault();
-  //     },async (err:any) => {
-  //      console.log("[Get] -Error : " + err);
-  //      await error(err);
-  //      this.uiProvider.dismissLoadingDefault();
-  //    });
-  // }
-
 
   public check_login(navCtrl, person_id) {
     if (this.ObjectUtils.isEmptyField(person_id)) {

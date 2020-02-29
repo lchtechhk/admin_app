@@ -14,13 +14,13 @@
             <ion-col size="12">
                 <ion-card class="ion-text-center box-shadow">
                     <ion-avatar>
-                        <img src="./assets/images/user.png" alt="">
+                        <img src="{{person_data.picture}}" alt="">
                     </ion-avatar>
                     <ion-card-content>
                         <h1 class="text-size-md text-color-primary font-bold">
-                            {{person_data.last_name}} {{person_data.first_name}}</h1>
-                        <p class="text-size-xs text-color-primary font-light">
-                            {{person_data.company}}</p>
+                            {{person_data.lastname}} {{person_data.firstname}}</h1>
+                        <!-- <p class="text-size-xs text-color-primary font-light">
+                            {{person_data.company_name}}</p> -->
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -34,11 +34,19 @@
         </ion-item>
         <ion-item>
             <ion-label color="primary" position="stacked">電話</ion-label>
-            <ion-input readonly>{{person_data.phone}}</ion-input>
+            <ion-input readonly>{{person_data.company_phone}}</ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" position="stacked">最上一次登入時間</ion-label>
+            <ion-input readonly>{{person_data.lasttime_login?.create_date}}</ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" position="stacked">最上一次登出時間</ion-label>
+            <ion-input readonly>{{person_data.lasttime_login?.end_date}}</ion-input>
         </ion-item>
     </ion-list>
 
-    <ion-list>
+    <!-- <ion-list>
         <ion-list-header style="width:100%;background:#1E90FF;color: #FFF;">
           <ion-label padding-start>師父簽名</ion-label>
           <ion-button color="dark" (click)="open_signature()">
@@ -51,6 +59,6 @@
               <img [src]="person_data.user_signature" >
           </ion-card-content>
         </ion-card>
-      </ion-list>
+      </ion-list> -->
       
 </ion-content>

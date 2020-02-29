@@ -34,8 +34,6 @@ export class AuthService {
         if(result.status && !this.ObjectUtils.isEmptyField(result.data.token) && !this.ObjectUtils.isEmptyField(result.data.owner)){
             await this.sharedDataProvider.setToken(result.data.token);
             await this.sharedDataProvider.set_storage_key('person_data',result.data.owner);
-            console.log("authenticate Token : " + await this.sharedDataProvider.getToken());
-            console.log("login person_data : " + JSON.stringify(await this.sharedDataProvider.get_storage_key('person_data')));
         }
         return result
     }
@@ -45,8 +43,6 @@ export class AuthService {
         if(result.status && !this.ObjectUtils.isEmptyField(result.data.token) && !this.ObjectUtils.isEmptyField(result.data.owner)){
             await this.sharedDataProvider.setToken(result.data.token);
             await this.sharedDataProvider.set_storage_key('person_data',result.data.owner);
-            console.log("login Token : " + await this.sharedDataProvider.getToken());
-            console.log("login person_data : " + JSON.stringify(await this.sharedDataProvider.get_storage_key('person_data')));
         }
         return result;
 

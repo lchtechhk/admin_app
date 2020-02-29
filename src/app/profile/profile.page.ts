@@ -34,7 +34,6 @@ export class ProfilePage {
     private sharedDataProvider : SharedDataProvider,
     private uiProvider : UIProvider,
     private route: ActivatedRoute,) {
-
     this.route.queryParams.subscribe(params => {
       if(params["signatureImage"] != undefined){
         this.person_data.user_signature = JSON.parse(params["signatureImage"]);
@@ -50,6 +49,14 @@ export class ProfilePage {
       }
     });
 
+  }
+
+  async ngOnInit(){
+    this.person_data = await this.sharedDataProvider.get_storage_key("person_data");
+    if(!this.ObjectUtils.isEmptyField(this.person_data.picture)){
+      this.person_data.picture = this.config.img_url+this.person_data.picture;
+    }
+    console.log("ngOnInit end: " + JSON.stringify(this.person_data));
   }
 
   open_signature(){

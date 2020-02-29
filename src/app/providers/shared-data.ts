@@ -44,7 +44,6 @@ export class SharedDataProvider {
         catch(e) { console.log(e) }
     }
     async removeToken(){
-        console.log("removeToken");
         await this.storage.remove("token");
     }
 
@@ -63,7 +62,6 @@ export class SharedDataProvider {
         catch(e) { console.log(e) }
     }
     async remove_storage_key(key){
-        console.log("removeToken");
         await this.storage.remove(key);
     }
  
