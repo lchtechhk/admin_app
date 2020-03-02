@@ -59,35 +59,4 @@ export class LoginPage {
       this.errorMessage = result.message;
     }
   }
-
-  // public login() {
-  //   this.uiProvider.presentLoadingDefault();
-  //   let login_profile = {email:this.email, password:this.password};
-  //   this.config.post(this.config.url+'login','',login_profile,(data:any)=>{
-  //     if(!this.ObjectUtils.isEmptyField(data)){
-  //       switch(data.status){
-  //         case true :
-  //           if(!this.ObjectUtils.isEmptyField(data.data.token)){
-  //             this.router.navigateByUrl("/home/tab1", { replaceUrl: true });
-  //             // this.sharedDataProvider.login_token(data.data.token);
-  //             // console.log("token : " + this.sharedDataProvider.token);
-
-  //           }else {
-  //             this.errorMessage = '用戶不存在';
-  //           }
-  //         break;
-
-  //         case false :
-  //           if(!this.ObjectUtils.isEmptyField(data.message) && data.message == 'This account is not exsiting'){
-  //             this.errorMessage = '登入失敗,用戶不存在';
-  //           }else {
-  //             this.errorMessage = '登入失敗,請聯繫管理人員';
-  //           }
-  //         break;
-  //       }
-  //     }
-  //   }, (error:any) => {
-  //   });
-  // }
-
 }

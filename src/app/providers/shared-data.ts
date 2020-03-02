@@ -23,7 +23,6 @@ export class SharedDataProvider {
         private platform: Platform,
 
     ) {
-        console.log("SharedDataProvider");
         // this.is_login();
     }
     async is_login() {

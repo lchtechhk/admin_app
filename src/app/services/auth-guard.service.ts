@@ -18,13 +18,10 @@ export class AuthGuardService implements CanActivate {
     private authService : AuthService,
     private router: Router,
     public ob: ObjectUtils) {
-    console.log("AuthGuardService");
   }
 
   async canActivate(route: ActivatedRouteSnapshot, ): Promise<boolean> {
-    console.log("canActivate");
     const a = await this.authService.authenticate();
-    console.log("canActivate end");
     if(a.status){
       return true; 
     }else {

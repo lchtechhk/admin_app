@@ -26,7 +26,6 @@ export class AuthService {
         private sharedDataProvider: SharedDataProvider,
 
     ) {
-        console.log("AuthService");
     }
     async authenticate() {
         const token = await this.sharedDataProvider.getToken();

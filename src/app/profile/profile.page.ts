@@ -56,7 +56,6 @@ export class ProfilePage {
     if(!this.ObjectUtils.isEmptyField(this.person_data.picture)){
       this.person_data.picture = this.config.img_url+this.person_data.picture;
     }
-    console.log("ngOnInit end: " + JSON.stringify(this.person_data));
   }
 
   open_signature(){

@@ -17,7 +17,6 @@ export class ConfigProvider {
     private http: HttpClient,
     private uiProvider: UIProvider,
     private ObjectUtils: ObjectUtils) {
-    console.log("ConfigProvider");
   };
 
   // public url: string = "http://192.168.1.116/admin/api/app/";

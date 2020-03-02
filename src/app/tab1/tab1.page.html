@@ -1,7 +1,8 @@
 
-<app-category-tab></app-category-tab>
+<app-category-tab id="categoryTab" ></app-category-tab>
 
-<ion-content scrollEvents="true" appHideHeader [tabaa]="autoHideTab" >
+
+<ion-content (ionScroll)="onContentScroll($event)" scrollEvents="true" >
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Tab 1</ion-title>
