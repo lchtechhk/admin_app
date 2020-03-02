@@ -20,7 +20,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="StatusBarBackgroundColor" value="#000000" />
-    <preference name="StatusBarStyle" value="#ffffff" />
+    <preference name="StatusBarStyle" value="#FFFFFF" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="usesCleartextTraffic" value="true" />
     <preference name="deployment-target" value="9.3" />
