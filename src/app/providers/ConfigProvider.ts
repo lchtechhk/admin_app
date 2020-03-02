@@ -22,10 +22,13 @@ export class ConfigProvider {
   // public url: string = "http://192.168.1.116/admin/api/app/";
   // public pdf_url: string = "http://192.168.1.116/admin/api/app/";
 
+  public url : string = "http://192.168.0.2/admin/api/app/";
+  public pdf_url : string = "http://192.168.0.2/admin/api/app/";
+  public img_url: string = "http://192.168.0.2/admin/";
 
-  public url : string = "http://127.0.0.1/admin/api/app/";
-  public pdf_url : string = "http://127.0.0.1/admin/api/app/";
-  public img_url: string = "http://127.0.0.1/admin/";
+  // public url : string = "http://127.0.0.1/admin/api/app/";
+  // public pdf_url : string = "http://127.0.0.1/admin/api/app/";
+  // public img_url: string = "http://127.0.0.1/admin/";
 
   // public url : string = "http://13.229.0.90/app/api/";
   // public pdf_url : string = "http://13.229.0.90/app/";
@@ -47,7 +50,7 @@ export class ConfigProvider {
       response.status = false;
       if(!this.ObjectUtils.isEmptyField(err.error.message))response.message = this.httpException(err.error.message);
     }
-    // console.log("[POST] -- Response : " + JSON.stringify(response));
+    console.log("[POST] -- Response : " + JSON.stringify(response));
     return response;
   }
 
@@ -63,7 +66,7 @@ export class ConfigProvider {
       response.status = false;
       if(!this.ObjectUtils.isEmptyField(err.error.message))response.message = this.httpException(err.error.message);
     }
-    // console.log("[GET] -- Response : " + JSON.stringify(response));
+    console.log("[GET] -- Response : " + JSON.stringify(response));
     return response;
   }
 
