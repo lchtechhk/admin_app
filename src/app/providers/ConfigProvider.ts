@@ -19,12 +19,13 @@ export class ConfigProvider {
     private ObjectUtils: ObjectUtils) {
   };
 
-  // public url: string = "http://192.168.1.116/admin/api/app/";
-  // public pdf_url: string = "http://192.168.1.116/admin/api/app/";
+  public url: string = "http://192.168.1.116/admin/api/app/";
+  public pdf_url: string = "http://192.168.1.116/admin/api/app/";
+  public img_url: string = "http://192.168.1.116/admin/";
 
-  public url : string = "http://192.168.0.2/admin/api/app/";
-  public pdf_url : string = "http://192.168.0.2/admin/api/app/";
-  public img_url: string = "http://192.168.0.2/admin/";
+  // public url : string = "http://192.168.0.2/admin/api/app/";
+  // public pdf_url : string = "http://192.168.0.2/admin/api/app/";
+  // public img_url: string = "http://192.168.0.2/admin/";
 
   // public url : string = "http://127.0.0.1/admin/api/app/";
   // public pdf_url : string = "http://127.0.0.1/admin/api/app/";
@@ -35,6 +36,11 @@ export class ConfigProvider {
   // public img_url: string = "https://13.251.6.226/rainbow_icon/";
 
   async post(url: string, token: string, data: any) {
+    // const headers = {'Access-Control-Allow-Origin': '*',
+    // 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+    // "Content-Type": "application/json",
+    // 'Accept': 'application/json, text/plain',};
+
     const headers = {
       "Content-Type": "application/json",
       'Accept': 'application/json, text/plain',
@@ -47,6 +53,7 @@ export class ConfigProvider {
       response.data = this.ObjectUtils.isEmptyField(result.data) ? {} : result.data;
       response.message = this.ObjectUtils.isEmptyField(result.message) ? "" : result.message;
     }catch (err){
+      console.log("err : " + JSON.stringify(err))
       response.status = false;
       if(!this.ObjectUtils.isEmptyField(err.error.message))response.message = this.httpException(err.error.message);
     }

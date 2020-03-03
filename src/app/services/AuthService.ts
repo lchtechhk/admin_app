@@ -39,6 +39,7 @@ export class AuthService {
 
     async login(login_profile) {
         const result : ResponseModel  = await this.config.post(this.config.url + 'login', '',login_profile);
+        // const result : ResponseModel  = await this.config.post('/login', '',login_profile);
         if(result.status && !this.ObjectUtils.isEmptyField(result.data.token) && !this.ObjectUtils.isEmptyField(result.data.owner)){
             await this.sharedDataProvider.setToken(result.data.token);
             await this.sharedDataProvider.set_storage_key('person_data',result.data.owner);

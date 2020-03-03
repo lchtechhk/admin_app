@@ -32,7 +32,7 @@ export class Tab1Page implements OnInit {
       this.renderer.setStyle(this.categoryTab,'margin-top','0');
     }
     this.lastY = event.detail.scrollTop;
-    console.log(event);
+    // console.log(event);
   }
 
 }
