@@ -22,6 +22,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HideHeaderDirective } from './directives/hide-header.directive';
 // import { FCM } from '@ionic-native/fcm/ngx';
 
+import { CategoryService } from './services/CategoryService';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -40,6 +42,7 @@ import { HideHeaderDirective } from './directives/hide-header.directive';
     SharedDataProvider,
     CommonProvider,
     AuthService,
+    CategoryService,
     // FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

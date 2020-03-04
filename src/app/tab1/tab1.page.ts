@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { DomController } from '@ionic/angular';
 import { CategoryTabComponent } from '../category-tab/category-tab.component';
+// import { CategoryService } from '../services/CategoryService';
 
 @Component({
   selector: 'app-tab1',
@@ -11,6 +12,7 @@ export class Tab1Page implements OnInit {
   private lastY = 0;
   private categoryTab : any;
   constructor(
+    // private categoryService : CategoryService,
     private renderer :Renderer2,
     private domCtrl: DomController,
     private elementRef: ElementRef,
