@@ -1,21 +1,39 @@
-.thumnails{
-    overflow-x: scroll;
-    overflow-y: hidden;
-    .list-thumbnail{
-      height: 100%;
-      white-space: nowrap;
-      .img-thumb{
-        display: inline-block;
-        // border: 1px solid #ddd;
-        // border-radius: 4px;
-        // padding: 3px;
-        // width: 100px;
-        // height: 50px;
-        // margin:0 2px 0 0; 
-        // line-height: 60px;
-      }
+.tab-list {
+  background-color: #FFF;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  .list-thumbnail {
+    height: 100%;
+    white-space: nowrap;
+    // padding: 5px;
+    .img-thumb {
+      background-color: rgb(59, 126, 189);
+      width: 25%;
+      display: inline-block;
+      // border: 1px solid rgb(59, 126, 189);
+      border-radius: 5%;
+      // padding: 5px;
+      margin:0 2px 0 0; 
+      line-height: 30px;
+
     }
   }
-  ::-webkit-scrollbar { 
-    display: none; 
-  }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+img{
+  background-color: #FFF;
+}
+ion-avatar {
+  // height: 35px;
+  // width: 100%;
+  margin-top:5px;
+}
+
+ion-label {
+  word-break: break-all;
+}
