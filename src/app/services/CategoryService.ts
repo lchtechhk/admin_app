@@ -26,15 +26,12 @@ export class CategoryService {
     ) {
     }
     async getAllSubCategory() {
-        console.log("getAllSubCategorygetAllSubCategorygetAllSubCategory");
         const token = await this.sharedDataProvider.getToken();
         const result : ResponseModel = await this.config.get(this.config.url+'listingCategory',token);
-        if(result.status && !this.ObjectUtils.isEmptyField(result.data.token) && !this.ObjectUtils.isEmptyField(result.data.owner)){
-            await this.sharedDataProvider.setToken(result.data.token);
-            await this.sharedDataProvider.set_storage_key('person_data',result.data.owner);
+        if(result.status && !this.ObjectUtils.isEmptyField(result.data.categories)){
+            return result.data.categories;
         }
-        console.log("getAllSubCategory : " + JSON.stringify(result));
-        return result
+        return [];
     }
 
 }

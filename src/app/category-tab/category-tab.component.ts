@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 // import { DomController } from '@ionic/angular';
 import { CategoryService } from '../services/CategoryService';
+import { ConfigProvider } from '../providers/ConfigProvider';
 
 @Component({
   selector: 'app-category-tab',
@@ -8,7 +9,7 @@ import { CategoryService } from '../services/CategoryService';
   styleUrls: ['./category-tab.component.scss'],
 })
 export class CategoryTabComponent implements OnInit {
- 
+  private categories : any ;
   slideOpts = {
     // spaceBetween:10,
     // centeredSlides:true,
@@ -19,15 +20,13 @@ export class CategoryTabComponent implements OnInit {
 
   constructor(
     private categoryService : CategoryService,
-
+    public config : ConfigProvider
   ) { }
 
 
-  ngOnInit(): void {
-    console.log("ngOnInit");
-
-    this.categoryService.getAllSubCategory();
-    console.log("CategoryTabComponent");
+  async ngOnInit(){
+    this.categories = await this.categoryService.getAllSubCategory();
+    console.log("CategoryTabComponent : " + JSON.stringify(this.categories));
   }
 
   hide_tab(){

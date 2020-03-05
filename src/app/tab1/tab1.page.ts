@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Renderer2, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { DomController } from '@ionic/angular';
 import { CategoryTabComponent } from '../category-tab/category-tab.component';
 // import { CategoryService } from '../services/CategoryService';
@@ -11,6 +11,7 @@ import { CategoryTabComponent } from '../category-tab/category-tab.component';
 export class Tab1Page implements OnInit {
   private lastY = 0;
   private categoryTab : any;
+  @ViewChild("content", { static:false}) private content: ElementRef;
   constructor(
     // private categoryService : CategoryService,
     private renderer :Renderer2,
@@ -27,14 +28,33 @@ export class Tab1Page implements OnInit {
     })
   }
 
+  scrollStart(event : any){
+    console.log("scrollStart");
+    console.log(event);
+    this.renderer.setStyle(this.categoryTab,'margin-top','0');
+  }
   onContentScroll(event : any){
+    console.log("onContentScroll");
     if (event.detail.scrollTop > this.lastY) {
       this.renderer.setStyle(this.categoryTab,'margin-top',`-${this.categoryTab.clientHeight}px`);
     } else {
-      this.renderer.setStyle(this.categoryTab,'margin-top','0');
+      // this.renderer.setStyle(this.categoryTab,'margin-top','0');
+      
     }
     this.lastY = event.detail.scrollTop;
     // console.log(event);
+  }
+
+  scrollComplete(event : any){
+    console.log("scrollComplete");
+    // if (event.detail.scrollTop > this.lastY) {
+    //   this.renderer.setStyle(this.categoryTab,'margin-top',`-${this.categoryTab.clientHeight}px`);
+    // } else {
+    //   this.renderer.setStyle(this.categoryTab,'margin-top','0');
+      
+    // }
+    // this.lastY = event.detail.scrollTop;
+    console.log(event);
   }
 
 }

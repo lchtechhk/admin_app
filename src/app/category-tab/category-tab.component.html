@@ -1,35 +1,11 @@
-<ion-card>
+<ion-card class="tab-card">
   <ion-list class="tab-list" style="text-align:center;">
     <div class="list-thumbnail">
-      <ion-tab-button class="img-thumb">
+      <ion-tab-button class="img-thumb" *ngFor="let category of categories">
         <ion-avatar>
-          <img src="./assets/images/header_logo.png">
+          <!-- <img src="{{this.config.img_url + category.icon }}"> -->
         </ion-avatar>
-        <ion-label style="color: #FFF;">Schedule</ion-label>
-      </ion-tab-button>
-      <ion-tab-button class="img-thumb">
-        <ion-avatar>
-          <img src="./assets/images/header_logo.png">
-        </ion-avatar>
-        <ion-label style="color: #FFF;">Schedule</ion-label>
-      </ion-tab-button>
-      <ion-tab-button class="img-thumb">
-        <ion-avatar>
-          <img src="./assets/images/header_logo.png">
-        </ion-avatar>
-        <ion-label style="color: #FFF;">Schedule</ion-label>
-      </ion-tab-button>
-      <ion-tab-button class="img-thumb">
-        <ion-avatar>
-          <img src="./assets/images/header_logo.png">
-        </ion-avatar>
-        <ion-label style="color: #FFF;">Schedule</ion-label>
-      </ion-tab-button>
-      <ion-tab-button class="img-thumb">
-        <ion-avatar>
-          <img src="./assets/images/header_logo.png">
-        </ion-avatar>
-        <ion-label style="color: #FFF;">Schedule</ion-label>
+        <ion-label class="category-name">{{category.sub_category_name}}</ion-label>
       </ion-tab-button>
     </div>
   </ion-list>
