@@ -48,16 +48,16 @@ export class ConfigProvider {
     const response = new ResponseModel;
     console.log("[POST] -- URL : " + url + '?token=' + token);
     try{
-      const result : any = await this.http.post(url, data, {headers : headers, responseType: 'json'}).toPromise();
+      const result : any = await this.http.post(url + '?token=' + token, data, {headers : headers, responseType: 'json'}).toPromise();
       response.status = this.ObjectUtils.isEmptyField(result.status) ? false : result.status;
       response.data = this.ObjectUtils.isEmptyField(result.data) ? {} : result.data;
       response.message = this.ObjectUtils.isEmptyField(result.message) ? "" : result.message;
     }catch (err){
       console.log("err : " + JSON.stringify(err))
       response.status = false;
-      if(!this.ObjectUtils.isEmptyField(err.error.message))response.message = this.httpException(err.error.message);
+      if(!this.ObjectUtils.isEmptyField(err.error) && !this.ObjectUtils.isEmptyField(err.error.message))response.message = this.httpException(err.error.message);
     }
-    console.log("[POST] -- Response : " + JSON.stringify(response));
+    // console.log("[POST] -- Response : " + JSON.stringify(response));
     return response;
   }
 
@@ -73,7 +73,7 @@ export class ConfigProvider {
       response.status = false;
       if(!this.ObjectUtils.isEmptyField(err.error.message))response.message = this.httpException(err.error.message);
     }
-    console.log("[GET] -- Response : " + JSON.stringify(response));
+    // console.log("[GET] -- Response : " + JSON.stringify(response));
     return response;
   }
 

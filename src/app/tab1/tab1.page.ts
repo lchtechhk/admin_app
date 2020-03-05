@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Renderer2, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { DomController } from '@ionic/angular';
 import { CategoryTabComponent } from '../category-tab/category-tab.component';
-// import { CategoryService } from '../services/CategoryService';
+import { ProductService } from '../services/ProductService';
 
 @Component({
   selector: 'app-tab1',
@@ -11,9 +11,10 @@ import { CategoryTabComponent } from '../category-tab/category-tab.component';
 export class Tab1Page implements OnInit {
   private lastY = 0;
   private categoryTab : any;
+  private products : any;
   @ViewChild("content", { static:false}) private content: ElementRef;
   constructor(
-    // private categoryService : CategoryService,
+    private productService : ProductService,
     private renderer :Renderer2,
     private domCtrl: DomController,
     private elementRef: ElementRef,
@@ -26,8 +27,12 @@ export class Tab1Page implements OnInit {
     this.domCtrl.write(()=>{
       this.renderer.setStyle(this.categoryTab,'transition','margin-top 400ms');
     })
+    this.getProductListing();
   }
-
+   async getProductListing(){
+    this.products = await this.productService.searchProduct();
+    console.log("products : " + JSON.stringify(this.products));
+  }
   scrollStart(event : any){
     console.log("scrollStart");
     console.log(event);

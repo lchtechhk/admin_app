@@ -26,7 +26,6 @@ export class CategoryTabComponent implements OnInit {
 
   async ngOnInit(){
     this.categories = await this.categoryService.getAllSubCategory();
-    console.log("CategoryTabComponent : " + JSON.stringify(this.categories));
   }
 
   hide_tab(){

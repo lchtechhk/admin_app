@@ -23,6 +23,7 @@ import { HideHeaderDirective } from './directives/hide-header.directive';
 // import { FCM } from '@ionic-native/fcm/ngx';
 
 import { CategoryService } from './services/CategoryService';
+import { ProductService } from './services/ProductService';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +44,8 @@ import { CategoryService } from './services/CategoryService';
     CommonProvider,
     AuthService,
     CategoryService,
+    ProductService,
+
     // FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
