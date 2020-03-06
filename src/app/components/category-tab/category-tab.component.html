@@ -1,7 +1,7 @@
 <ion-card class="container">
   <ion-list class="tab-list" style="text-align:center;">
     <div class="list-thumbnail">
-      <ion-tab-button class="img-thumb" *ngFor="let category of categories">
+      <ion-tab-button class="img-thumb" *ngFor="let category of categories" (click)="onClick(category.sub_category_id)">
         <ion-avatar>
           <img src="{{this.config.img_url + category.icon }}">
         </ion-avatar>

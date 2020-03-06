@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Renderer2, ElementRef, ViewChild, HostListene
 import { DomController } from '@ionic/angular';
 import { CategoryTabComponent } from '../components/category-tab/category-tab.component';
 import { ProductService } from '../services/ProductService';
+import { UIProvider } from '../providers/UIProvider';
 
 @Component({
   selector: 'app-tab1',
@@ -16,6 +17,7 @@ export class Tab1Page implements OnInit {
   
   @ViewChild("content", { static:false}) private content: ElementRef;
   constructor(
+    public uiProvider: UIProvider,
     private productService : ProductService,
     private renderer :Renderer2,
     private domCtrl: DomController,
@@ -23,17 +25,22 @@ export class Tab1Page implements OnInit {
   ) {
 
   }
-
-  ngOnInit(): void {
+  onCategoryTabClickEmitted(category_id: string) {
+    this.getProductListing(category_id);
+  }
+  async ngOnInit(){
     this.categoryTab = this.elementRef.nativeElement.querySelector('#categoryTab');
     this.domCtrl.write(()=>{
       this.renderer.setStyle(this.categoryTab,'transition','margin-top 400ms');
     })
-    this.getProductListing();
+    await this.getProductListing(null);
   }
-   async getProductListing(){
-    this.products = await this.productService.searchProduct();
+   async getProductListing(id){
+    this.uiProvider.presentLoadingDefault();
+    this.products = await this.productService.searchProduct(id);
     // console.log("products : " + JSON.stringify(this.products));
+    this.uiProvider.dismissLoadingDefault();
+
   }
   scrollStart(event : any){
     console.log("scrollStart");

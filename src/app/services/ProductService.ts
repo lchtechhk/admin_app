@@ -25,8 +25,8 @@ export class ProductService {
 
     ) {
     }
-    async searchProduct() {
-        const search = {sub_category_id: 1};
+    async searchProduct(sub_category_id) {
+        const search = {sub_category_id: sub_category_id};
         const token = await this.sharedDataProvider.getToken();
         const result : ResponseModel = await this.config.post(this.config.url+'listingProduct',token,search);
         if(result.status && !this.ObjectUtils.isEmptyField(result.data.products)){

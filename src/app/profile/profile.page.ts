@@ -57,7 +57,6 @@ export class ProfilePage {
       this.person_data.picture = this.config.img_url+this.person_data.picture;
     }
   }
-
   open_signature(){
     let navigationExtras: NavigationExtras = {
       queryParams: {
