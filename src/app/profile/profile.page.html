@@ -44,6 +44,13 @@
             <ion-label color="primary" position="stacked">最上一次登出時間</ion-label>
             <ion-input readonly>{{person_data.lasttime_login?.end_date}}</ion-input>
         </ion-item>
+        <ion-item>
+            <ion-label color="primary" position="stacked">語言</ion-label>
+            <ion-thumbnail slot="start">
+                <ion-img src="{{this.config.img_url + person_data.language_image}}"></ion-img>
+            </ion-thumbnail>
+            <ion-input readonly>{{person_data.language_name}}</ion-input>
+        </ion-item>
     </ion-list>
 
     <!-- <ion-list>
@@ -60,5 +67,5 @@
           </ion-card-content>
         </ion-card>
       </ion-list> -->
-      
+
 </ion-content>
