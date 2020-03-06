@@ -4,10 +4,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
-import { CategoryTabComponentModule } from '../category-tab/category-tab.component.modules';
+import { ExploreContainerComponentModule } from '../components/explore-container/explore-container.module';
+import { CategoryTabComponentModule } from '../components/category-tab/category-tab.component.modules';
 
-import { HideHeaderDirectiveModule } from '../directives/hide-header.directive.modules';
+import { HideHeaderDirectiveModule } from '../components/directives/hide-header.directive.modules';
 
 @NgModule({
   imports: [

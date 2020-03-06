@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 // import { DomController } from '@ionic/angular';
-import { CategoryService } from '../services/CategoryService';
-import { ConfigProvider } from '../providers/ConfigProvider';
+import { CategoryService } from '../../services/CategoryService';
+import { ConfigProvider } from '../../providers/ConfigProvider';
 
 @Component({
   selector: 'app-category-tab',

@@ -19,7 +19,7 @@ import { AuthService } from './services/AuthService';
 
 import {HttpClientModule} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { HideHeaderDirective } from './directives/hide-header.directive';
+import { HideHeaderDirective } from './components/directives/hide-header.directive';
 // import { FCM } from '@ionic-native/fcm/ngx';
 
 import { CategoryService } from './services/CategoryService';
