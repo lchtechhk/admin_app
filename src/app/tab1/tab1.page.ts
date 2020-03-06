@@ -12,6 +12,8 @@ export class Tab1Page implements OnInit {
   private lastY = 0;
   private categoryTab : any;
   private products : any;
+  private productView : string = "grid";
+  
   @ViewChild("content", { static:false}) private content: ElementRef;
   constructor(
     private productService : ProductService,
@@ -31,7 +33,7 @@ export class Tab1Page implements OnInit {
   }
    async getProductListing(){
     this.products = await this.productService.searchProduct();
-    console.log("products : " + JSON.stringify(this.products));
+    // console.log("products : " + JSON.stringify(this.products));
   }
   scrollStart(event : any){
     console.log("scrollStart");

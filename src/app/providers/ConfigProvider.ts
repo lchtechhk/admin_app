@@ -10,7 +10,8 @@ import { ResponseModel } from '../models/ResponseModel';
 export class ConfigProvider {
 
   public token: any = "";
-
+  public newProductDuration = 100;
+  
   constructor(
     public storage: Storage,
     private router: Router,

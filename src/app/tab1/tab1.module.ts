@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 import { ExploreContainerComponentModule } from '../components/explore-container/explore-container.module';
 import { CategoryTabComponentModule } from '../components/category-tab/category-tab.component.modules';
+import { ProductComponentModule  } from '../components/product/product.component.modules';
 
 import { HideHeaderDirectiveModule } from '../components/directives/hide-header.directive.modules';
 
@@ -15,6 +16,7 @@ import { HideHeaderDirectiveModule } from '../components/directives/hide-header.
     CommonModule,
     FormsModule,
     CategoryTabComponentModule,
+    ProductComponentModule,
     HideHeaderDirectiveModule,
     RouterModule.forChild([{ path: '', component: Tab1Page }])
   ],
