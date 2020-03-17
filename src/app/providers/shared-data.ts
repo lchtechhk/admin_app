@@ -11,7 +11,7 @@ import { Platform } from '@ionic/angular';
 
 @Injectable()
 export class SharedDataProvider {
-    public cartProducts = new Array();
+    public cartProducts : any = new Array();
 
     constructor(
         // private fcm: FCM,
@@ -25,6 +25,7 @@ export class SharedDataProvider {
         private platform: Platform,
 
     ) {
+        this.cartProducts = this.get_storage_key("cartProducts");
     }
     async getToken() {
         try {
@@ -46,8 +47,8 @@ export class SharedDataProvider {
 
     async get_storage_key(key) {
         try {
-            let token = await this.storage.get(key);
-            return token;
+            let value = await this.storage.get(key);
+            return value;
         }
         catch (e) { console.log(e) }
     }
@@ -62,6 +63,7 @@ export class SharedDataProvider {
         await this.storage.remove(key);
     }
 
+    // 
     removeCart(p) {
         this.cartProducts.forEach((value, index) => {
             if (value.cart_id == p) {
@@ -83,6 +85,13 @@ export class SharedDataProvider {
         return total;
     };
 
+    emptyCart() {
+        // this.orderDetails.guest_status = 0;
+        this.cartProducts = [];
+        this.storage.set('cartProducts', this.cartProducts);
+        this.cartTotalItems();
+      }
+      
     public update_fcm() {
         //     if (this.platform.is("android") || this.platform.is("ios")) {
         //         this.fcm.getToken().then(token => {
