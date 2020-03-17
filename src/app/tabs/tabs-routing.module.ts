@@ -77,6 +77,16 @@ const routes: Routes = [
               import('../profile/profile.module').then(m => m.ProfilePageModule)
           }
         ]
+      },
+      {
+        path: 'cart',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../cart/cart.module').then(m => m.CartPageModule)
+          }
+        ]
       }
     ]
   }

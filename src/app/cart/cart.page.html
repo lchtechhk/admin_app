@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid class="ion-no-padding grid-empty" >
+    <ion-row class="ion-no-padding">
+      <ion-col size="12" class="ion-no-padding">
+        <ion-icon name="basket"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col size="12" class="ion-no-padding">
+        <h4>Your cart is empty</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col size="12" class="ion-no-padding">
+        <h5>continue shopping</h5>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col size="12" class="ion-no-padding">
+        <ion-button color="secondary" (click)="openProductsPage()">Explore</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card class="ion-padding" >
+    <ion-card-header class="ion-no-padding">
+      <ion-card-subtitle>
+        <h3> products_name
+        </h3>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col size="3">
+            <ion-img src="./assets/images/header_logo.png"></ion-img>
+          </ion-col>
+          <ion-col class="col-price" size="5">
+            <p>Price</p>
+            <p>Quantity</p>
+            <p><b>Sub Total</b></p>
+          </ion-col>
+          <ion-col class="col-price-ori" size="4">
+            <p class="para-del">100</p>
+            <div class="div-btn">
+              <ion-button size="small" fill="outline" (click)="qunatityMinus(product)">
+                <p>-</p>
+              </ion-button>
+              <span>1</span>
+              <ion-button class="add-btn" size="small" fill="outline" (click)="qunatityPlus(product)">
+                <p>+</p>
+              </ion-button>
+            </div>
+            <br /><br />
+            <p class="para-price-ori">10</p>
+          </ion-col>
+        </ion-row>
+        <ion-row >
+          <ion-col size="6">a:</ion-col>
+          <ion-col size="6">b</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="2.5">
+            <ion-button color="secondary" >View
+            </ion-button>
+          </ion-col>
+          <ion-col size="8.5">
+            <ion-button fill="clear" color="danger" >Remove
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card  class="ion-padding">
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="6">
+          <strong> Total</strong>
+        </ion-col>
+        <ion-col size="6" class="ion-text-right">
+          <strong>total</strong>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer >
+  <ion-button expand="full" solid block color="secondary">
+    Proceed
+  </ion-button>
+</ion-footer>
