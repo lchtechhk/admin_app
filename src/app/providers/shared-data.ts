@@ -64,6 +64,17 @@ export class SharedDataProvider {
     }
 
     // 
+    //adding into cart array products
+    addToCart(product) {
+        console.log(product);
+
+    
+        this.cartTotalItems();
+
+        // console.log(this.cartProducts);
+        //console.log(this.cartProducts);
+    }
+
     removeCart(p) {
         this.cartProducts.forEach((value, index) => {
             if (value.cart_id == p) {
@@ -90,8 +101,9 @@ export class SharedDataProvider {
         this.cartProducts = [];
         this.storage.set('cartProducts', this.cartProducts);
         this.cartTotalItems();
-      }
+    }
       
+    // 
     public update_fcm() {
         //     if (this.platform.is("android") || this.platform.is("ios")) {
         //         this.fcm.getToken().then(token => {

@@ -12,7 +12,9 @@ export class CartPage implements OnInit {
   constructor(
     public config : ConfigProvider,
     private sharedDataProvider: SharedDataProvider,
-  ) { }
+  ) { 
+    
+  }
 
   ngOnInit() {
   }

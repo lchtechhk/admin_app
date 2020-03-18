@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ConfigProvider } from '../../providers/ConfigProvider';
+import { SharedDataProvider } from '../../providers/shared-data';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -13,7 +15,9 @@ export class ProductComponent implements OnInit {
   is_upcomming = false;
 
   constructor(
-    public config : ConfigProvider
+    private config : ConfigProvider,
+    private sharedDataProvider: SharedDataProvider,
+    private router : Router,
   ) { 
   }
 
@@ -31,10 +35,11 @@ export class ProductComponent implements OnInit {
       return false
   }
 
-  showProductDetail() {
-    
+  showProductDetail(p) {
+    this.router.navigateByUrl("/product-detail", { replaceUrl: true });
+
+    console.log(JSON.stringify(p));
   }
-  addToCart() {  }
 
   isInCart() {
     return false;
