@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ConfigProvider } from '../../providers/ConfigProvider';
 import { SharedDataProvider } from '../../providers/shared-data';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -36,9 +36,16 @@ export class ProductComponent implements OnInit {
   }
 
   showProductDetail(p) {
-    this.router.navigateByUrl("/product-detail", { replaceUrl: true });
-
     console.log(JSON.stringify(p));
+
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        product: JSON.stringify(p)
+      }
+    };
+    this.router.navigate(['/product-detail'], navigationExtras);
+
+    // this.router.navigateByUrl("/product-detail", navigationExtras,{ replaceUrl: true });
   }
 
   isInCart() {

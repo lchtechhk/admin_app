@@ -3,6 +3,7 @@ import { DomController } from '@ionic/angular';
 import { CategoryTabComponent } from '../components/category-tab/category-tab.component';
 import { ProductService } from '../services/ProductService';
 import { UIProvider } from '../providers/UIProvider';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -22,7 +23,8 @@ export class Tab1Page implements OnInit {
     private renderer :Renderer2,
     private domCtrl: DomController,
     private elementRef: ElementRef,
-  ) {
+    private router : Router,
+      ) {
 
   }
   onCategoryTabClickEmitted(category_id: string) {
