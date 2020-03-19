@@ -24,6 +24,7 @@ import { HideHeaderDirective } from './components/directives/hide-header.directi
 
 import { CategoryService } from './services/CategoryService';
 import { ProductService } from './services/ProductService';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -45,7 +46,7 @@ import { ProductService } from './services/ProductService';
     AuthService,
     CategoryService,
     ProductService,
-
+    PhotoViewer,
     // FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

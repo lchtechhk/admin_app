@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
+import { ConfigProvider } from '../providers/ConfigProvider';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 
 @Component({
@@ -11,11 +13,14 @@ import { ActivatedRoute } from "@angular/router";
 export class ProductDetailPage implements OnInit {
   private product : any;
   sliderConfig = {
-    zoom: true
+    zoom: false,
+    passiveListeners: false,
   }
   constructor(
     private location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public config : ConfigProvider,
+    private photoViewer: PhotoViewer
   ) { }
 
   ngOnInit() {
@@ -24,7 +29,11 @@ export class ProductDetailPage implements OnInit {
         this.product = JSON.parse(params.product);
       }
     });
-    console.log("ngOnInit 2 : " + JSON.stringify(this.product));
+    // console.log("ngOnInit 2 : " + JSON.stringify(this.product));
+  }
+
+  zoomImage(img) {
+    this.photoViewer.show(img);
   }
 
   pop(){
