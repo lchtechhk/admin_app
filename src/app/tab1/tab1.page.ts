@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, Renderer2, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { DomController } from '@ionic/angular';
-import { CategoryTabComponent } from '../components/category-tab/category-tab.component';
 import { ProductService } from '../services/ProductService';
 import { UIProvider } from '../providers/UIProvider';
 import { Router } from '@angular/router';

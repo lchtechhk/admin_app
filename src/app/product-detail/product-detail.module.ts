@@ -7,14 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { ProductDetailPageRoutingModule } from './product-detail-routing.module';
 
 import { ProductDetailPage } from './product-detail.page';
-
+import { AttributeComponentModule  } from '../components/attribute/attribute.component.modules';
+import { AttributeComponent  } from '../components/attribute/attribute.component';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProductDetailPageRoutingModule
+    ProductDetailPageRoutingModule,
+    AttributeComponentModule,
   ],
-  declarations: [ProductDetailPage]
+  declarations: [ProductDetailPage],
+  entryComponents: [AttributeComponent],
+
 })
 export class ProductDetailPageModule {}

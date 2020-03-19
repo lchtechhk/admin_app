@@ -26,10 +26,13 @@ import { CategoryService } from './services/CategoryService';
 import { ProductService } from './services/ProductService';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
+import { AttributeComponentModule  } from './components/attribute/attribute.component.modules';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    AttributeComponentModule,
     BrowserModule,
     HttpClientModule,
      IonicModule.forRoot(),

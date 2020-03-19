@@ -3,6 +3,8 @@ import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { ConfigProvider } from '../providers/ConfigProvider';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { ModalController, NavParams  } from '@ionic/angular';
+import { AttributeComponent } from '../components/attribute/attribute.component';
 
 
 @Component({
@@ -20,7 +22,8 @@ export class ProductDetailPage implements OnInit {
     private location: Location,
     private route: ActivatedRoute,
     public config : ConfigProvider,
-    private photoViewer: PhotoViewer
+    private photoViewer: PhotoViewer,
+    public modalController: ModalController,
   ) { }
 
   ngOnInit() {
@@ -30,6 +33,19 @@ export class ProductDetailPage implements OnInit {
       }
     });
     // console.log("ngOnInit 2 : " + JSON.stringify(this.product));
+  }
+
+  async presentModal() {
+    console.log("hi");
+    const modal = await this.modalController.create({
+      component: AttributeComponent,
+      componentProps: {
+        "paramID": 123,
+        "paramTitle": "Test Title"
+      },
+      cssClass: "wideModal"
+    });
+    return await modal.present();
   }
 
   zoomImage(img) {

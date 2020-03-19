@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button color="light" (click)="pop()">
@@ -39,8 +39,13 @@
           <ion-label>{{att.product_attribute_name}}</ion-label>
         </ion-item>
     </ion-card>
-  </ion-list>
+  </ion-list> -->
 
+  <ion-button (click)="presentModal()">
+    Open Modal (Bottom)
+    <ion-icon mode="ios" name="arrow-forward"></ion-icon>
+  </ion-button>
+  
   <!-- <ion-grid class="product-detail-content ion-no-padding" *ngIf="product.attributes.length!=0">
     <ion-row class="top-icon-header heading">
       <ion-button fill="clear">
@@ -71,7 +76,7 @@
     </ion-radio-group>
   </ion-list> -->
 
-</ion-content>
+<!-- </ion-content> -->
 <!-- <ion-footer class="product-detail-footer">
 
   <ion-button expand="full" color="secondary" *ngIf="cartButton=='addToCart' && !is_upcomming"
