@@ -1,20 +1,38 @@
-<ion-header>
-  <ion-toolbar text-center>
-    <ion-title>{{modalTitle}}</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col text-center>
-        ID : {{modelId}}
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col text-center>
-        <ion-button (click)="closeModal()">Close Modal</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content>
+  <ion-list lines="none">
+    <ion-card style="background-color: #f5f6f9" *ngFor=" let att of attribute">
+      <ion-item button>
+        <ion-thumbnail slot="start" style="padding: 10px;">
+          <img src="{{config.img_url+att.image}}">
+        </ion-thumbnail>
+        <ion-label>{{att.product_attribute_name}}</ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card style="background-color: #f5f6f9" *ngFor=" let att of attribute">
+      <ion-item button>
+        <ion-thumbnail slot="start" style="padding: 10px;">
+          <img src="{{config.img_url+att.image}}">
+        </ion-thumbnail>
+        <ion-label>{{att.product_attribute_name}}</ion-label>
+      </ion-item>
+    </ion-card>
+     <ion-card style="background-color: #f5f6f9" *ngFor=" let att of attribute">
+      <ion-item button>
+        <ion-thumbnail slot="start" style="padding: 10px;">
+          <img src="{{config.img_url+att.image}}">
+        </ion-thumbnail>
+        <ion-label>{{att.product_attribute_name}}</ion-label>
+      </ion-item>
+    </ion-card>
+    <!-- <ion-button  (click)="closeModal()">
+      Open Modal (Bottom)
+      <ion-icon mode="ios" name="arrow-forward"></ion-icon>
+    </ion-button> -->
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>Footer</ion-title>
+  </ion-toolbar>
+</ion-footer>

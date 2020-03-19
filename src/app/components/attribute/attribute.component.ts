@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
+import { ConfigProvider } from '../../providers/ConfigProvider';
+
 @Component({
   selector: 'app-attribute',
   templateUrl: './attribute.component.html',
   styleUrls: ['./attribute.component.scss'],
 })
 export class AttributeComponent implements OnInit {
-  modalTitle:string;
-  modelId:number;
+  private attribute : any;
   constructor(
     private modalController: ModalController,
     private navParams: NavParams,
+    public config : ConfigProvider,
+
   ) { }
 
   ngOnInit() {
-    console.table(this.navParams);
-    this.modelId = this.navParams.data.paramID;
-    this.modalTitle = this.navParams.data.paramTitle;
+    this.attribute = this.navParams.data.attribute;
+    console.log(JSON.stringify(this.attribute));
   }
 
   async closeModal() {

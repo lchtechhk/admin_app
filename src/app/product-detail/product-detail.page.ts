@@ -35,13 +35,11 @@ export class ProductDetailPage implements OnInit {
     // console.log("ngOnInit 2 : " + JSON.stringify(this.product));
   }
 
-  async presentModal() {
-    console.log("hi");
+  async presentModal(attribute) {
     const modal = await this.modalController.create({
       component: AttributeComponent,
       componentProps: {
-        "paramID": 123,
-        "paramTitle": "Test Title"
+        "attribute": attribute,
       },
       cssClass: "wideModal"
     });

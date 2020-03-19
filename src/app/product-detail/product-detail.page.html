@@ -1,4 +1,4 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button color="light" (click)="pop()">
@@ -7,7 +7,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="product-detail-page">
+<!-- <ion-content class="product-detail-page">
   <div class="product-tags-top">
     <div class="product-tag-new">New</div>
   </div>
@@ -41,7 +41,7 @@
     </ion-card>
   </ion-list> -->
 
-  <ion-button (click)="presentModal()">
+  <ion-button (click)="presentModal(product.attribute)">
     Open Modal (Bottom)
     <ion-icon mode="ios" name="arrow-forward"></ion-icon>
   </ion-button>

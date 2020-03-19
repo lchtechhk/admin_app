@@ -26,12 +26,12 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 .wideModal {
-    opacity: 0.3 !important;
+    // opacity: 0.3 !important;
 
     .modal-wrapper {
-        height: 100%;
+        height: 70%;
         width: 100%;
-        top: 50%;
+        top: 30%;
         position: absolute;
         display: block;
     }
