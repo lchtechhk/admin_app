@@ -1,3 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-item >
+      <ion-thumbnail slot="start" style="padding: 10px;">
+        <img src="{{config.img_url+original_image}}">
+      </ion-thumbnail>
+      <ion-label>abc</ion-label>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
   <ion-list lines="none">
     <ion-card style="background-color: #f5f6f9" *ngFor=" let att of attribute">
@@ -32,7 +42,7 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
-    <ion-title>Footer</ion-title>
-  </ion-toolbar>
+  <section>
+    <ion-button shape="round" expand="block">A block button</ion-button>
+  </section>
 </ion-footer>

@@ -41,11 +41,11 @@ export class ProductComponent implements OnInit {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         product: JSON.stringify(p)
-      }
+      },
+      skipLocationChange: true,
+      replaceUrl: true
     };
     this.router.navigate(['/product-detail'], navigationExtras);
-
-    // this.router.navigateByUrl("/product-detail", navigationExtras,{ replaceUrl: true });
   }
 
   isInCart() {

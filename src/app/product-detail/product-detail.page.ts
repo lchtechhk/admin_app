@@ -5,6 +5,7 @@ import { ConfigProvider } from '../providers/ConfigProvider';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { ModalController, NavParams  } from '@ionic/angular';
 import { AttributeComponent } from '../components/attribute/attribute.component';
+import { Router, NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ProductDetailPage implements OnInit {
     public config : ConfigProvider,
     private photoViewer: PhotoViewer,
     public modalController: ModalController,
+    private router : Router,
   ) { }
 
   ngOnInit() {
@@ -32,7 +34,7 @@ export class ProductDetailPage implements OnInit {
         this.product = JSON.parse(params.product);
       }
     });
-    // console.log("ngOnInit 2 : " + JSON.stringify(this.product));
+    // console.log("ngOnInit 2 : " + this.product);
   }
 
   async presentModal(attribute) {
@@ -40,6 +42,7 @@ export class ProductDetailPage implements OnInit {
       component: AttributeComponent,
       componentProps: {
         "attribute": attribute,
+        "original_image": this.product.image,
       },
       cssClass: "wideModal"
     });
@@ -51,6 +54,10 @@ export class ProductDetailPage implements OnInit {
   }
 
   pop(){
-    this.location.back();
+    let navigationExtras: NavigationExtras = {
+      skipLocationChange: true
+    };
+    this.router.navigate(['/home/tab1'],navigationExtras);
+
   }
 }

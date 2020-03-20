@@ -9,6 +9,15 @@ ion-toolbar {
   --shade: #ffffff;
   --contrast: #ffffff;
 }
+
+$colors: (
+ primary:    #f9961e,
+ secondary:  #882e2e,
+ danger:     #f84e4e,
+ light:      #f4f4f4,
+ dark:       #222,
+ blue:   #6ab0f1,
+);
 :root {
 
   /** primary **/

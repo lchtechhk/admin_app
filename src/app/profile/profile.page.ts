@@ -61,7 +61,8 @@ export class ProfilePage {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         destinationPage: "home/profile",
-        }
+        },
+        skipLocationChange: true
     };
     this.navCtrl.navigateForward("/signature",navigationExtras);
   }

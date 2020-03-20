@@ -9,6 +9,7 @@ import { ConfigProvider } from '../../providers/ConfigProvider';
 })
 export class AttributeComponent implements OnInit {
   private attribute : any;
+  private original_image : any;
   constructor(
     private modalController: ModalController,
     private navParams: NavParams,
@@ -18,7 +19,10 @@ export class AttributeComponent implements OnInit {
 
   ngOnInit() {
     this.attribute = this.navParams.data.attribute;
-    console.log(JSON.stringify(this.attribute));
+    this.original_image = this.navParams.data.original_image;
+    // console.log(JSON.stringify(this.attribute));
+    console.log("original_image : " + this.original_image);
+
   }
 
   async closeModal() {
