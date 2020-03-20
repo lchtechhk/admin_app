@@ -20,9 +20,9 @@ export class ConfigProvider {
     private ObjectUtils: ObjectUtils) {
   };
 
-  // public url: string = "http://192.168.1.116/admin/api/app/";
-  // public pdf_url: string = "http://192.168.1.116/admin/api/app/";
-  // public img_url: string = "http://192.168.1.116/admin/";
+  public url: string = "http://192.168.1.116/admin/api/app/";
+  public pdf_url: string = "http://192.168.1.116/admin/api/app/";
+  public img_url: string = "http://192.168.1.116/admin/";
 
   // public url : string = "http://192.168.0.2/admin/api/app/";
   // public pdf_url : string = "http://192.168.0.2/admin/api/app/";
@@ -36,9 +36,9 @@ export class ConfigProvider {
   // public pdf_url : string = "http://13.229.0.90/app/";
   // public img_url: string = "https://13.251.6.226/rainbow_icon/";
 
-  public url : string = "http://35.194.211.120/app/api/";
-  public pdf_url : string = "http://35.194.211.120/app/";
-  public img_url: string = "https://35.194.211.120/rainbow_icon/";
+  // public url : string = "http://35.194.211.120/app/api/";
+  // public pdf_url : string = "http://35.194.211.120/app/";
+  // public img_url: string = "https://35.194.211.120/rainbow_icon/";
 
   async post(url: string, token: string, data: any) {
     // const headers = {'Access-Control-Allow-Origin': '*',
