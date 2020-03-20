@@ -24,7 +24,12 @@ export class AttributeComponent implements OnInit {
     console.log("original_image : " + this.original_image);
 
   }
-
+  async selected(){
+    console.log("selected");
+  }
+  async addCart(){
+    
+  }
   async closeModal() {
     const onClosedData: string = "Wrapped Up!";
     await this.modalController.dismiss(onClosedData);
