@@ -34,7 +34,6 @@ export class ProductDetailPage implements OnInit {
         this.product = JSON.parse(params.product);
       }
     });
-    // console.log("ngOnInit 2 : " + this.product);
   }
 
   async presentModal(attribute) {

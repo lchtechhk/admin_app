@@ -20,7 +20,6 @@ export class CartPage implements OnInit {
   }
   
   ionViewWillEnter() {
-    console.log("Cart is viewed");
     this.totalPrice()
   }
 

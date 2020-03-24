@@ -30,7 +30,6 @@ export class CategoryTabComponent implements OnInit {
     this.categories = await this.categoryService.getAllSubCategory();
   }
   onClick(sub_category_id){
-    console.log("onClick : " + sub_category_id);
     this.tabClick.emit(sub_category_id);
   }
   hide_tab(){

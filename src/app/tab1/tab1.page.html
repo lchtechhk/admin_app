@@ -2,22 +2,6 @@
 
 <app-category-tab id="categoryTab" (tabClick)="onCategoryTabClickEmitted($event)" ></app-category-tab>
 
-<ion-grid class="ion-no-padding">
-  <ion-row>
-    <ion-col class="col-price-ori" size="4">
-      <div class="div-btn">
-        <ion-button size="small" fill="outline">
-          <p>-</p>
-        </ion-button>
-        <span>1</span>
-        <ion-button class="add-btn" size="small" fill="outline">
-          <p>+</p>
-        </ion-button>
-      </div>
-    </ion-col>
-  </ion-row>
-</ion-grid>
-
 <ion-content (ionScrollStart)="scrollStart()" (ionScroll)="onContentScroll($event)"  (ionScrollEnd)="scrollComplete($event)" scrollEvents="true" >
     <ion-grid *ngIf="productView=='grid'" >
       <ion-row >

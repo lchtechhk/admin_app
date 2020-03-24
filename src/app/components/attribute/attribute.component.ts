@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter, OnInit, Input, OnChanges } from '@angu
 import { ModalController, NavParams } from '@ionic/angular';
 import { ConfigProvider } from '../../providers/ConfigProvider';
 import { ToastService } from '../../services/ToastService';
+import { SharedDataProvider } from '../../providers/shared-data';
 
 @Component({
   selector: 'app-attribute',
@@ -19,15 +20,14 @@ export class AttributeComponent implements OnInit {
     private navParams: NavParams,
     public config : ConfigProvider,
     private toastCtrl: ToastService,
+    private sharedDataProvider: SharedDataProvider,
+
 
   ) { }
 
   ngOnInit() {
     this.attribute = this.navParams.data.attribute;
     this.original_image = this.navParams.data.original_image;
-    // console.log(JSON.stringify(this.attribute));
-    console.log("original_image : " + this.original_image);
-
   }
 
   onItemClick(index: any,att:any) {
@@ -36,14 +36,18 @@ export class AttributeComponent implements OnInit {
   }
 
   async addCart(){
-    console.log("att : " + JSON.stringify(this.current_att));
+    const att_id = this.current_att.product_attribute_id;
+    const obj = {att_id : att_id, qty : this.qty, attu : this.current_att}
+    this.sharedDataProvider.addToCart(obj);
   }
 
   qunatityMinus(){
-    console.log("qunatityMinus");
+    if(this.qty > 1){
+      this.qty = this.qty - 1;
+    }
   }
   qunatityPlus(){
-    console.log("qunatityPlus");
+    this.qty = this.qty + 1;
   }
   async closeModal() {
     const onClosedData: string = "Wrapped Up!";

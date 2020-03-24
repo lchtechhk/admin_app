@@ -20,7 +20,6 @@ export class SharedDataProvider {
         public ob: ObjectUtils,
         private navCtrl: NavController,
         private router: Router,
-        private ObjectUtils: ObjectUtils,
         private uiProvider: UIProvider,
         private platform: Platform,
 
@@ -65,14 +64,27 @@ export class SharedDataProvider {
 
     // 
     //adding into cart array products
-    addToCart(product) {
-        console.log(product);
+    addToCart(obj) {
+        // console.log("obj : " + JSON.stringify(obj));
 
-    
-        this.cartTotalItems();
+        let cart : any = this.get_storage_key('cart');
+        const cart_product = cart.cart_product ? cart.cart_product : [];
 
-        // console.log(this.cartProducts);
-        //console.log(this.cartProducts);
+        if(this.ob.isEmptyField(cart_product) || cart_product.length == 0){
+            cart = {total_qty:0,cart_product:[obj]};
+        }else {
+            const att_id = obj.att_id;
+            const qty = obj.qty;
+            cart_product.forEach(element => {
+                if(element.att_id == att_id){
+                    cart_product.qty += qty;
+                }
+            });
+        }
+        const total = this.cartTotalItems(cart);
+        this.remove_storage_key('cart');
+        this.set_storage_key('cart',{total_qty : total, cart_product : cart_product});  
+        console.log("cart_product : " + JSON.stringify(cart_product));
     }
 
     removeCart(p) {
@@ -82,17 +94,17 @@ export class SharedDataProvider {
                 this.storage.set('cartProducts', this.cartProducts);
             }
         });
-        this.cartTotalItems();
+        // this.cartTotalItems(cart_product);
     }
 
-    cartTotalItems = function () {
-        this.events.publish('cartChange');
+    cartTotalItems(cart:any) {
+        console.log("cart : " + JSON.stringify(cart));
         let total = 0;
-        for (let value of this.cartProducts) {
-          total += value.customers_basket_quantity;
+        if(this.ob.isEmptyField(cart) && this.ob.isEmptyField(cart.cart_product.attu) ) return total;
+        const cart_product = cart.cart_product;
+        for (let value of cart_product) {
+          total += value.qty;
         }
-        this.cartquantity = total;
-        // console.log("updated");
         return total;
     };
 
@@ -100,7 +112,7 @@ export class SharedDataProvider {
         // this.orderDetails.guest_status = 0;
         this.cartProducts = [];
         this.storage.set('cartProducts', this.cartProducts);
-        this.cartTotalItems();
+        this.cartTotalItems(this.cartProducts);
     }
       
     // 

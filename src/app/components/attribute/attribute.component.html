@@ -20,31 +20,29 @@
               </ion-thumbnail>
               <ion-label>
                 <!-- Content Title -->
-                <h2 class="text-size-md text-color-primary font-bold ion-text-wrap">{{att.product_attribute_name}}</h2>
-                <!-- Content Subtitle -->
-                <h3 class="text-size-xs text-color-primary font-light ion-text-wrap">{{att.product_attribute_name}}</h3>
-                <!-- Content Subtitle -->
-                <p class="text-size-xs text-color-primary font-bold ion-text-wrap">{{att.product_attribute_name}}</p>
+                <!-- <h2 class="text-size-md text-color-primary font-bold ion-text-wrap">{{att.product_attribute_name}}</h2> -->
+                <!-- <h3 class="text-size-xs text-color-primary font-light ion-text-wrap">{{att.product_attribute_name}}</h3>
+                <p class="text-size-xs text-color-primary font-bold ion-text-wrap">{{att.product_attribute_name}}</p> -->
               </ion-label>
             </ion-item>
           </ion-card>
         </ion-list>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col class="col-price-ori" size="4">
-        <div class="div-btn">
-          <ion-button size="small" fill="outline" (click)="qunatityMinus()">
-            <p>-</p>
-          </ion-button>
-          <span>{{qty}}</span>
-          <ion-button class="add-btn" size="small" fill="outline" (click)="qunatityPlus()">
-            <p>+</p>
-          </ion-button>
-        </div>
-      </ion-col>
-    </ion-row>
   </ion-grid>
+  <ion-item style="float:right">
+    <!-- <ion-button size="small" fill="clear">數量:</ion-button> -->
+    <ion-button size="small" fill="outline" (click)="qunatityMinus()">
+      <p>-</p>
+    </ion-button>
+    <ion-button size="small" fill="clear">
+      <p>{{qty}}</p>
+    </ion-button>
+    <ion-button size="small" fill="outline" (click)="qunatityPlus()">
+      <p>+</p>
+    </ion-button>
+  </ion-item>
+
 </ion-content>
 
 <ion-footer>
