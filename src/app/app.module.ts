@@ -16,6 +16,7 @@ import { ConfigProvider } from './providers/ConfigProvider';
 import { UIProvider } from './providers/UIProvider';
 import { SharedDataProvider } from './providers/shared-data';
 import { AuthService } from './services/AuthService';
+import { ToastService } from './services/ToastService';
 
 import {HttpClientModule} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -50,6 +51,7 @@ import { AttributeComponentModule  } from './components/attribute/attribute.comp
     CategoryService,
     ProductService,
     PhotoViewer,
+    ToastService,
     // FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-item >
+    <ion-item>
       <ion-thumbnail slot="start" style="padding: 10px;">
         <img src="{{config.img_url+original_image}}">
       </ion-thumbnail>
@@ -9,16 +9,42 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list lines="none">
-    <ion-card style="background-color: #f5f6f9" *ngFor=" let att of attribute">
-      <ion-item button (click)="selected()" >
-        <ion-thumbnail slot="start" style="padding: 10px;">
-          <img src="{{config.img_url+att.image}}">
-        </ion-thumbnail>
-        <ion-label>{{att.product_attribute_name}}</ion-label>
-      </ion-item>
-    </ion-card>
-  </ion-list>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12" class="ion-no-padding">
+        <ion-list>
+          <ion-card *ngFor="let att of attribute; let i = index" (click)="onItemClick(i,att)">
+            <ion-item no-lines color="{{current_selected == i ? 'secondary' : ''}}">
+              <ion-thumbnail slot="start" style="padding: 10px;">
+                <img src="{{config.img_url+att.image}}">
+              </ion-thumbnail>
+              <ion-label>
+                <!-- Content Title -->
+                <h2 class="text-size-md text-color-primary font-bold ion-text-wrap">{{att.product_attribute_name}}</h2>
+                <!-- Content Subtitle -->
+                <h3 class="text-size-xs text-color-primary font-light ion-text-wrap">{{att.product_attribute_name}}</h3>
+                <!-- Content Subtitle -->
+                <p class="text-size-xs text-color-primary font-bold ion-text-wrap">{{att.product_attribute_name}}</p>
+              </ion-label>
+            </ion-item>
+          </ion-card>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="col-price-ori" size="4">
+        <div class="div-btn">
+          <ion-button size="small" fill="outline" (click)="qunatityMinus()">
+            <p>-</p>
+          </ion-button>
+          <span>{{qty}}</span>
+          <ion-button class="add-btn" size="small" fill="outline" (click)="qunatityPlus()">
+            <p>+</p>
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 
 <ion-footer>
