@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigProvider } from '../providers/ConfigProvider';
 import { SharedDataProvider } from '../providers/shared-data';
+import { ObjectUtils } from '../providers/ObjectUtils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -8,49 +10,44 @@ import { SharedDataProvider } from '../providers/shared-data';
   styleUrls: ['./cart.page.scss'],
 })
 export class CartPage implements OnInit {
-  total: any;
+  private carts;
+  private total: any;
   constructor(
-    public config : ConfigProvider,
+    public config: ConfigProvider,
     private sharedDataProvider: SharedDataProvider,
-  ) { 
-    
+    public ob: ObjectUtils,
+    private router: Router,
+  ) {
+
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.carts = await this.sharedDataProvider.get_storage_key('cart');
+    console.log("carts : " + JSON.stringify(this.carts));
   }
-  
+
   ionViewWillEnter() {
-    this.totalPrice()
+    // this.totalPrice()
   }
 
-  removeCart(id) {
-    this.sharedDataProvider.removeCart(id);
-    this.totalPrice();
+  async removeCart(id) {
+    await this.sharedDataProvider.removeCart(id);
+    this.carts = await this.sharedDataProvider.get_storage_key('cart');
   }
-  qunatityPlus = function (q) {
-    q.customers_basket_quantity++;
-    q.subtotal = q.final_price * q.customers_basket_quantity;
-    q.total = q.subtotal;
-    if (q.customers_basket_quantity > q.quantity) {
-      q.customers_basket_quantity--;
-      this.shared.toast('Product Quantity is Limited!', 'short', 'center');
+  qunatityPlus = function (index) {
+    if (!this.ob.isEmptyField(this.carts.cart_product[index].attu.qty)) {
+      this.carts.cart_product[index].attu.qty++;
     }
-    this.totalPrice();
-    this.shared.cartTotalItems();
-    this.storage.set('cartProducts', this.shared.cartProducts);
+    this.sharedDataProvider.arrangeCart(this.carts);
+
+    console.log("index : " + this.carts.cart_product[index].attu.qty);
   }
   //function decreasing the quantity
-  qunatityMinus = function (q) {
-    if (q.customers_basket_quantity == 1) {
-      return 0;
+  qunatityMinus = function (index) {
+    if (!this.ob.isEmptyField(this.carts.cart_product[index].attu.qty)) {
+      this.carts.cart_product[index].attu.qty--;
     }
-    q.customers_basket_quantity--;
-    q.subtotal = q.final_price * q.customers_basket_quantity;
-    q.total = q.subtotal;
-    this.totalPrice();
-
-    this.shared.cartTotalItems();
-    this.storage.set('cartProducts', this.shared.cartProducts);
+    this.sharedDataProvider.arrangeCart(this.carts);
   }
 
   totalPrice() {
@@ -62,4 +59,19 @@ export class CartPage implements OnInit {
     this.total = price;
   };
 
+  async proceedToCheckOut() {
+
+    console.log("proceedToCheckOut");
+  }
+
+  openProductsPage() {
+    this.router.navigateByUrl("/home/tab1", { replaceUrl: true });
+  }
+
+  trackByFn(index, item) {
+    console.log("index : " + index);
+    console.log("item : " + JSON.stringify(item));
+
+    return index;
+  }
 }

@@ -95,39 +95,38 @@ export class SharedDataProvider {
                 cart.cart_product.push(obj);
             }
         }
-        const total = await this.cartTotalItems(cart);
-        cart.total_qty = total;
-        this.remove_storage_key('cart');
-        this.set_storage_key('cart',cart);
+        await this.arrangeCart(cart);
         // console.log("cart 3: " + JSON.stringify(cart));
-
-        
     }
 
-    async removeCart(obj) {
+    async removeCart(att_id) {
         let cart : any = await this.get_storage_key('cart');
         cart.cart_product.forEach((value, index) => {
-            if (value.att_id == obj.att_id) {
+            if (value.att_id == att_id) {
                 cart.cart_product.splice(index, 1);
             }
         });
-        const total = await this.cartTotalItems(cart);
-        cart.total_qty = total;
-        this.remove_storage_key('cart');
-        this.set_storage_key('cart',cart);
-        this.cartTotalItems(cart);
+        await this.arrangeCart(cart);
     }
 
-    async cartTotalItems(cart:any) {
+    public async arrangeCart(cart:any){
+        let final_total_price = 0;
         let total = 0;
-        if(this.ob.isEmptyField(cart) && this.ob.isEmptyField(cart.cart_product.attu) ) return total;
-        const cart_product = cart.cart_product;
-        for (let value of cart_product) {
-          total += value.qty;
-        }
-        return total;
-    };
-      
+        if(this.ob.isEmptyField(cart) && this.ob.isEmptyField(cart.cart_product.attu) ){ return}
+            const cart_product = cart.cart_product;
+            for (let value of cart_product) {
+                let sub_total = value.attu.final_price * value.qty;
+                value.sub_total = sub_total
+                final_total_price += sub_total;
+                total += value.qty;
+            }
+            cart.total_qty = total;
+            cart.final_total_price = final_total_price;
+            await this.remove_storage_key('cart');
+            await this.set_storage_key('cart',cart);
+        
+        console.log("arrangeCart : " + JSON.stringify(cart));
+    }
     // 
     public update_fcm() {
         //     if (this.platform.is("android") || this.platform.is("ios")) {

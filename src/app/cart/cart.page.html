@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-grid class="ion-no-padding grid-empty" >
+  <ion-grid class="ion-no-padding grid-empty" *ngIf="carts?.cart_product.length==0">
     <ion-row class="ion-no-padding">
       <ion-col size="12" class="ion-no-padding">
         <ion-icon name="basket"></ion-icon>
@@ -27,18 +27,17 @@
     </ion-row>
   </ion-grid>
 
-  <ion-card class="ion-padding" >
+  <ion-card class="ion-padding" *ngFor=" let cart_product of carts?.cart_product; let i = index; trackBy:trackByFn" >
     <ion-card-header class="ion-no-padding">
       <ion-card-subtitle>
-        <h3> products_name
-        </h3>
+        <h3>{{cart_product?.attu?.product_attribute_name}}</h3>
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <ion-grid class="ion-no-padding">
+      <ion-grid style="padding:10px;"class="ion-no-padding">
         <ion-row>
           <ion-col size="3">
-            <ion-img src="./assets/images/header_logo.png"></ion-img>
+            <ion-img src="{{this.config.img_url + cart_product?.attu?.image}}"></ion-img>
           </ion-col>
           <ion-col class="col-price" size="5">
             <p>Price</p>
@@ -46,31 +45,27 @@
             <p><b>Sub Total</b></p>
           </ion-col>
           <ion-col class="col-price-ori" size="4">
-            <p class="para-del">100</p>
+            <p class="para-del">{{cart_product?.attu?.final_price}}</p>
             <div class="div-btn">
-              <ion-button size="small" fill="outline" (click)="qunatityMinus(product)">
+              <ion-button size="small" fill="outline" (click)="qunatityMinus(i)">
                 <p>-</p>
               </ion-button>
-              <span>1</span>
-              <ion-button class="add-btn" size="small" fill="outline" (click)="qunatityPlus(product)">
+              <span>{{cart_product?.qty}}</span>
+              <ion-button class="add-btn" size="small" fill="outline" (click)="qunatityPlus(i)">
                 <p>+</p>
               </ion-button>
             </div>
             <br /><br />
-            <p class="para-price-ori">10</p>
+            <p class="para-price-ori">{{cart_product?.sub_total}}</p>
           </ion-col>
         </ion-row>
-        <ion-row >
-          <ion-col size="6">a:</ion-col>
-          <ion-col size="6">b</ion-col>
-        </ion-row>
-        <ion-row>
+        <ion-row style="padding:10px;">
           <ion-col size="2.5">
             <ion-button color="secondary" >View
             </ion-button>
           </ion-col>
           <ion-col size="8.5">
-            <ion-button fill="clear" color="danger" >Remove
+            <ion-button fill="clear" color="danger" (click)="removeCart(cart_product.att_id);">Remove
             </ion-button>
           </ion-col>
         </ion-row>
@@ -78,7 +73,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card  class="ion-padding">
+  <ion-card *ngIf="carts?.cart_product.length!=0" class="ion-padding">
     <ion-card-content>
       <ion-row>
         <ion-col size="6">
@@ -92,8 +87,8 @@
   </ion-card>
 </ion-content>
 
-<ion-footer >
-  <ion-button expand="full" solid block color="secondary">
+<ion-footer *ngIf="carts?.cart_product.length!=0">
+  <ion-button expand="full" solid block color="secondary" (click)="proceedToCheckOut()">
     Proceed
   </ion-button>
 </ion-footer>
