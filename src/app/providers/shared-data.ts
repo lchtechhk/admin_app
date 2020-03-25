@@ -64,41 +64,61 @@ export class SharedDataProvider {
 
     // 
     //adding into cart array products
-    addToCart(obj) {
+    async getCartCount(){
+        let qty = 0;
+        let cart : any = await this.get_storage_key('cart');
+        if(!this.ob.isEmptyField(cart) && !this.ob.isEmptyField(cart.cart_product) && !this.ob.isEmptyField(cart.cart_product.total_qty > 0) ){
+            qty = cart.cart_product.total_qty
+        }
+        return qty;
+    }
+    async addToCart(obj) {
         // console.log("obj : " + JSON.stringify(obj));
 
-        let cart : any = this.get_storage_key('cart');
-        const cart_product = cart.cart_product ? cart.cart_product : [];
+        let cart : any = await this.get_storage_key('cart');
+        // console.log("cart 1: " + JSON.stringify(cart));
 
-        if(this.ob.isEmptyField(cart_product) || cart_product.length == 0){
-            cart = {total_qty:0,cart_product:[obj]};
+        if(this.ob.isEmptyField(cart)){
+            cart = {cart_product:[obj]};
+            console.log("cart 2: " + JSON.stringify(cart));
         }else {
             const att_id = obj.att_id;
             const qty = obj.qty;
-            cart_product.forEach(element => {
+            let is_existing = false;
+            cart.cart_product.forEach(element => {
                 if(element.att_id == att_id){
-                    cart_product.qty += qty;
+                    element.qty += qty;
+                    is_existing = true;
                 }
             });
+            if(!is_existing){
+                cart.cart_product.push(obj);
+            }
         }
-        const total = this.cartTotalItems(cart);
+        const total = await this.cartTotalItems(cart);
+        cart.total_qty = total;
         this.remove_storage_key('cart');
-        this.set_storage_key('cart',{total_qty : total, cart_product : cart_product});  
-        console.log("cart_product : " + JSON.stringify(cart_product));
+        this.set_storage_key('cart',cart);
+        // console.log("cart 3: " + JSON.stringify(cart));
+
+        
     }
 
-    removeCart(p) {
-        this.cartProducts.forEach((value, index) => {
-            if (value.cart_id == p) {
-                this.cartProducts.splice(index, 1);
-                this.storage.set('cartProducts', this.cartProducts);
+    async removeCart(obj) {
+        let cart : any = await this.get_storage_key('cart');
+        cart.cart_product.forEach((value, index) => {
+            if (value.att_id == obj.att_id) {
+                cart.cart_product.splice(index, 1);
             }
         });
-        // this.cartTotalItems(cart_product);
+        const total = await this.cartTotalItems(cart);
+        cart.total_qty = total;
+        this.remove_storage_key('cart');
+        this.set_storage_key('cart',cart);
+        this.cartTotalItems(cart);
     }
 
-    cartTotalItems(cart:any) {
-        console.log("cart : " + JSON.stringify(cart));
+    async cartTotalItems(cart:any) {
         let total = 0;
         if(this.ob.isEmptyField(cart) && this.ob.isEmptyField(cart.cart_product.attu) ) return total;
         const cart_product = cart.cart_product;
@@ -107,13 +127,6 @@ export class SharedDataProvider {
         }
         return total;
     };
-
-    emptyCart() {
-        // this.orderDetails.guest_status = 0;
-        this.cartProducts = [];
-        this.storage.set('cartProducts', this.cartProducts);
-        this.cartTotalItems(this.cartProducts);
-    }
       
     // 
     public update_fcm() {
