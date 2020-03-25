@@ -67,8 +67,8 @@ export class SharedDataProvider {
     async getCartCount(){
         let qty = 0;
         let cart : any = await this.get_storage_key('cart');
-        if(!this.ob.isEmptyField(cart) && !this.ob.isEmptyField(cart.cart_product) && !this.ob.isEmptyField(cart.cart_product.total_qty > 0) ){
-            qty = cart.cart_product.total_qty
+        if(!this.ob.isEmptyField(cart) && !this.ob.isEmptyField(cart.cart_product) && cart.total_qty > 0 ){
+            qty = cart.total_qty;
         }
         return qty;
     }
