@@ -34,6 +34,7 @@ export class ProductDetailPage implements OnInit {
         this.product = JSON.parse(params.product);
       }
     });
+    // console.log("product : " + JSON.stringify(this.product));
   }
 
   async presentModal(attribute) {

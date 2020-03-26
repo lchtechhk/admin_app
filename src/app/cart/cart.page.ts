@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigProvider } from '../providers/ConfigProvider';
 import { SharedDataProvider } from '../providers/shared-data';
 import { ObjectUtils } from '../providers/ObjectUtils';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
+import { UIProvider } from '../providers/UIProvider';
+import { ProductService } from '../services/ProductService';
 
 @Component({
   selector: 'app-cart',
@@ -17,6 +19,9 @@ export class CartPage implements OnInit {
     private sharedDataProvider: SharedDataProvider,
     public ob: ObjectUtils,
     private router: Router,
+    public uiProvider: UIProvider,
+    private productService : ProductService,
+
   ) {
 
   }
@@ -30,6 +35,22 @@ export class CartPage implements OnInit {
     // this.totalPrice()
   }
 
+  async viewProductDetail(product_id){
+
+    this.uiProvider.presentLoadingDefault();
+    const product = await this.productService.viewProduct(product_id);
+    console.log("product : " + JSON.stringify(product));
+
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        product: JSON.stringify(product)
+      },
+      skipLocationChange: true,
+      replaceUrl: true
+    };
+    this.router.navigate(['/product-detail'], navigationExtras);
+    this.uiProvider.dismissLoadingDefault();
+  }
   async removeCart(id) {
     await this.sharedDataProvider.removeCart(id);
     this.carts = await this.sharedDataProvider.get_storage_key('cart');
@@ -37,8 +58,6 @@ export class CartPage implements OnInit {
   qunatityPlus = function (index) {
     this.carts.cart_product[index].qty++;
     this.sharedDataProvider.arrangeCart(this.carts);
-
-    console.log("index : " + this.carts.cart_product[index].attu.qty);
   }
   //function decreasing the quantity
   qunatityMinus = function (index) {

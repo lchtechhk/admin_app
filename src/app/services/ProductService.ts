@@ -35,4 +35,14 @@ export class ProductService {
         return [];
     }
 
+    async viewProduct(product_id) {
+        const search = {product_id: product_id};
+        const token = await this.sharedDataProvider.getToken();
+        const result : ResponseModel = await this.config.post(this.config.url+'getProductDetails',token,search);
+        if(result.status && !this.ObjectUtils.isEmptyField(result.data.product)){
+            return result.data.product;
+        }
+        return [];
+    }
+
 }
