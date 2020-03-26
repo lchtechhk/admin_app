@@ -35,17 +35,15 @@ export class CartPage implements OnInit {
     this.carts = await this.sharedDataProvider.get_storage_key('cart');
   }
   qunatityPlus = function (index) {
-    if (!this.ob.isEmptyField(this.carts.cart_product[index].attu.qty)) {
-      this.carts.cart_product[index].attu.qty++;
-    }
+    this.carts.cart_product[index].qty++;
     this.sharedDataProvider.arrangeCart(this.carts);
 
     console.log("index : " + this.carts.cart_product[index].attu.qty);
   }
   //function decreasing the quantity
   qunatityMinus = function (index) {
-    if (!this.ob.isEmptyField(this.carts.cart_product[index].attu.qty)) {
-      this.carts.cart_product[index].attu.qty--;
+    if (!this.ob.isEmptyField(this.carts.cart_product[index].qty) && this.carts.cart_product[index].qty > 1) {
+      this.carts.cart_product[index].qty--;
     }
     this.sharedDataProvider.arrangeCart(this.carts);
   }
