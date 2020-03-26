@@ -13,7 +13,6 @@ export class TabsPage implements OnInit{
     private sharedDataProvider : SharedDataProvider,
 
   ) {
-    console.log("TabsPage");
   }
   async ngOnInit() {
    this.cart_count = await this.sharedDataProvider.getCartCount();

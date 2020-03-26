@@ -3,7 +3,7 @@ import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { ConfigProvider } from '../providers/ConfigProvider';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
-import { ModalController, NavParams  } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { AttributeComponent } from '../components/attribute/attribute.component';
 import { Router, NavigationExtras } from '@angular/router';
 
@@ -14,8 +14,8 @@ import { Router, NavigationExtras } from '@angular/router';
   styleUrls: ['./product-detail.page.scss'],
 })
 export class ProductDetailPage implements OnInit {
-  private product : any;
-  private backPath : any = '/home/tab1';
+  private product: any;
+  private backPath: any = '/home/tab1';
 
   sliderConfig = {
     zoom: false,
@@ -24,10 +24,10 @@ export class ProductDetailPage implements OnInit {
   constructor(
     private location: Location,
     private route: ActivatedRoute,
-    public config : ConfigProvider,
+    public config: ConfigProvider,
     private photoViewer: PhotoViewer,
     public modalController: ModalController,
-    private router : Router,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -39,7 +39,6 @@ export class ProductDetailPage implements OnInit {
         this.backPath = params.backPath;
       }
     });
-    // console.log("product : " + JSON.stringify(this.product));
   }
 
   async presentModal(attribute) {
@@ -58,11 +57,11 @@ export class ProductDetailPage implements OnInit {
     this.photoViewer.show(img);
   }
 
-  pop(){
+  pop() {
     let navigationExtras: NavigationExtras = {
       skipLocationChange: true
     };
-    this.router.navigate([this.backPath],navigationExtras);
+    this.router.navigate([this.backPath], navigationExtras);
 
   }
 }

@@ -80,7 +80,7 @@ export class SharedDataProvider {
 
         if(this.ob.isEmptyField(cart)){
             cart = {cart_product:[obj]};
-            console.log("cart 2: " + JSON.stringify(cart));
+            // console.log("cart 2: " + JSON.stringify(cart));
         }else {
             const att_id = obj.att_id;
             const qty = obj.qty;
