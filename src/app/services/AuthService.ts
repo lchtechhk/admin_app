@@ -33,6 +33,8 @@ export class AuthService {
         if(result.status && !this.ObjectUtils.isEmptyField(result.data.token) && !this.ObjectUtils.isEmptyField(result.data.owner)){
             await this.sharedDataProvider.setToken(result.data.token);
             await this.sharedDataProvider.set_storage_key('person_data',result.data.owner);
+            await this.sharedDataProvider.set_storage_key('customer_address',result.data.address);
+
         }
         return result
     }
@@ -43,6 +45,7 @@ export class AuthService {
         if(result.status && !this.ObjectUtils.isEmptyField(result.data.token) && !this.ObjectUtils.isEmptyField(result.data.owner)){
             await this.sharedDataProvider.setToken(result.data.token);
             await this.sharedDataProvider.set_storage_key('person_data',result.data.owner);
+            await this.sharedDataProvider.set_storage_key('customer_address',result.data.address);
         }
         return result;
 

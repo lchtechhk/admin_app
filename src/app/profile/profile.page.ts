@@ -22,6 +22,8 @@ CommonProvider
 })
 export class ProfilePage {
   person_data : any = {};
+  customer_addresses : any = [];
+  home_icon : any = this.config.img_url+"home.png";
   public schedule_data : any;
 
   constructor(
@@ -53,9 +55,15 @@ export class ProfilePage {
 
   async ngOnInit(){
     this.person_data = await this.sharedDataProvider.get_storage_key("person_data");
+    this.customer_addresses = await this.sharedDataProvider.get_storage_key("customer_address");
+    console.log("customer_addresses : " + JSON.stringify(this.customer_addresses));
     if(!this.ObjectUtils.isEmptyField(this.person_data.picture)){
       this.person_data.picture = this.config.img_url+this.person_data.picture;
     }
+  }
+
+  open_address_page(){
+    console.log("open_address_page");
   }
   open_signature(){
     let navigationExtras: NavigationExtras = {

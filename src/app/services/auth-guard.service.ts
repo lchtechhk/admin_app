@@ -21,6 +21,7 @@ export class AuthGuardService implements CanActivate {
   }
 
   async canActivate(route: ActivatedRouteSnapshot, ): Promise<boolean> {
+    console.log("canActivatecanActivatecanActivatecanActivatecanActivatecanActivatecanActivate");
     const a = await this.authService.authenticate();
     if(a.status){
       return true; 

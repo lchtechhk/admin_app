@@ -36,7 +36,7 @@ export class ProductComponent implements OnInit {
   }
 
   showProductDetail(p) {
-    console.log(JSON.stringify(p));
+    // console.log(JSON.stringify(p));
 
     let navigationExtras: NavigationExtras = {
       queryParams: {
