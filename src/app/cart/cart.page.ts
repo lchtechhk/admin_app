@@ -14,6 +14,8 @@ import { ProductService } from '../services/ProductService';
 export class CartPage implements OnInit {
   private carts;
   private total: any;
+  private backPath : any = '/home/cart';
+
   constructor(
     public config: ConfigProvider,
     private sharedDataProvider: SharedDataProvider,
@@ -43,7 +45,8 @@ export class CartPage implements OnInit {
 
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        product: JSON.stringify(product)
+        product: JSON.stringify(product),
+        backPath : this.backPath,
       },
       skipLocationChange: true,
       replaceUrl: true

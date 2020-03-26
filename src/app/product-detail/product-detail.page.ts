@@ -15,6 +15,8 @@ import { Router, NavigationExtras } from '@angular/router';
 })
 export class ProductDetailPage implements OnInit {
   private product : any;
+  private backPath : any = '/home/tab1';
+
   sliderConfig = {
     zoom: false,
     passiveListeners: false,
@@ -32,6 +34,9 @@ export class ProductDetailPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params && params.product) {
         this.product = JSON.parse(params.product);
+      }
+      if (params && params.backPath) {
+        this.backPath = params.backPath;
       }
     });
     // console.log("product : " + JSON.stringify(this.product));
@@ -57,7 +62,7 @@ export class ProductDetailPage implements OnInit {
     let navigationExtras: NavigationExtras = {
       skipLocationChange: true
     };
-    this.router.navigate(['/home/tab1'],navigationExtras);
+    this.router.navigate([this.backPath],navigationExtras);
 
   }
 }

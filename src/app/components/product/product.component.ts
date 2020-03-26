@@ -40,7 +40,8 @@ export class ProductComponent implements OnInit {
 
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        product: JSON.stringify(p)
+        product: JSON.stringify(p),
+        backPath: '/home/tab1'
       },
       skipLocationChange: true,
       replaceUrl: true
