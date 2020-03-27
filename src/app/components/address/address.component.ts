@@ -8,6 +8,8 @@ import { Router, NavigationExtras } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { AddressService } from '../../services/AddressService';
+import { Subscription } from 'rxjs';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-address',
@@ -16,8 +18,10 @@ import { AddressService } from '../../services/AddressService';
 })
 export class AddressComponent implements OnInit {
   private address_detail;
-  private address_option;
   private address_list;
+  private portsSubscription: Subscription;
+  private todo : FormGroup;
+
   constructor(
     private modalController: ModalController,
     private navParams: NavParams,
@@ -41,13 +45,24 @@ export class AddressComponent implements OnInit {
         // });
   }
 
+  async addAddress(){
+    const param = {id:this.address_detail.id,
+      district_id:this.address_detail.address_option.district_id,
+      company:this.address_detail.company,
+      estate:this.address_detail.estate,
+      building:this.address_detail.building,
+      room:this.address_detail.room,
+      is_default:'yes',
+    }
+    const result = await this.AddressService.updateCustomerAddress(param);
+    console.log(JSON.stringify(result));
+  }
   portChange(event: {
     component: IonicSelectableComponent,
     value: any 
   }) {
-      console.log('port:', event.value);
+      console.log('portChange:', event.value);
   }
-
   async ngOnInit() {
     this.address_detail = this.navParams.data.address;
     let district_id = this.address_detail.district_id;
@@ -56,10 +71,9 @@ export class AddressComponent implements OnInit {
     this.address_list.forEach(element => {
       let d_id = element.district_id;
       if(district_id == d_id){
-        this.address_option = element;
+        this.address_detail.address_option = element;
       }
     });
-    console.log("address_option : " + JSON.stringify(this.address_option));
 
     // console.log(JSON.stringify(this.address_list));
   }

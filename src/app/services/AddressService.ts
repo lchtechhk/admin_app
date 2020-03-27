@@ -34,4 +34,13 @@ export class AddressService {
         return [];
     }
 
+    async updateCustomerAddress(param){
+        const token = await this.sharedDataProvider.getToken();
+        const result : ResponseModel = await this.config.post(this.config.url+'updateCustomerAddress',token,param);
+        if(result.status){
+            return true
+        }
+        return false;
+    }
+
 }

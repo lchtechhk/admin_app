@@ -7,7 +7,7 @@
     </ion-buttons>
     <ion-title>Title Only</ion-title>
     <ion-buttons slot="end">
-      <ion-button color="light" (click)="pop()">
+      <ion-button color="light" (click)="addAddress()">
         Save
       </ion-button>
     </ion-buttons>
@@ -15,31 +15,26 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
     <ion-item>
       <ion-label color="primary" position="stacked">收貸人</ion-label>
-      <ion-input readonly>{{address_detail.company}}</ion-input>
+      <ion-input type="text" [(ngModel)]="address_detail.company" name="company"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label color="primary" position="stacked" >地域</ion-label>
-      <ionic-selectable
-        item-content
-        [(ngModel)]="address_option"
-        [items]="address_list"
-        itemValueField="district_id"
-        itemTextField="header_address"
-        [canSearch]="true"
-        (onChange)="portChange($event)">
+      <ion-label color="primary" position="stacked">地域</ion-label>
+      <ionic-selectable item-content [(ngModel)]="address_detail.address_option" [items]="address_list" itemValueField="district_id"
+        itemTextField="header_address" [canSearch]="true" (onChange)="portChange($event)">
       </ionic-selectable>
     </ion-item>
-
+    <ion-item>
+      <ion-label color="primary" position="stacked">村</ion-label>
+      <ion-input type="text" [(ngModel)]="address_detail.estate" name="estate"></ion-input>
+    </ion-item>
     <ion-item>
       <ion-label color="primary" position="stacked">大廈</ion-label>
-      <ion-input>{{address_detail.building}}</ion-input>
+      <ion-input type="text" [(ngModel)]="address_detail.building" name="building"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="primary" position="stacked">室</ion-label>
-      <ion-input>{{address_detail.room}}</ion-input>
+      <ion-input type="text" [(ngModel)]="address_detail.room" name="room"></ion-input>
     </ion-item>
-  </ion-list>
 </ion-content>
