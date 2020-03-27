@@ -15,8 +15,9 @@ import { AddressService } from '../../services/AddressService';
   styleUrls: ['./address.component.scss'],
 })
 export class AddressComponent implements OnInit {
-  private address;
+  private address_detail;
   private address_option;
+  private address_list;
   constructor(
     private modalController: ModalController,
     private navParams: NavParams,
@@ -29,10 +30,7 @@ export class AddressComponent implements OnInit {
     private AddressService:AddressService,
 
   ) { 
-    this.route.queryParams.subscribe(params => {
-      if (params && params.address) {
-        this.address = JSON.parse(params.address);
-      }
+
         // this.config.post(this.config.url+'save_user_signature','',{signature_image : this.person_data.user_signature, user_id : this.sharedDataProvider.person_id},(res:any)=>{
         //   if(!this.ObjectUtils.isEmptyField(res) && !this.ObjectUtils.isEmptyField(res.data) && res.status){
         //   }else {
@@ -41,7 +39,6 @@ export class AddressComponent implements OnInit {
         // }, (error:any) => {
         //   alert(JSON.stringify(error))
         // });
-    });
   }
 
   portChange(event: {
@@ -52,12 +49,23 @@ export class AddressComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.address_option = await this.AddressService.listingAllDistract();
-    this.address = {id:"1",district:"district A"};
+    this.address_detail = this.navParams.data.address;
+    let district_id = this.address_detail.district_id;
+    this.address_list = await this.AddressService.listingAllDistract();
+
+    this.address_list.forEach(element => {
+      let d_id = element.district_id;
+      if(district_id == d_id){
+        this.address_option = element;
+      }
+    });
     console.log("address_option : " + JSON.stringify(this.address_option));
+
+    // console.log(JSON.stringify(this.address_list));
   }
 
   pop(){
-
+    const onClosedData: string = "Wrapped Up!";
+    this.modalController.dismiss(onClosedData);
   }
 }

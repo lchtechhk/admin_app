@@ -81,7 +81,6 @@ export class ProfilePage {
   }
 
   async open_edit_address_modal(address) {
-    console.log("address : " + JSON.stringify(address));
     const modal = await this.modalController.create({
       component: AddressComponent,
       componentProps: {
