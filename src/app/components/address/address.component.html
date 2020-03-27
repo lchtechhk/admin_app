@@ -20,12 +20,18 @@
       <ion-label color="primary" position="stacked">收貸人</ion-label>
       <ion-input readonly>{{address.company}}</ion-input>
     </ion-item>
-    <ion-item>
       <ion-label>地域</ion-label>
-      <ion-select placeholder="地域">
-        <ion-select-option value="f">{{address.country_name}} {{address.city_name}} {{address.area_name}} {{address.district_name}}</ion-select-option>
-      </ion-select>
+      <ionic-selectable
+        item-content
+        [(ngModel)]="address"
+        [items]="address_option"
+        itemValueField="id"
+        itemTextField="district"
+        [canSearch]="true"
+        (onChange)="portChange($event)">
+      </ionic-selectable>
     </ion-item>
+
     <ion-item>
       <ion-label color="primary" position="stacked">大廈</ion-label>
       <ion-input>{{address.building}}</ion-input>

@@ -20,7 +20,7 @@ import { ToastService } from './services/ToastService';
 
 import {HttpClientModule} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { HideHeaderDirective } from './components/directives/hide-header.directive';
+import { IonicSelectableModule } from 'ionic-selectable';
 // import { FCM } from '@ionic-native/fcm/ngx';
 
 import { CategoryService } from './services/CategoryService';
@@ -32,6 +32,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    IonicSelectableModule,
     BrowserModule,
     HttpClientModule,
      IonicModule.forRoot(),

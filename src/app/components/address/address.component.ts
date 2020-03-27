@@ -6,6 +6,7 @@ import { SharedDataProvider } from '../../providers/shared-data';
 import { NavController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
+import { SelectSearchableComponent } from 'ionic-select-searchable';
 
 @Component({
   selector: 'app-address',
@@ -14,6 +15,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class AddressComponent implements OnInit {
   private address;
+  private address_option;
   constructor(
     private modalController: ModalController,
     private navParams: NavParams,
@@ -25,6 +27,8 @@ export class AddressComponent implements OnInit {
     private route: ActivatedRoute,
 
   ) { 
+    this.address_option = [{id:"1",district:"district A"},{id:"2",district:"district B"}];
+    this.address = {id:"1",district:"district A"};
     this.route.queryParams.subscribe(params => {
       if (params && params.address) {
         this.address = JSON.parse(params.address);
@@ -39,6 +43,13 @@ export class AddressComponent implements OnInit {
         //   alert(JSON.stringify(error))
         // });
     });
+  }
+
+  portChange(event: {
+    component: SelectSearchableComponent,
+    value: any 
+  }) {
+      console.log('port:', event.value);
   }
 
   ngOnInit() {
