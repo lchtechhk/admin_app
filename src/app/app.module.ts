@@ -17,6 +17,7 @@ import { UIProvider } from './providers/UIProvider';
 import { SharedDataProvider } from './providers/shared-data';
 import { AuthService } from './services/AuthService';
 import { ToastService } from './services/ToastService';
+import { AddressService } from './services/AddressService';
 
 import {HttpClientModule} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -51,6 +52,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
     ProductService,
     PhotoViewer,
     ToastService,
+    AddressService,
     // FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

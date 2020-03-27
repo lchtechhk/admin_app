@@ -6,7 +6,8 @@ import { SharedDataProvider } from '../../providers/shared-data';
 import { NavController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
-import { SelectSearchableComponent } from 'ionic-select-searchable';
+import { IonicSelectableComponent } from 'ionic-selectable';
+import { AddressService } from '../../services/AddressService';
 
 @Component({
   selector: 'app-address',
@@ -25,15 +26,13 @@ export class AddressComponent implements OnInit {
     private navCtrl: NavController,
     private router: Router,
     private route: ActivatedRoute,
+    private AddressService:AddressService,
 
   ) { 
-    this.address_option = [{id:"1",district:"district A"},{id:"2",district:"district B"}];
-    this.address = {id:"1",district:"district A"};
     this.route.queryParams.subscribe(params => {
       if (params && params.address) {
         this.address = JSON.parse(params.address);
       }
-      console.log("address : " + JSON.stringify(this.address));
         // this.config.post(this.config.url+'save_user_signature','',{signature_image : this.person_data.user_signature, user_id : this.sharedDataProvider.person_id},(res:any)=>{
         //   if(!this.ObjectUtils.isEmptyField(res) && !this.ObjectUtils.isEmptyField(res.data) && res.status){
         //   }else {
@@ -46,14 +45,16 @@ export class AddressComponent implements OnInit {
   }
 
   portChange(event: {
-    component: SelectSearchableComponent,
+    component: IonicSelectableComponent,
     value: any 
   }) {
       console.log('port:', event.value);
   }
 
-  ngOnInit() {
-    
+  async ngOnInit() {
+    this.address_option = await this.AddressService.listingAllDistract();
+    this.address = {id:"1",district:"district A"};
+    console.log("address_option : " + JSON.stringify(this.address_option));
   }
 
   pop(){
