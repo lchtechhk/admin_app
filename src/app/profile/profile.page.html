@@ -30,17 +30,17 @@
     <ion-card>
         <ion-item color="primary" position="stacked">
             <ion-label  slot="start">地址</ion-label>
-            <ion-button slot="end" shape="full" (click)="open_address_page()">添加新</ion-button>
+            <ion-button slot="end" shape="full" (click)="open_add_address_modal()">添加新</ion-button>
         </ion-item>
-        <ion-item button *ngFor="let address of customer_addresses">
-            <ion-label color="primary" position="stacked">{{address.company}}</ion-label>
+        <ion-item button *ngFor="let address of customer_addresses" (click)="open_edit_address_modal(address)">
+            <!-- <ion-label style="margin-bottom:5px;" color="primary" position="stacked">{{address.company}}</ion-label>
             <ion-thumbnail slot="start">
                 <ion-img src="./assets/images/home.png"></ion-img>
             </ion-thumbnail>
             <ion-input readonly>{{address.address_ch}}</ion-input>
             <ion-thumbnail slot="end">
                 <ion-img src="./assets/images/edit_2.png"></ion-img>
-            </ion-thumbnail>
+            </ion-thumbnail> -->
         </ion-item>
     </ion-card>
 

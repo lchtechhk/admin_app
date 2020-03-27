@@ -12,6 +12,8 @@ import { Router, NavigationExtras } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
 import { UIProvider } from '../providers/UIProvider';
 import { AuthService } from '../services/AuthService';
+import { ModalController, NavParams } from '@ionic/angular';
+import { AddressComponent } from '../components/address/address.component';
 
 
 CommonProvider
@@ -21,10 +23,11 @@ CommonProvider
   styleUrls: ['profile.page.scss']
 })
 export class ProfilePage {
-  person_data : any = {};
-  customer_addresses : any = [];
-  home_icon : any = this.config.img_url+"home.png";
-  public schedule_data : any;
+  private person_data : any = {};
+  private customer_addresses : any = [];
+  private home_icon : any = this.config.img_url+"home.png";
+  private schedule_data : any;
+  private backPath: any = '/home/profile';
 
   constructor(
     private AuthService : AuthService,
@@ -35,7 +38,11 @@ export class ProfilePage {
     private navCtrl: NavController,
     private sharedDataProvider : SharedDataProvider,
     private uiProvider : UIProvider,
-    private route: ActivatedRoute,) {
+    private route: ActivatedRoute,
+    public modalController: ModalController,
+    private router: Router,
+
+    ) {
     this.route.queryParams.subscribe(params => {
       if(params["signatureImage"] != undefined){
         this.person_data.user_signature = JSON.parse(params["signatureImage"]);
@@ -56,12 +63,37 @@ export class ProfilePage {
   async ngOnInit(){
     this.person_data = await this.sharedDataProvider.get_storage_key("person_data");
     this.customer_addresses = await this.sharedDataProvider.get_storage_key("customer_address");
-    console.log("customer_addresses : " + JSON.stringify(this.customer_addresses));
     if(!this.ObjectUtils.isEmptyField(this.person_data.picture)){
       this.person_data.picture = this.config.img_url+this.person_data.picture;
     }
   }
 
+  async open_add_address_modal() {
+    const modal = await this.modalController.create({
+      component: AddressComponent,
+      componentProps: {
+        "operation" : "add",
+        "backPath": this.backPath,
+      },
+      // cssClass: "wideModal"
+    });
+    return await modal.present();
+  }
+
+  async open_edit_address_modal(address) {
+    console.log("address : " + JSON.stringify(address));
+    const modal = await this.modalController.create({
+      component: AddressComponent,
+      componentProps: {
+        "address": address,
+        "operation" : "edit",
+        "backPath": this.backPath,
+      },
+      // cssClass: "wideModal"
+    });
+    return await modal.present();
+  }
+  
   open_address_page(){
     console.log("open_address_page");
   }
