@@ -11,6 +11,8 @@ import { AddressService } from '../../services/AddressService';
 import { Subscription } from 'rxjs';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { addressModel } from './models/addressModel';
+import { postModel } from './models/postModel';
+
 import { ObjectUtils } from '../../providers/ObjectUtils';
 
 @Component({
@@ -20,9 +22,11 @@ import { ObjectUtils } from '../../providers/ObjectUtils';
 })
 export class AddressComponent implements OnInit {
   private address_detail = new addressModel;
+  private postModel = new postModel;
   private address_list;
   private portsSubscription: Subscription;
   private todo: FormGroup;
+  private page_operation;
 
   constructor(
     private modalController: ModalController,
@@ -40,16 +44,16 @@ export class AddressComponent implements OnInit {
   }
 
   async addAddress() {
-    const param = {
-      id: this.address_detail.id,
-      district_id: this.address_detail.address_option.district_id,
-      company: this.address_detail.company,
-      estate: this.address_detail.estate,
-      building: this.address_detail.building,
-      room: this.address_detail.room,
-      is_default: 'yes',
-    }
-    const result = await this.AddressService.updateCustomerAddress(param);
+    this.postModel = new postModel;
+    this.postModel.district_id =  this.address_detail.address_option.district_id;
+    this.postModel.phone = this.address_detail.phone;
+    this.postModel.company = this.address_detail.company;
+    this.postModel.estate = this.address_detail.estate;
+    this.postModel.building = this.address_detail.building;
+    this.postModel.room = this.address_detail.room;
+    this.postModel.is_default = 'no';
+
+    const result = await this.AddressService.addCustomerAddress(this.postModel);
     if(result){
       const onClosedData: string = "Wrapped Up!";
       this.modalController.dismiss(onClosedData);
@@ -57,16 +61,18 @@ export class AddressComponent implements OnInit {
   }
 
   async updateAddress() {
-    const param = {
-      id: this.address_detail.id,
-      district_id: this.address_detail.address_option.district_id,
-      company: this.address_detail.company,
-      estate: this.address_detail.estate,
-      building: this.address_detail.building,
-      room: this.address_detail.room,
-      is_default: 'yes',
-    }
-    const result = await this.AddressService.updateCustomerAddress(param);
+    console.log("updateAddress : " + JSON.stringify(this.address_detail));
+    this.postModel = new postModel;
+    this.postModel.id = this.address_detail.id;
+    this.postModel.phone = this.address_detail.phone;
+    this.postModel.district_id =  this.address_detail.district_id;
+    this.postModel.company = this.address_detail.company;
+    this.postModel.estate = this.address_detail.estate;
+    this.postModel.building = this.address_detail.building;
+    this.postModel.room = this.address_detail.room;
+    this.postModel.is_default = 'yes';
+
+    const result = await this.AddressService.updateCustomerAddress(this.postModel);
     if(result){
       const onClosedData: string = "Wrapped Up!";
       this.modalController.dismiss(onClosedData);
@@ -81,7 +87,11 @@ export class AddressComponent implements OnInit {
   }
   async ngOnInit() {
     this.address_list = await this.AddressService.listingAllDistract();
+    console.log("address_list : " + JSON.stringify(this.address_list));
 
+
+    this.page_operation = this.navParams.data.operation;
+    
     if(!this.ObjectUtils.isEmptyField(this.navParams.data.address)){
       this.address_detail = this.navParams.data.address;
       let district_id = this.address_detail.district_id;
@@ -92,7 +102,7 @@ export class AddressComponent implements OnInit {
         }
       });
     }
-    console.log("address_detail : " + JSON.stringify(this.address_detail));
+    // console.log("address_detail : " + JSON.stringify(this.address_detail));
   }
 
   pop() {

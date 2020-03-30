@@ -34,7 +34,19 @@ export class AddressService {
         return [];
     }
 
+    async addCustomerAddress(param){
+        console.log("addCustomerAddress : " + JSON.stringify(param));
+        const token = await this.sharedDataProvider.getToken();
+        const result : ResponseModel = await this.config.post(this.config.url+'addCustomerAddress',token,param);
+        if(result.status){
+            return true
+        }
+        return false;
+    }
+
     async updateCustomerAddress(param){
+        console.log("updateCustomerAddress : " + JSON.stringify(param));
+
         const token = await this.sharedDataProvider.getToken();
         const result : ResponseModel = await this.config.post(this.config.url+'updateCustomerAddress',token,param);
         if(result.status){

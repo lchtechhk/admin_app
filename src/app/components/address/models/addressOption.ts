@@ -1,6 +1,7 @@
 export class addressOptionModel{
     countries_id:String= "";
     countries_name:String= "";
+    phone:String= "";
     cities_id:String= "";
     cities_name:String= "";
     area_id:String= "";
