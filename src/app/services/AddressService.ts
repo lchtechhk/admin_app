@@ -43,4 +43,14 @@ export class AddressService {
         return false;
     }
 
+    async deleteCustomerAddress(address_id){
+        const token = await this.sharedDataProvider.getToken();
+        const result : ResponseModel = await this.config.post(this.config.url+'deleteCustomerAddress',token,{address_id : address_id});
+        if(result.status){
+            return true
+        }
+        return false;
+
+    }
+
 }

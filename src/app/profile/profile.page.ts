@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonProvider } from '../providers/CommonProvider';
 import { DatePipe } from '@angular/common'
-import * as moment from 'moment';
 import { NavController } from '@ionic/angular';
 
 import { ConfigProvider } from '../providers/ConfigProvider';
@@ -12,7 +11,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
 import { UIProvider } from '../providers/UIProvider';
 import { AuthService } from '../services/AuthService';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { AddressComponent } from '../components/address/address.component';
 
 
@@ -24,23 +23,18 @@ CommonProvider
 })
 export class ProfilePage {
   private person_data : any = {};
-  private customer_addresses : any = [];
-  private home_icon : any = this.config.img_url+"home.png";
-  private schedule_data : any;
+  private customer_address : any = [];
   private backPath: any = '/home/profile';
 
   constructor(
     private AuthService : AuthService,
     private config : ConfigProvider,
     private ObjectUtils : ObjectUtils,
-    private storage: Storage ,
-    private datepipe: DatePipe,
     private navCtrl: NavController,
     private sharedDataProvider : SharedDataProvider,
     private uiProvider : UIProvider,
     private route: ActivatedRoute,
     public modalController: ModalController,
-    private router: Router,
 
     ) {
     this.route.queryParams.subscribe(params => {
@@ -62,14 +56,17 @@ export class ProfilePage {
 
   async ngOnInit(){
     this.person_data = await this.sharedDataProvider.get_storage_key("person_data");
-    this.customer_addresses = await this.sharedDataProvider.get_storage_key("customer_address");
+    this.customer_address = await this.sharedDataProvider.get_storage_key("customer_address");
     if(!this.ObjectUtils.isEmptyField(this.person_data.picture)){
       this.person_data.picture = this.config.img_url+this.person_data.picture;
     }
+
+    // console.log("customer_address : " + JSON.stringify(this.customer_address));
+
   }
 
   async open_add_address_modal() {
-    const modal = await this.modalController.create({
+    let modal = await this.modalController.create({
       component: AddressComponent,
       componentProps: {
         "operation" : "add",

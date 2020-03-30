@@ -32,7 +32,7 @@
             <ion-label  slot="start">地址</ion-label>
             <ion-button slot="end" shape="full" (click)="open_add_address_modal()">添加新</ion-button>
         </ion-item>
-        <ion-item button *ngFor="let address of customer_addresses" (click)="open_edit_address_modal(address)">
+        <ion-item button *ngFor="let address of customer_address" (click)="open_edit_address_modal(address)">
             <ion-label style="margin-bottom:5px;" color="primary" position="stacked">{{address.company}}</ion-label>
             <ion-thumbnail slot="start">
                 <ion-img src="./assets/images/home.png"></ion-img>

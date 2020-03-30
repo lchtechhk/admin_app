@@ -7,8 +7,8 @@
     </ion-buttons>
     <ion-title>Title Only</ion-title>
     <ion-buttons slot="end">
-      <ion-button color="light" (click)="addAddress()">
-        Save
+      <ion-button color="light" (click)="updateAddress()">
+        儲存
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -38,3 +38,7 @@
       <ion-input type="text" [(ngModel)]="address_detail.room" name="room"></ion-input>
     </ion-item>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-button color="danger" expand="full" (click)="delete_address(address_detail.id)">刪除</ion-button>
+</ion-footer>
