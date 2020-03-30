@@ -13,6 +13,7 @@ import { UIProvider } from '../providers/UIProvider';
 import { AuthService } from '../services/AuthService';
 import { ModalController } from '@ionic/angular';
 import { AddressComponent } from '../components/address/address.component';
+import { AddressService } from '../services/AddressService';
 
 
 CommonProvider
@@ -28,6 +29,7 @@ export class ProfilePage {
 
   constructor(
     private AuthService : AuthService,
+    private AddressService : AddressService,
     private config : ConfigProvider,
     private ObjectUtils : ObjectUtils,
     private navCtrl: NavController,
@@ -74,6 +76,7 @@ export class ProfilePage {
       },
       // cssClass: "wideModal"
     });
+    await this.dismissModal(modal);
     return await modal.present();
   }
 
@@ -87,9 +90,20 @@ export class ProfilePage {
       },
       // cssClass: "wideModal"
     });
+    await this.dismissModal(modal);
     return await modal.present();
   }
   
+  async dismissModal(modal:any){
+    modal.onDidDismiss().then(async data=>{
+      this.uiProvider.presentLoadingDefault();
+      if(await this.AddressService.getAddressByToken()){
+        this.customer_address = await this.sharedDataProvider.get_storage_key("customer_address");
+        console.log("customer_address : " + JSON.stringify(this.customer_address));
+      }
+      this.uiProvider.dismissLoadingDefault();
+    });
+  }
   open_address_page(){
     console.log("open_address_page");
   }

@@ -65,4 +65,14 @@ export class AddressService {
 
     }
 
+    async getAddressByToken(){
+        const token = await this.sharedDataProvider.getToken();
+        const result : ResponseModel = await this.config.get(this.config.url+'getAddressByToken',token);
+        if(result.status && !this.ObjectUtils.isEmptyField(result.data.customer_address)){
+            await this.sharedDataProvider.set_storage_key('customer_address',result.data.customer_address);
+            return true
+        }
+        return false;
+    }
+
 }

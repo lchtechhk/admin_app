@@ -87,7 +87,7 @@ export class AddressComponent implements OnInit {
   }
   async ngOnInit() {
     this.address_list = await this.AddressService.listingAllDistract();
-    console.log("address_list : " + JSON.stringify(this.address_list));
+    // console.log("address_list : " + JSON.stringify(this.address_list));
 
 
     this.page_operation = this.navParams.data.operation;

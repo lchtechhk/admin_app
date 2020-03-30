@@ -20,13 +20,13 @@ export class ConfigProvider {
     private ObjectUtils: ObjectUtils) {
   };
 
-  public url: string = "http://192.168.1.116/admin/api/app/";
-  public pdf_url: string = "http://192.168.1.116/admin/api/app/";
-  public img_url: string = "http://192.168.1.116/admin/";
+  // public url: string = "http://192.168.1.116/admin/api/app/";
+  // public pdf_url: string = "http://192.168.1.116/admin/api/app/";
+  // public img_url: string = "http://192.168.1.116/admin/";
 
-  // public url : string = "http://192.168.0.2/admin/api/app/";
-  // public pdf_url : string = "http://192.168.0.2/admin/api/app/";
-  // public img_url: string = "http://192.168.0.2/admin/";
+  public url : string = "http://192.168.0.2/admin/api/app/";
+  public pdf_url : string = "http://192.168.0.2/admin/api/app/";
+  public img_url: string = "http://192.168.0.2/admin/";
 
   // public url : string = "http://127.0.0.1/admin/api/app/";
   // public pdf_url : string = "http://127.0.0.1/admin/api/app/";

@@ -46,6 +46,6 @@
     </ion-item>
 </ion-content>
 
-<ion-footer class="ion-no-border">
+<ion-footer *ngIf="page_operation == 'edit' " class="ion-no-border">
   <ion-button color="danger" expand="full" (click)="delete_address(address_detail.id)">刪除</ion-button>
 </ion-footer>
