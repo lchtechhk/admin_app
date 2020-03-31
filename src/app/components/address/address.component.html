@@ -8,7 +8,7 @@
     <ion-title>Title Only</ion-title>
     <ion-buttons slot="end">
       <ion-button *ngIf="page_operation == 'add' " color="danger" (click)="addAddress()">
-        儲存
+        增加
       </ion-button>
       <ion-button *ngIf="page_operation == 'edit' " color="danger" (click)="updateAddress()">
         保存
@@ -24,7 +24,7 @@
     </ion-item>
     <ion-item>
       <ion-label color="primary" position="stacked">聯絡人電話</ion-label>
-      <ion-input type="tel" [(ngModel)]="address_detail.phone" name="company"></ion-input>
+      <ion-input type="number" [(ngModel)]="address_detail.phone" name="company"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="primary" position="stacked">地域</ion-label>
