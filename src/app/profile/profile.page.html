@@ -29,11 +29,15 @@
 
     <ion-card>
         <ion-item color="primary" position="stacked">
-            <ion-label  slot="start">地址</ion-label>
-            <ion-button slot="end" shape="full" (click)="open_add_address_modal()">添加新</ion-button>
+            <ion-label slot="start">地址</ion-label>
+            <ion-button slot="end" shape="full" (click)="open_add_address_modal()">添加新地址</ion-button>
         </ion-item>
         <ion-item button *ngFor="let address of customer_address" (click)="open_edit_address_modal(address)">
-            <ion-label style="margin-bottom:5px;" color="primary" position="stacked">{{address.company}}</ion-label>
+            <ion-label  style="padding: 0px; margin: 0px;" color="primary" position="stacked">{{address.company}}
+                <span *ngIf="address.is_default == 'yes'" style="color: #f84e4e;">預設</span>
+            </ion-label>
+            <ion-label style="margin-bottom:5px;" color="primary" position="stacked">{{address.phone}}</ion-label>
+            <!-- <div>{{address.phone}}</div> -->
             <ion-thumbnail slot="start">
                 <ion-img src="./assets/images/home.png"></ion-img>
             </ion-thumbnail>

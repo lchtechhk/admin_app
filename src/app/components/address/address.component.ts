@@ -27,7 +27,7 @@ export class AddressComponent implements OnInit {
   private portsSubscription: Subscription;
   private todo: FormGroup;
   private page_operation;
-
+  private isToggled = false;
   constructor(
     private modalController: ModalController,
     private navParams: NavParams,
@@ -51,8 +51,7 @@ export class AddressComponent implements OnInit {
     this.postModel.estate = this.address_detail.estate;
     this.postModel.building = this.address_detail.building;
     this.postModel.room = this.address_detail.room;
-    this.postModel.is_default = 'no';
-
+    this.postModel.is_default = this.address_detail.is_default;
     const result = await this.AddressService.addCustomerAddress(this.postModel);
     if(result){
       const onClosedData: string = "Wrapped Up!";
@@ -70,7 +69,8 @@ export class AddressComponent implements OnInit {
     this.postModel.estate = this.address_detail.estate;
     this.postModel.building = this.address_detail.building;
     this.postModel.room = this.address_detail.room;
-    this.postModel.is_default = 'yes';
+    this.postModel.is_default = this.address_detail.is_default;
+
 
     const result = await this.AddressService.updateCustomerAddress(this.postModel);
     if(result){
@@ -102,7 +102,11 @@ export class AddressComponent implements OnInit {
         }
       });
     }
-    // console.log("address_detail : " + JSON.stringify(this.address_detail));
+    if(this.address_detail.is_default == 'yes'){
+      this.isToggled = true;
+    }else {
+      this.isToggled = false;
+    }
   }
 
   pop() {
@@ -122,5 +126,14 @@ export class AddressComponent implements OnInit {
         };
         this.router.navigate(['/home/profile'], navigationExtras);
     }
+  }
+
+  toggleChange(){
+    if(this.isToggled){
+      this.address_detail.is_default = 'yes';
+    }else {
+      this.address_detail.is_default = 'no';
+    }
+    console.log("toggleChange : " + JSON.stringify(this.address_detail));
   }
 }
