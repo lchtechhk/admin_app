@@ -30,14 +30,14 @@
   <ion-card class="ion-padding" *ngFor=" let cart_product of carts?.cart_product; let i = index; trackBy:trackByFn" >
     <ion-card-header class="ion-no-padding">
       <ion-card-subtitle>
-        <h3>{{cart_product?.attu?.product_attribute_name}}</h3>
+        <h3>{{cart_product?.att?.product_attribute_name}}</h3>
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <ion-grid style="padding:10px;"class="ion-no-padding">
         <!-- <ion-row>
           <ion-col size="3">
-            <ion-img src="{{this.config.img_url + cart_product?.attu?.image}}"></ion-img>
+            <ion-img src="{{this.config.img_url + cart_product?.att?.image}}"></ion-img>
           </ion-col>
           <ion-col class="col-price" size="5">
             <p>Price</p>
@@ -45,7 +45,7 @@
             <p><b>Sub Total</b></p>
           </ion-col>
           <ion-col class="col-price-ori" size="4">
-            <p class="para-del">{{cart_product?.attu?.final_price}}</p>
+            <p class="para-del">{{cart_product?.att?.final_price}}</p>
             <div class="div-btn">
               <ion-button size="small" fill="outline" (click)="qunatityMinus(i)">
                 <p>-</p>
@@ -61,7 +61,7 @@
         </ion-row> -->
         <ion-row style="padding:10px;">
           <ion-col size="2.5">
-            <ion-button color="secondary" (click)="viewProductDetail(cart_product.attu.product_id)">View
+            <ion-button color="secondary" (click)="viewProductDetail(cart_product.att.product_id)">View
             </ion-button>
           </ion-col>
           <ion-col size="8.5">

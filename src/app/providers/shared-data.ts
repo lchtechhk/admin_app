@@ -112,10 +112,10 @@ export class SharedDataProvider {
     public async arrangeCart(cart:any){
         let final_total_price = 0;
         let total = 0;
-        if(this.ob.isEmptyField(cart) && this.ob.isEmptyField(cart.cart_product.attu) ){ return}
+        if(this.ob.isEmptyField(cart) && this.ob.isEmptyField(cart.cart_product.att) ){ return}
             const cart_product = cart.cart_product;
             for (let value of cart_product) {
-                let sub_total = value.attu.final_price * value.qty;
+                let sub_total = value.att.final_price * value.qty;
                 value.sub_total = sub_total
                 final_total_price += sub_total;
                 total += value.qty;

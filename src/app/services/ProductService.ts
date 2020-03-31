@@ -44,6 +44,17 @@ export class ProductService {
         }
         return [];
     }
+
+    async getProductByAttIds_key(att_ids){
+        const search = att_ids;
+        const token = await this.sharedDataProvider.getToken();
+        const result : ResponseModel = await this.config.post(this.config.url+'getProductByAttIds_key',token,{att_ids:att_ids});
+        if(result.status && !this.ObjectUtils.isEmptyField(result.data.products)){
+            return result.data.products;
+        }
+        return [];
+    }
+
     async viewProduct(product_id) {
         const search = {product_id: product_id};
         const token = await this.sharedDataProvider.getToken();

@@ -31,19 +31,29 @@ export class CartPage implements OnInit {
 
   async ngOnInit() {
     this.carts = await this.sharedDataProvider.get_storage_key('cart');
-    if(!this.ob.isEmptyField(this.carts.cart_product)){
+    console.log("carts : " + JSON.stringify(this.carts));
+
+    if (!this.ob.isEmptyField(this.carts.cart_product)) {
       let att_ids = [];
-        this.carts.cart_product.forEach(element => {
+      this.carts.cart_product.forEach(element => {
         att_ids.push(element.att_id);
       });
       this.updateCartProduct(att_ids);
     }
   }
 
-  async updateCartProduct(att_ids){
-    const products = await this.productService.getProductByAttIds(att_ids);
-    console.log("products : " + JSON.stringify(products));
-
+  async updateCartProduct(att_ids) {
+    const products = await this.productService.getProductByAttIds_key(att_ids);
+    if (!this.ob.isEmptyField(products)) {
+      this.carts.cart_product.forEach(element => {
+        let att_id = element.att_id;
+        if (!this.ob.isEmptyField(products[att_id])) {
+          element.att = products[att_id];
+        }
+      });
+      await this.sharedDataProvider.arrangeCart(this.carts);
+      this.carts = await this.sharedDataProvider.get_storage_key('cart');
+    }
   }
   async viewProductDetail(product_id) {
 

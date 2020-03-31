@@ -86,6 +86,8 @@ export class ConfigProvider {
     console.log("[HTTP] -- Error : " + message);
     switch (message){
       case 'The token has been blacklisted' :
+      case 'Token has expired' :
+        this.router.navigateByUrl("", { replaceUrl: true });
       return '登入逾時';
       case 'We cant find an account with this credentials.':
       return '登入失敗,用戶不存在';
