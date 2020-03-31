@@ -5,6 +5,7 @@ import { ObjectUtils } from '../providers/ObjectUtils';
 import { Router, NavigationExtras } from '@angular/router';
 import { UIProvider } from '../providers/UIProvider';
 import { ProductService } from '../services/ProductService';
+import { isArray } from 'util';
 
 @Component({
   selector: 'app-cart',
@@ -30,11 +31,23 @@ export class CartPage implements OnInit {
 
   async ngOnInit() {
     this.carts = await this.sharedDataProvider.get_storage_key('cart');
+    if(!this.ob.isEmptyField(this.carts.cart_product)){
+      let att_ids = [];
+        this.carts.cart_product.forEach(element => {
+        att_ids.push(element.att_id);
+      });
+      this.updateCartProduct(att_ids);
+    }
   }
 
+  async updateCartProduct(att_ids){
+    const products = await this.productService.getProductByAttIds(att_ids);
+    console.log("products : " + JSON.stringify(products));
+
+  }
   async viewProductDetail(product_id) {
 
-    this.uiProvider.presentLoadingDefault();
+    await this.uiProvider.presentLoadingDefault();
     const product = await this.productService.viewProduct(product_id);
     let navigationExtras: NavigationExtras = {
       queryParams: {
@@ -45,7 +58,7 @@ export class CartPage implements OnInit {
       replaceUrl: true
     };
     this.router.navigate(['/product-detail'], navigationExtras);
-    this.uiProvider.dismissLoadingDefault();
+    await this.uiProvider.dismissLoadingDefault();
   }
 
   async removeCart(id) {

@@ -39,10 +39,10 @@ export class ProfilePage {
     public modalController: ModalController,
 
     ) {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(async params => {
       if(params["signatureImage"] != undefined){
         this.person_data.user_signature = JSON.parse(params["signatureImage"]);
-        this.uiProvider.presentLoadingDefault();
+        await this.uiProvider.presentLoadingDefault();
         // this.config.post(this.config.url+'save_user_signature','',{signature_image : this.person_data.user_signature, user_id : this.sharedDataProvider.person_id},(res:any)=>{
         //   if(!this.ObjectUtils.isEmptyField(res) && !this.ObjectUtils.isEmptyField(res.data) && res.status){
         //   }else {
@@ -96,12 +96,12 @@ export class ProfilePage {
   
   async dismissModal(modal:any){
     modal.onDidDismiss().then(async data=>{
-      this.uiProvider.presentLoadingDefault();
+      await this.uiProvider.presentLoadingDefault();
       if(await this.AddressService.getAddressByToken()){
         this.customer_address = await this.sharedDataProvider.get_storage_key("customer_address");
         console.log("customer_address : " + JSON.stringify(this.customer_address));
       }
-      this.uiProvider.dismissLoadingDefault();
+      await this.uiProvider.dismissLoadingDefault();
     });
   }
   open_address_page(){

@@ -49,10 +49,10 @@ export class LoginPage {
   
   
    async login() {
-    this.uiProvider.presentLoadingDefault();
+    await this.uiProvider.presentLoadingDefault();
     let login_profile = {email:this.email, password:this.password};
     const result = await this.AuthService.login(login_profile);
-    this.uiProvider.dismissLoadingDefault();
+    await this.uiProvider.dismissLoadingDefault();
     if(result.status){
       this.router.navigateByUrl("/home/tab1", { replaceUrl: true });
     }else {

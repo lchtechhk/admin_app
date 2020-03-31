@@ -37,10 +37,10 @@ export class Tab1Page implements OnInit {
     await this.getProductListing(null);
   }
    async getProductListing(id){
-    this.uiProvider.presentLoadingDefault();
+    await this.uiProvider.presentLoadingDefault();
     this.products = await this.productService.searchProduct(id);
     // console.log("products : " + JSON.stringify(this.products));
-    this.uiProvider.dismissLoadingDefault();
+    await this.uiProvider.dismissLoadingDefault();
 
   }
   scrollStart(event : any){

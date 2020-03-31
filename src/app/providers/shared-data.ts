@@ -131,16 +131,16 @@ export class SharedDataProvider {
     public update_fcm() {
         //     if (this.platform.is("android") || this.platform.is("ios")) {
         //         this.fcm.getToken().then(token => {
-        //             this.uiProvider.presentLoadingDefault();
+        //             await this.uiProvider.presentLoadingDefault();
         //             this.config.post(this.config.url + 'update_fcm', { fcm: token, user_id: this.person_id }, (res: any) => {
         //                 if (!this.ObjectUtils.isEmptyField(res) && !this.ObjectUtils.isEmptyField(res.data) && res.status) {
         //                     this.router.navigateByUrl("/home/tab1", { replaceUrl: true });
         //                 } else {
         //                     alert(JSON.stringify(res.data))
         //                 }
-        //                 this.uiProvider.dismissLoadingDefault();
+        //                 await this.uiProvider.dismissLoadingDefault();
         //             }, (error: any) => {
-        //                 this.uiProvider.dismissLoadingDefault();
+        //                 await this.uiProvider.dismissLoadingDefault();
         //                 alert(JSON.stringify(error))
         //             });
         //         });
