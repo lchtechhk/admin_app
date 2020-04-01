@@ -2,7 +2,7 @@
 
 <app-category-tab id="categoryTab" (tabClick)="onCategoryTabClickEmitted($event)" ></app-category-tab>
 
-<ion-content (ionScrollStart)="scrollStart()" (ionScroll)="onContentScroll($event)"  (ionScrollEnd)="scrollComplete($event)" scrollEvents="true" >
+<ion-content (ionScrollStart)="scrollStart($event)" (ionScroll)="onContentScroll($event)"  (ionScrollEnd)="scrollComplete($event)" scrollEvents="true" >
     <ion-grid *ngIf="productView=='grid'" >
       <ion-row >
         <ion-col *ngFor="let p of products" size="6">
