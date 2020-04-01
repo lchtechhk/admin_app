@@ -14,14 +14,14 @@ export class SharedDataProvider {
     public cartProducts : any = new Array();
 
     constructor(
-        // private fcm: FCM,
+        // public fcm: FCM,
         public storage: Storage,
         public config: ConfigProvider,
         public ob: ObjectUtils,
-        private navCtrl: NavController,
-        private router: Router,
-        private uiProvider: UIProvider,
-        private platform: Platform,
+        public navCtrl: NavController,
+        public router: Router,
+        public uiProvider: UIProvider,
+        public platform: Platform,
 
     ) {
         this.cartProducts = this.get_storage_key("cartProducts");

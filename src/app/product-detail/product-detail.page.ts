@@ -14,20 +14,20 @@ import { Router, NavigationExtras } from '@angular/router';
   styleUrls: ['./product-detail.page.scss'],
 })
 export class ProductDetailPage implements OnInit {
-  private product: any;
-  private backPath: any = '/home/tab1';
+  public product: any;
+  public backPath: any = '/home/tab1';
 
   sliderConfig = {
     zoom: false,
     passiveListeners: false,
   }
   constructor(
-    private location: Location,
-    private route: ActivatedRoute,
+    public location: Location,
+    public route: ActivatedRoute,
     public config: ConfigProvider,
-    private photoViewer: PhotoViewer,
+    public photoViewer: PhotoViewer,
     public modalController: ModalController,
-    private router: Router,
+    public router: Router,
   ) { }
 
   ngOnInit() {

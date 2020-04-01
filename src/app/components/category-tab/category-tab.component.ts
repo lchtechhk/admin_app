@@ -11,7 +11,7 @@ import { ConfigProvider } from '../../providers/ConfigProvider';
 export class CategoryTabComponent implements OnInit {
   @Output() tabClick = new EventEmitter<string>();
 
-  private categories : any ;
+  public categories : any ;
   slideOpts = {
     // spaceBetween:10,
     // centeredSlides:true,
@@ -21,7 +21,7 @@ export class CategoryTabComponent implements OnInit {
   };
 
   constructor(
-    private categoryService : CategoryService,
+    public categoryService : CategoryService,
     public config : ConfigProvider
   ) { }
 

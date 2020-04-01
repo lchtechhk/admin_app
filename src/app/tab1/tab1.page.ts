@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page implements OnInit {
-  private lastY = 0;
-  private categoryTab : any;
-  private products : any;
-  private productView : string = "grid";
+  public lastY = 0;
+  public categoryTab : any;
+  public products : any;
+  public productView : string = "grid";
   
   @ViewChild("content", { static:false}) private content: ElementRef;
   constructor(

@@ -13,17 +13,17 @@ import { isArray } from 'util';
   styleUrls: ['./cart.page.scss'],
 })
 export class CartPage implements OnInit {
-  private carts;
-  private total: any;
-  private backPath: any = '/home/cart';
+  public carts;
+  public total: any;
+  public backPath: any = '/home/cart';
 
   constructor(
     public config: ConfigProvider,
-    private sharedDataProvider: SharedDataProvider,
+    public sharedDataProvider: SharedDataProvider,
     public ob: ObjectUtils,
-    private router: Router,
+    public router: Router,
     public uiProvider: UIProvider,
-    private productService: ProductService,
+    public productService: ProductService,
 
   ) {
 

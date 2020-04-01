@@ -7,7 +7,7 @@ import { SharedDataProvider } from '../providers/shared-data';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage implements OnInit{
-  private cart_count = 0;
+  public cart_count = 0;
 
   constructor(
     private sharedDataProvider : SharedDataProvider,

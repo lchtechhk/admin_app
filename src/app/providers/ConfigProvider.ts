@@ -14,10 +14,10 @@ export class ConfigProvider {
   
   constructor(
     public storage: Storage,
-    private router: Router,
-    private http: HttpClient,
-    private uiProvider: UIProvider,
-    private ObjectUtils: ObjectUtils) {
+    public router: Router,
+    public http: HttpClient,
+    public uiProvider: UIProvider,
+    public ObjectUtils: ObjectUtils) {
   };
 
   public url: string = "http://192.168.1.116/admin/api/app/";

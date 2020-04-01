@@ -21,24 +21,24 @@ import { ObjectUtils } from '../../providers/ObjectUtils';
   styleUrls: ['./address.component.scss'],
 })
 export class AddressComponent implements OnInit {
-  private address_detail = new addressModel;
-  private postModel = new postModel;
-  private address_list;
-  private portsSubscription: Subscription;
-  private todo: FormGroup;
-  private page_operation;
-  private isToggled = false;
+  public address_detail = new addressModel;
+  public postModel = new postModel;
+  public address_list;
+  public portsSubscription: Subscription;
+  public todo: FormGroup;
+  public page_operation;
+  public isToggled = false;
   constructor(
-    private modalController: ModalController,
-    private navParams: NavParams,
+    public modalController: ModalController,
+    public navParams: NavParams,
     public config: ConfigProvider,
-    private toastCtrl: ToastService,
-    private sharedDataProvider: SharedDataProvider,
-    private navCtrl: NavController,
-    private router: Router,
-    private route: ActivatedRoute,
-    private AddressService: AddressService,
-    private ObjectUtils : ObjectUtils,
+    public toastCtrl: ToastService,
+    public sharedDataProvider: SharedDataProvider,
+    public navCtrl: NavController,
+    public router: Router,
+    public route: ActivatedRoute,
+    public AddressService: AddressService,
+    public ObjectUtils : ObjectUtils,
 
   ) {
   }

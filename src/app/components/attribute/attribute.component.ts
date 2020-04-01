@@ -10,17 +10,17 @@ import { SharedDataProvider } from '../../providers/shared-data';
   styleUrls: ['./attribute.component.scss'],
 })
 export class AttributeComponent implements OnInit {
-  private attribute : any;
-  private original_image : any;
-  private current_selected : any;
-  private current_att : any;
-  private qty : number = 1;
+  public attribute : any;
+  public original_image : any;
+  public current_selected : any;
+  public current_att : any;
+  public qty : number = 1;
   constructor(
-    private modalController: ModalController,
-    private navParams: NavParams,
+    public modalController: ModalController,
+    public navParams: NavParams,
     public config : ConfigProvider,
-    private toastCtrl: ToastService,
-    private sharedDataProvider: SharedDataProvider,
+    public toastCtrl: ToastService,
+    public sharedDataProvider: SharedDataProvider,
 
 
   ) { }

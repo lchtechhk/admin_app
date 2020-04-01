@@ -23,19 +23,19 @@ CommonProvider
   styleUrls: ['profile.page.scss']
 })
 export class ProfilePage {
-  private person_data : any = {};
-  private customer_address : any = [];
-  private backPath: any = '/home/profile';
+  public person_data : any = {};
+  public customer_address : any = [];
+  public backPath: any = '/home/profile';
 
   constructor(
-    private AuthService : AuthService,
-    private AddressService : AddressService,
-    private config : ConfigProvider,
-    private ObjectUtils : ObjectUtils,
-    private navCtrl: NavController,
-    private sharedDataProvider : SharedDataProvider,
-    private uiProvider : UIProvider,
-    private route: ActivatedRoute,
+    public AuthService : AuthService,
+    public AddressService : AddressService,
+    public config : ConfigProvider,
+    public ObjectUtils : ObjectUtils,
+    public navCtrl: NavController,
+    public sharedDataProvider : SharedDataProvider,
+    public uiProvider : UIProvider,
+    public route: ActivatedRoute,
     public modalController: ModalController,
 
     ) {

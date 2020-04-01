@@ -10,14 +10,14 @@ import { Router, NavigationExtras } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class ProductComponent implements OnInit {
-  @Input('data') p;//product data
-  @Input('type') type;
-  is_upcomming = false;
+  @Input('data') public p;//product data
+  @Input('type') public type;
+  public is_upcomming = false;
 
   constructor(
-    private config : ConfigProvider,
-    private sharedDataProvider: SharedDataProvider,
-    private router : Router,
+    public config : ConfigProvider,
+    public sharedDataProvider: SharedDataProvider,
+    public router : Router,
   ) { 
   }
 
@@ -35,7 +35,7 @@ export class ProductComponent implements OnInit {
       return false
   }
 
-  showProductDetail(p) {
+  showProductDetail(p:any) {
     // console.log(JSON.stringify(p));
 
     let navigationExtras: NavigationExtras = {
