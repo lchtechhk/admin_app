@@ -30,9 +30,8 @@ export class CartPage implements OnInit {
   }
 
   async ngOnInit() {
+    await this.uiProvider.presentLoadingDefault();
     this.carts = await this.sharedDataProvider.get_storage_key('cart');
-    // console.log("carts : " + JSON.stringify(this.carts));
-
     if (!this.ob.isEmptyField(this.carts.cart_product)) {
       let att_ids = [];
       this.carts.cart_product.forEach(element => {
@@ -40,6 +39,7 @@ export class CartPage implements OnInit {
       });
       this.updateCartProduct(att_ids);
     }
+    await this.uiProvider.dismissLoadingDefault();
   }
 
   async updateCartProduct(att_ids) {
@@ -55,6 +55,7 @@ export class CartPage implements OnInit {
       this.carts = await this.sharedDataProvider.get_storage_key('cart');
     }
   }
+  
   async viewProductDetail(product_id) {
 
     await this.uiProvider.presentLoadingDefault();
@@ -89,7 +90,14 @@ export class CartPage implements OnInit {
   }
 
   async proceedToCheckOut() {
-    console.log("proceedToCheckOut : " + JSON.stringify(this.carts));
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        backPath: this.backPath,
+      },
+      skipLocationChange: true,
+      replaceUrl: true
+    };
+    this.router.navigate(['/order-confirm'], navigationExtras);
   }
 
   openProductsPage() {
