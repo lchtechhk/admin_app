@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { addressModel } from './models/addressModel';
 import { postModel } from './models/postModel';
-
+import { UIProvider } from '../../providers/UIProvider';
 import { ObjectUtils } from '../../providers/ObjectUtils';
 
 @Component({
@@ -39,7 +39,7 @@ export class AddressComponent implements OnInit {
     public route: ActivatedRoute,
     public AddressService: AddressService,
     public ObjectUtils : ObjectUtils,
-
+    public uiProvider : UIProvider,
   ) {
   }
 
@@ -115,7 +115,8 @@ export class AddressComponent implements OnInit {
   }
 
   async delete_address(address_id) {
-    const result = await this.AddressService.deleteCustomerAddress(address_id);
+    this.uiProvider.presentAlert("注意","確定要刪除該地址?","取消",null,"確定",async ()=>{
+      const result = await this.AddressService.deleteCustomerAddress(address_id);
     if (result) {
       this.modalController.dismiss({operation:"refresh"});
         let navigationExtras: NavigationExtras = {
@@ -126,6 +127,7 @@ export class AddressComponent implements OnInit {
         };
         this.router.navigate(['/home/profile'], navigationExtras);
     }
+    });
   }
 
   toggleChange(){
