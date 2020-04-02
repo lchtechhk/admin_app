@@ -125,7 +125,7 @@ export class SharedDataProvider {
             await this.remove_storage_key('cart');
             await this.set_storage_key('cart',cart);
         
-        console.log("arrangeCart : " + JSON.stringify(cart));
+        // console.log("arrangeCart : " + JSON.stringify(cart));
     }
     // 
     public update_fcm() {

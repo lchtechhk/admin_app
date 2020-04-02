@@ -31,7 +31,7 @@ export class CartPage implements OnInit {
 
   async ngOnInit() {
     this.carts = await this.sharedDataProvider.get_storage_key('cart');
-    console.log("carts : " + JSON.stringify(this.carts));
+    // console.log("carts : " + JSON.stringify(this.carts));
 
     if (!this.ob.isEmptyField(this.carts.cart_product)) {
       let att_ids = [];
@@ -89,7 +89,7 @@ export class CartPage implements OnInit {
   }
 
   async proceedToCheckOut() {
-
+    console.log("proceedToCheckOut : " + JSON.stringify(this.carts));
   }
 
   openProductsPage() {
