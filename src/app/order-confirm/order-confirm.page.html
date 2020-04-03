@@ -12,14 +12,29 @@
 <ion-content [scrollEvents]="true">
   <ion-card>
     <ion-card-header>
-      <h4>Shipping Address</h4>
+      <h4>送貸地址</h4>
     </ion-card-header>
     <ion-card-content>
-      orderDetail.delivery_street_address
+      <ion-list>
+        <ion-item lines="none">
+          <ion-label color="dark">
+            <ion-icon name="location-outline"></ion-icon>
+          </ion-label>
+          <ion-select placeholder="選取地址" [(ngModel)]="test">
+            <ion-select-option selected="true" value="a">A</ion-select-option>
+            <ion-select-option value="b">B</ion-select-option>
+
+            <!-- <ion-select-option *ngFor="let address of customer_address; let i = index" value="{{address.id}}"
+              selected="true">
+              {{address.is_default}}
+            </ion-select-option> -->
+          </ion-select>
+        </ion-item>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+   <!-- <ion-card>
     <ion-card-content>
       <ion-list>
         <ion-item lines="none">
@@ -32,8 +47,8 @@
         </ion-item>
       </ion-list>
     </ion-card-content>
-  </ion-card>
-  
+  </ion-card> -->
+  <!--
   <ion-card>
     <ion-card-header>
       <h4>Shipping Method</h4>
@@ -116,5 +131,5 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
-  <ion-button expand="full" class="button-footer" color="secondary">Continue</ion-button>
+  <ion-button expand="full" class="button-footer" color="secondary">Continue</ion-button> -->
 </ion-content>

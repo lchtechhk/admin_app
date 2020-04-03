@@ -15,7 +15,8 @@ import { UIProvider } from '../providers/UIProvider';
 export class OrderConfirmPage implements OnInit {
   public backPath: any = '/home/cart';
   public carts;
-
+  public customer_address;
+  public test = 'a';
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -31,8 +32,8 @@ export class OrderConfirmPage implements OnInit {
 
   async ngOnInit() {
     console.log("ngOnInit : ");
-
     await this.uiProvider.presentLoadingDefault();
+    this.customer_address = await this.sharedDataProvider.get_storage_key("customer_address");
     this.carts = await this.sharedDataProvider.get_storage_key('cart');
     if (!this.ob.isEmptyField(this.carts.cart_product)) {
       let att_ids = [];
