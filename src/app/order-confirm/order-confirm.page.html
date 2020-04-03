@@ -17,18 +17,8 @@
     <ion-card-content>
       <ion-list>
         <ion-item lines="none">
-          <ion-label color="dark">
-            <ion-icon name="location-outline"></ion-icon>
-          </ion-label>
-          <ion-select placeholder="選取地址" [(ngModel)]="test">
-            <ion-select-option selected="true" value="a">A</ion-select-option>
-            <ion-select-option value="b">B</ion-select-option>
-
-            <!-- <ion-select-option *ngFor="let address of customer_address; let i = index" value="{{address.id}}"
-              selected="true">
-              {{address.is_default}}
-            </ion-select-option> -->
-          </ion-select>
+            <ion-icon color="danger" name="location-outline"></ion-icon>
+          <ion-label style="padding-left: 10px;" text-wrap >{{postModel.customer_street_address}}</ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>

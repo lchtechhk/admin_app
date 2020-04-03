@@ -6,6 +6,8 @@ import { SharedDataProvider } from '../providers/shared-data';
 import { ObjectUtils } from '../providers/ObjectUtils';
 import { ProductService } from '../services/ProductService';
 import { UIProvider } from '../providers/UIProvider';
+import { postModel } from './models/postModel';
+import { orderProductModel } from './models/orderProductModel';
 
 @Component({
   selector: 'app-order-confirm',
@@ -16,7 +18,12 @@ export class OrderConfirmPage implements OnInit {
   public backPath: any = '/home/cart';
   public carts;
   public customer_address;
-  public test = 'a';
+  public seleted_address_id :any = "";
+  public seleted_address :any = "";
+
+  public postModel = new postModel;
+  public orderProductModel = new orderProductModel;
+
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -31,9 +38,23 @@ export class OrderConfirmPage implements OnInit {
   }
 
   async ngOnInit() {
-    console.log("ngOnInit : ");
+    this.route.queryParams.subscribe(params => {
+      if (params && params.backPath) {
+        this.backPath = params.backPath;
+      }
+    });
     await this.uiProvider.presentLoadingDefault();
-    this.customer_address = await this.sharedDataProvider.get_storage_key("customer_address");
+
+    // Get Default Address
+    await this.getDefaultAddressId();
+    // Get CartProduct
+    await this.getCartProduct();
+    console.log("postModel : " +JSON.stringify(this.postModel));
+
+    await this.uiProvider.dismissLoadingDefault();
+  }
+
+  async getCartProduct(){
     this.carts = await this.sharedDataProvider.get_storage_key('cart');
     if (!this.ob.isEmptyField(this.carts.cart_product)) {
       let att_ids = [];
@@ -42,13 +63,27 @@ export class OrderConfirmPage implements OnInit {
       });
       this.updateCartProduct(att_ids);
     }
-    this.route.queryParams.subscribe(params => {
-      if (params && params.backPath) {
-        this.backPath = params.backPath;
+    console.log("carts : " + JSON.stringify(this.carts));
+  }
+  async getDefaultAddressId(){
+    this.customer_address = await this.sharedDataProvider.get_storage_key("customer_address");
+    // console.log("customer_address : " + JSON.stringify(this.customer_address));
+    this.customer_address.forEach(element => {
+      if(element.is_default == 'yes'){
+        this.postModel.customer_address_id = element.id;
+        this.postModel.customer_country = element.country_name;
+        this.postModel.customer_city = element.city_name;
+        this.postModel.customer_area = element.area_name;
+        this.postModel.customer_district = element.district_name;
+        this.postModel.customer_estate = element.estate;
+        this.postModel.customer_building = element.building;
+        this.postModel.customer_room = element.room;
+        this.postModel.customer_street_address = element.address_ch;
+        this.postModel.customer_name = this.ob.isEmptyField(element.lastname) ? "" : element.lastname + " " + this.ob.isEmptyField(element.firstname) ? "" : element.firstname;
+        this.postModel.customer_company = element.company;
+        this.postModel.customer_telephone = element.phone;
       }
     });
-    await this.uiProvider.dismissLoadingDefault();
-    console.log("carts : " + JSON.stringify(this.carts));
   }
 
   async updateCartProduct(att_ids) {
