@@ -5,6 +5,7 @@ import { ConfigProvider } from '../providers/ConfigProvider';
 import { SharedDataProvider } from '../providers/shared-data';
 import { ObjectUtils } from '../providers/ObjectUtils';
 import { ProductService } from '../services/ProductService';
+import { PaymentMethodService } from '../services/PaymentMethodService';
 import { UIProvider } from '../providers/UIProvider';
 import { postModel } from './models/postModel';
 import { orderProductModel } from './models/orderProductModel';
@@ -18,6 +19,8 @@ export class OrderConfirmPage implements OnInit {
   public backPath: any = '/home/cart';
   public carts;
   public customer_address;
+  public payment_methods = [];
+
   public selected_address_id :any = "";
   public selected_address :any;
   public selected_customer_street_address :any = "";
@@ -32,6 +35,7 @@ export class OrderConfirmPage implements OnInit {
     public sharedDataProvider: SharedDataProvider,
     public ob: ObjectUtils,
     public productService: ProductService,
+    public paymentMethodService: PaymentMethodService,
     public uiProvider: UIProvider,
 
   ) { 
@@ -55,11 +59,21 @@ export class OrderConfirmPage implements OnInit {
     // Get CartProduct
     await this.getCartProduct();  
 
-    console.log("postModel : " +JSON.stringify(this.postModel));
+    // Get PaymentMethod
+    await this.getAllPaymentMethod();  
+
+    // console.log("postModel : " +JSON.stringify(this.postModel));
+    console.log("payment_methods : " +JSON.stringify(this.payment_methods));
 
     await this.uiProvider.dismissLoadingDefault();
   }
 
+  async getAllPaymentMethod(){
+    const payment_methods = await this.paymentMethodService.getAllPaymentMethod();
+    if (!this.ob.isEmptyField(payment_methods)) {
+      this.payment_methods = payment_methods;
+    }
+  }
   async getCartProduct(){
     this.carts = await this.sharedDataProvider.get_storage_key('cart');
     if (!this.ob.isEmptyField(this.carts.cart_product)) {

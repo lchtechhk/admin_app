@@ -22,20 +22,25 @@
     </ion-card-content>
   </ion-card>
 
-   <!-- <ion-card>
+   <ion-card>
     <ion-card-content>
       <ion-list>
         <ion-item lines="none">
           <ion-label color="dark">Payment</ion-label>
-          <ion-select >
-            <div >
-              <ion-select-option >p.name</ion-select-option>
+          <ion-select>
+            <div *ngFor="let method of payment_methods" >
+              <ion-select-option >
+                <ion-thumbnail slot="start">
+                  <ion-img src="./assets/images/home.png"></ion-img>
+                </ion-thumbnail>
+                {{method.name}}
+              </ion-select-option>
             </div>
           </ion-select>
         </ion-item>
       </ion-list>
     </ion-card-content>
-  </ion-card> -->
+  </ion-card>
   <!--
   <ion-card>
     <ion-card-header>

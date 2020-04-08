@@ -26,6 +26,8 @@ import { IonicSelectableModule } from 'ionic-selectable';
 
 import { CategoryService } from './services/CategoryService';
 import { ProductService } from './services/ProductService';
+import { PaymentMethodService } from './services/PaymentMethodService';
+
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 
@@ -50,6 +52,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
     AuthService,
     CategoryService,
     ProductService,
+    PaymentMethodService,
     PhotoViewer,
     ToastService,
     AddressService,
