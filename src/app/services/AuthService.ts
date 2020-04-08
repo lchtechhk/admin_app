@@ -34,6 +34,7 @@ export class AuthService {
             await this.sharedDataProvider.setToken(result.data.token);
             await this.sharedDataProvider.set_storage_key('person_data',result.data.owner);
             await this.sharedDataProvider.set_storage_key('customer_address',result.data.address);
+            await this.sharedDataProvider.set_storage_key('payment_methods',result.data.payment_methods);
 
         }
         return result
@@ -46,6 +47,7 @@ export class AuthService {
             await this.sharedDataProvider.setToken(result.data.token);
             await this.sharedDataProvider.set_storage_key('person_data',result.data.owner);
             await this.sharedDataProvider.set_storage_key('customer_address',result.data.address);
+            await this.sharedDataProvider.set_storage_key('payment_methods',result.data.payment_methods);
         }
         return result;
 

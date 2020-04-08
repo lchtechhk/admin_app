@@ -5,16 +5,16 @@ import { ConfigProvider } from '../providers/ConfigProvider';
 import { SharedDataProvider } from '../providers/shared-data';
 import { ObjectUtils } from '../providers/ObjectUtils';
 import { UIProvider } from '../providers/UIProvider';
+import { PaymentMethodService } from '../services/PaymentMethodService';
 
 @Component({
-  selector: 'app-order-address',
-  templateUrl: './order-address.page.html',
-  styleUrls: ['./order-address.page.scss'],
+  selector: 'app-order-payment',
+  templateUrl: './order-payment.page.html',
+  styleUrls: ['./order-payment.page.scss'],
 })
-export class OrderAddressPage implements OnInit {
-  public backPath: any = '/home/order-address';
-  public customer_address : any = [];
-  
+export class OrderPaymentPage implements OnInit {
+  public backPath: any = '/home/order-payment';
+  public payment_methods : any= [];
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -22,6 +22,8 @@ export class OrderAddressPage implements OnInit {
     public sharedDataProvider: SharedDataProvider,
     public ob: ObjectUtils,
     public uiProvider: UIProvider,
+    public paymentMethodService: PaymentMethodService,
+
   ) { }
 
   async ngOnInit() {
@@ -31,20 +33,31 @@ export class OrderAddressPage implements OnInit {
       }
     });
     await this.uiProvider.presentLoadingDefault();
-    this.customer_address = await this.sharedDataProvider.get_storage_key("customer_address");
+    // Get PaymentMethod
+    await this.getAllPaymentMethod();  
     await this.uiProvider.dismissLoadingDefault();
+
   }
 
-  select_address(selected_address){
+  select_method(selected_method){
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        selected_address: JSON.stringify(selected_address),
+        selected_method: JSON.stringify(selected_method),
       },
       skipLocationChange: true,
       replaceUrl: true
     };
     this.router.navigate(['/order-confirm'], navigationExtras);
   }
+
+  async getAllPaymentMethod(){
+    const payment_methods = await this.paymentMethodService.getAllPaymentMethod();
+    if (!this.ob.isEmptyField(payment_methods)) {
+      this.payment_methods = payment_methods;
+    }
+    console.log("payment_methods : " +JSON.stringify(this.payment_methods));
+  }
+
   pop() {
     let navigationExtras: NavigationExtras = {
       queryParams: {

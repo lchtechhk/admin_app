@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'order-address',
     loadChildren: () => import('./order-address/order-address.module').then( m => m.OrderAddressPageModule)
   },
+  {
+    path: 'order-payment',
+    loadChildren: () => import('./order-payment/order-payment.module').then( m => m.OrderPaymentPageModule)
+  },
 
 
 ];

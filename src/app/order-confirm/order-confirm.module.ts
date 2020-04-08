@@ -8,6 +8,7 @@ import { OrderConfirmPageRoutingModule } from './order-confirm-routing.module';
 
 import { OrderConfirmPage } from './order-confirm.page';
 import { OrderAddressPageModule } from '../order-address/order-address.module';
+import { OrderPaymentPageModule } from '../order-payment/order-payment.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { OrderAddressPageModule } from '../order-address/order-address.module';
     FormsModule,
     IonicModule,
     OrderConfirmPageRoutingModule,
-    OrderAddressPageModule
+    OrderAddressPageModule,
+    OrderPaymentPageModule
   ],
   declarations: [OrderConfirmPage]
 })

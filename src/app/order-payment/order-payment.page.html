@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="pop()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>付款放式</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [scrollEvents]="true">
+  <ion-list>
+    <ion-item button *ngFor="let method of payment_methods" (click)="select_method(method)">
+      <ion-label style="padding: 0px; margin: 0px;" color="primary" position="stacked">{{method.name}}</ion-label>
+      <ion-thumbnail slot="start">
+        <ion-img *ngIf="method.image" src="{{this.config.img_url + method?.image}}"></ion-img>
+      </ion-thumbnail>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

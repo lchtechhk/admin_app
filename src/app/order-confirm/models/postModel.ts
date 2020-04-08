@@ -1,9 +1,12 @@
 import { orderProductModel } from './orderProductModel';
 
 export class postModel{
+    payment_method_id:String= "";
+    payment_method_name:String= "";
+    payment_method_image:String= "";
+
     customer_name:String= "";
     customer_company:String= "";
-    customer_address_id:String= "";
 
     customer_country:String= "";
     customer_city:String= "";
@@ -12,7 +15,8 @@ export class postModel{
     customer_estate:String= "";
     customer_building:String= "";
     customer_room:String= "";
-
+    
+    customer_address_id:String= "";
     customer_street_address:String= "";
     customer_telephone:String= "";
     email:String= "";

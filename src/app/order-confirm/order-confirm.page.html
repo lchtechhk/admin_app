@@ -15,28 +15,21 @@
       <h4>送貸地址</h4>
     </ion-card-header>
     <ion-card-content>
-        <ion-item lines="none" (click)="open_order_address()">
-            <ion-icon color="danger" name="location-outline"></ion-icon>
-          <ion-label style="padding-left: 10px;" text-wrap >{{postModel.customer_street_address}}</ion-label>
-        </ion-item>
+      <ion-item lines="none" (click)="open_order_address()">
+        <ion-icon color="danger" name="location-outline"></ion-icon>
+        <ion-label style="padding-left: 10px;" text-wrap>{{postModel.customer_street_address}}</ion-label>
+      </ion-item>
     </ion-card-content>
   </ion-card>
 
-   <ion-card>
+  <ion-card>
     <ion-card-content>
       <ion-list>
-        <ion-item lines="none">
-          <ion-label color="dark">Payment</ion-label>
-          <ion-select>
-            <div *ngFor="let method of payment_methods" >
-              <ion-select-option >
-                <ion-thumbnail slot="start">
-                  <ion-img src="./assets/images/home.png"></ion-img>
-                </ion-thumbnail>
-                {{method.name}}
-              </ion-select-option>
-            </div>
-          </ion-select>
+        <ion-item lines="none" (click)="open_order_payment_method()">
+          <ion-thumbnail slot="start">
+            <ion-img *ngIf="postModel.payment_method_image" src="{{this.config.img_url + postModel?.payment_method_image}}"></ion-img>
+          </ion-thumbnail>
+          <ion-label style="padding-left: 10px;" text-wrap >{{postModel.payment_method_name}}</ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>
