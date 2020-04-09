@@ -107,9 +107,9 @@
     </ion-card-header>
     <ion-card-content>
       <ion-item>
-        <ion-textarea name="note" ></ion-textarea>
+        <ion-textarea [(ngModel)]="postModel.order_remark" name="note" ></ion-textarea>
       </ion-item>
     </ion-card-content>
   </ion-card>
-  <ion-button expand="full" class="button-footer" color="secondary">提交</ion-button>
+  <ion-button expand="full" class="button-footer" color="secondary" (click)="submit_order()">提交</ion-button>
 </ion-content>

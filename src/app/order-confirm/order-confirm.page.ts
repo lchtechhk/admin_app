@@ -71,6 +71,9 @@ export class OrderConfirmPage implements OnInit {
     await this.uiProvider.dismissLoadingDefault();
   }
 
+  async submit_order(){
+    console.log("postModel : " + JSON.stringify(this.postModel));
+  }
   async getCartProduct(){
     this.carts = await this.sharedDataProvider.get_storage_key('cart');
     if (!this.ob.isEmptyField(this.carts.cart_product)) {
