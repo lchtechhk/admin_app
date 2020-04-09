@@ -53,6 +53,7 @@ export class OrderConfirmPage implements OnInit {
         this.postModel.payment_method_id = selected_method.payment_method_id;
         this.postModel.payment_method_name = selected_method.name;
         this.postModel.payment_method_image = selected_method.image;
+        this.postModel.payment_method_default_image = selected_method.default_image;
       }
     });
     console.log("postModel 1: " + JSON.stringify(this.postModel))
@@ -89,6 +90,7 @@ export class OrderConfirmPage implements OnInit {
         this.postModel.payment_method_id = element.payment_method_id;
         this.postModel.payment_method_name = element.name;
         this.postModel.payment_method_image = element.image;
+        this.postModel.payment_method_default_image = element.default_image;
       }
     });
   }

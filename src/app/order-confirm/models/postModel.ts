@@ -4,6 +4,7 @@ export class postModel{
     payment_method_id:String= "";
     payment_method_name:String= "";
     payment_method_image:String= "";
+    payment_method_default_image:String= "";
 
     customer_name:String= "";
     customer_company:String= "";

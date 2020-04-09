@@ -28,6 +28,7 @@
         <ion-item lines="none" (click)="open_order_payment_method()">
           <ion-thumbnail slot="start">
             <ion-img *ngIf="postModel.payment_method_image" src="{{this.config.img_url + postModel?.payment_method_image}}"></ion-img>
+            <ion-img *ngIf="!postModel.payment_method_image" src="{{this.config.img_url + postModel?.payment_method_default_image}}"></ion-img>
           </ion-thumbnail>
           <ion-label style="padding-left: 10px;" text-wrap >{{postModel.payment_method_name}}</ion-label>
         </ion-item>
