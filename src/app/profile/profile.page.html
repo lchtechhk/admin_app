@@ -1,7 +1,7 @@
-<ion-header (click)="logout()">
+<ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="secondary">
-            <ion-button>
+            <ion-button (click)="logout()">
                 <ion-icon size="large" name="log-out"></ion-icon>
             </ion-button>
         </ion-buttons>
@@ -59,12 +59,14 @@
         </ion-item>
         <ion-item>
             <ion-label color="primary" position="stacked">最上一次登入時間</ion-label>
-            <ion-input readonly>{{person_data.lasttime_login?.create_date}}</ion-input>
+            <ion-input *ngIf="person_data.lasttime_login?.create_date" readonly>{{person_data.lasttime_login?.create_date}}</ion-input>
+            <ion-input *ngIf="!person_data.lasttime_login?.create_date" readonly>從沒登入過</ion-input>
+
         </ion-item>
-        <ion-item>
+        <!-- <ion-item>
             <ion-label color="primary" position="stacked">最上一次登出時間</ion-label>
             <ion-input readonly>{{person_data.lasttime_login?.end_date}}</ion-input>
-        </ion-item>
+        </ion-item> -->
         <ion-item>
             <ion-label color="primary" position="stacked">語言</ion-label>
             <ion-thumbnail slot="start">
