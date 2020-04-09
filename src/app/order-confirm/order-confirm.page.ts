@@ -80,7 +80,7 @@ export class OrderConfirmPage implements OnInit {
       });
       this.updateCartProduct(att_ids);
     }
-    // console.log("carts : " + JSON.stringify(this.carts));
+    console.log("carts : " + JSON.stringify(this.carts));
   }
 
   async getDefaultPaymentMethodId(){
