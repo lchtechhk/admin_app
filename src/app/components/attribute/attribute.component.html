@@ -4,7 +4,7 @@
       <ion-thumbnail slot="start" style="padding: 10px;">
         <img src="{{config.img_url+original_image}}">
       </ion-thumbnail>
-      <ion-label>abc</ion-label>
+      <ion-label>{{attribute[0].product_name}}</ion-label>
     </ion-item>
   </ion-toolbar>
 </ion-header>
@@ -20,7 +20,7 @@
               </ion-thumbnail>
               <ion-label>
                 <!-- Content Title -->
-                <!-- <h2 class="text-size-md text-color-primary font-bold ion-text-wrap">{{att.product_attribute_name}}</h2> -->
+                <h2 class="text-size-md text-color-primary font-bold ion-text-wrap">{{att.product_attribute_name}}</h2>
                 <!-- <h3 class="text-size-xs text-color-primary font-light ion-text-wrap">{{att.product_attribute_name}}</h3>
                 <p class="text-size-xs text-color-primary font-bold ion-text-wrap">{{att.product_attribute_name}}</p> -->
               </ion-label>

@@ -32,7 +32,8 @@ export class CartPage implements OnInit {
   async ngOnInit() {
     await this.uiProvider.presentLoadingDefault();
     this.carts = await this.sharedDataProvider.get_storage_key('cart');
-    if (!this.ob.isEmptyField(this.carts.cart_product)) {
+    console.log("carts : " + JSON.stringify(this.carts))
+    if (!this.ob.isEmptyField(this.carts) &&!this.ob.isEmptyField(this.carts.cart_product)) {
       let att_ids = [];
       this.carts.cart_product.forEach(element => {
         att_ids.push(element.att_id);

@@ -28,6 +28,8 @@ export class AttributeComponent implements OnInit {
   ngOnInit() {
     this.attribute = this.navParams.data.attribute;
     this.original_image = this.navParams.data.original_image;
+    console.log("attribute : " + JSON.stringify(this.attribute));
+
   }
 
   onItemClick(index: any,att:any) {
