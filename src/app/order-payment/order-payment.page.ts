@@ -55,7 +55,7 @@ export class OrderPaymentPage implements OnInit {
     if (!this.ob.isEmptyField(payment_methods)) {
       this.payment_methods = payment_methods;
     }
-    console.log("payment_methods : " +JSON.stringify(this.payment_methods));
+    // console.log("payment_methods : " +JSON.stringify(this.payment_methods));
   }
 
   pop() {

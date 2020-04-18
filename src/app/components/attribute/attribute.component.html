@@ -47,6 +47,6 @@
 
 <ion-footer>
   <section>
-    <ion-button shape="round" expand="block" (click)="addCart()">A block button</ion-button>
+    <ion-button [disabled]="!current_att" shape="round" expand="block" (click)="addCart()">確定</ion-button>
   </section>
 </ion-footer>

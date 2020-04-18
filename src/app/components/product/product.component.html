@@ -1,5 +1,4 @@
-<ion-button color="secondary" (click)="showProductDetail(p)">asd</ion-button>
-
+<!-- <ion-button color="secondary" (click)="showProductDetail(p)">asd</ion-button> -->
 <div class="product-component animate-item">
   <div *ngIf="p==1" style="padding-left: 10px;">
     <ion-skeleton-text animated style="width: 100%; height: 110px;"></ion-skeleton-text>
@@ -15,15 +14,15 @@
         (click)="showProductDetail(p)">
       <p (click)="showProductDetail(p)">{{p.name}}</p>
       <ion-row class="ion-no-padding">
-        <ion-col size="10" class="ion-no-padding" *ngIf="type!='flash'">
+        <!-- <ion-col size="10" class="ion-no-padding" *ngIf="type!='flash'">
           <h4 class="card-price-normal" *ngIf="p.special_price==null">{{p.price}}</h4>
           <h4 class="card-price-normal-through" *ngIf="p.special_price!=null">{{p.price}}</h4>
           <h4 class="card-price-normal" *ngIf="p.special_price!=null">{{p.special_price}}</h4>
-        </ion-col>
-        <ion-col size="10" class="ion-no-padding" *ngIf="type=='flash'">
+        </ion-col> -->
+        <!-- <ion-col size="10" class="ion-no-padding" *ngIf="type=='flash'">
           <h4 class="card-price-normal-through">{{p.price}}</h4>
           <h4 class="card-price-normal">{{p.price}}</h4>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
       <ion-row class="ion-no-padding" >
         <ion-button color="secondary" color="danger">

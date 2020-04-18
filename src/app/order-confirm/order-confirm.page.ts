@@ -9,6 +9,7 @@ import { PaymentMethodService } from '../services/PaymentMethodService';
 import { UIProvider } from '../providers/UIProvider';
 import { postModel } from './models/postModel';
 import { orderProductModel } from './models/orderProductModel';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-order-confirm',
@@ -20,6 +21,8 @@ export class OrderConfirmPage implements OnInit {
   public carts;
   public customer_address;
   public payment_methods;
+
+  private todo : FormGroup;
 
   public postModel = new postModel;
   public orderProductModel = new orderProductModel;
@@ -33,12 +36,19 @@ export class OrderConfirmPage implements OnInit {
     public productService: ProductService,
     public paymentMethodService: PaymentMethodService,
     public uiProvider: UIProvider,
-
+    private formBuilder: FormBuilder
   ) { 
+    this.todo = this.formBuilder.group({
+      order_remark: ['', ""],
+      customer_street_address: ['', Validators.required],
+      payment_method_name: ['', Validators.required],
+
+    });
   }
 
   async ngOnInit() {
     // Get Default Address
+    this.postModel = new postModel;
     this.route.queryParams.subscribe(params => {
       if (params && params.backPath) {
         this.backPath = params.backPath;
@@ -56,7 +66,7 @@ export class OrderConfirmPage implements OnInit {
         this.postModel.payment_method_default_image = selected_method.default_image;
       }
     });
-    console.log("postModel 1: " + JSON.stringify(this.postModel))
+    // console.log("postModel 1: " + JSON.stringify(this.postModel))
 
     await this.getDefaultAddressId();
     await this.getDefaultPaymentMethodId();
@@ -67,12 +77,13 @@ export class OrderConfirmPage implements OnInit {
     // Get CartProduct
     await this.getCartProduct();  
 
-    console.log("postModel 2: " +JSON.stringify(this.postModel));
+    // console.log("postModel 2: " +JSON.stringify(this.postModel));
     await this.uiProvider.dismissLoadingDefault();
   }
 
   async submit_order(){
-    console.log("postModel : " + JSON.stringify(this.postModel));
+    // console.log(this.todo.value);
+    console.log("submit_order : " + JSON.stringify(this.postModel));
   }
   async getCartProduct(){
     this.carts = await this.sharedDataProvider.get_storage_key('cart');
@@ -83,7 +94,7 @@ export class OrderConfirmPage implements OnInit {
       });
       this.updateCartProduct(att_ids);
     }
-    console.log("carts : " + JSON.stringify(this.carts));
+    // console.log("carts : " + JSON.stringify(this.carts));
   }
 
   async getDefaultPaymentMethodId(){
@@ -122,17 +133,23 @@ export class OrderConfirmPage implements OnInit {
   }
 
   async updateCartProduct(att_ids) {
+    // Server get new Attu 
     const products = await this.productService.getProductByAttIds_key(att_ids);
     if (!this.ob.isEmptyField(products)) {
       this.carts.cart_product.forEach(element => {
         let att_id = element.att_id;
         if (!this.ob.isEmptyField(products[att_id])) {
+          // update cart attu detail
           element.att = products[att_id];
         }
       });
       await this.sharedDataProvider.arrangeCart(this.carts);
       this.carts = await this.sharedDataProvider.get_storage_key('cart');
     }
+    // Adding CartProduct to PostModel
+    this.postModel.orderProduct = this.carts.cart_product;
+    // Sending Order To Server
+    console.log("postModel : " + JSON.stringify(this.postModel));
   }
 
   pop() {
