@@ -29,6 +29,9 @@
     </ion-card>
 
     <ion-card>
+      <ion-card-header>
+        <h4>付款方我式</h4>
+      </ion-card-header>
       <ion-card-content>
         <ion-list>
           <ion-item lines="none" (click)="open_order_payment_method()">
@@ -95,10 +98,10 @@
       <ion-card-content>
         <ion-row>
           <ion-col size="6">
-            訂單總金額
+            <strong>訂單總金額</strong>
           </ion-col>
           <ion-col size="6" class="ion-text-right">
-            {{carts?.final_total_price}}
+            <strong>{{carts?.final_total_price}}</strong>
           </ion-col>
         </ion-row>
         <!-- <ion-row>

@@ -102,7 +102,14 @@ export class CartPage implements OnInit {
   }
 
   openProductsPage() {
-    this.router.navigateByUrl("/home/tab1", { replaceUrl: true });
+    let navigationExtras: NavigationExtras = {
+      // queryParams: {
+      //   backPath: this.backPath,
+      // },
+      skipLocationChange: true,
+      replaceUrl: true
+    };
+    this.router.navigate(["/home/tab1"], navigationExtras);
   }
 
   trackByFn(index, item) {

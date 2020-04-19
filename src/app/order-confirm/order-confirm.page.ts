@@ -5,6 +5,7 @@ import { ConfigProvider } from '../providers/ConfigProvider';
 import { SharedDataProvider } from '../providers/shared-data';
 import { ObjectUtils } from '../providers/ObjectUtils';
 import { ProductService } from '../services/ProductService';
+import { OrderService } from '../services/OrderService';
 import { PaymentMethodService } from '../services/PaymentMethodService';
 import { UIProvider } from '../providers/UIProvider';
 import { postModel } from './models/postModel';
@@ -21,8 +22,8 @@ export class OrderConfirmPage implements OnInit {
   public carts;
   public customer_address;
   public payment_methods;
-
-  private todo : FormGroup;
+  public person_data;
+  private todo: FormGroup;
 
   public postModel = new postModel;
   public orderProductModel = new orderProductModel;
@@ -34,10 +35,11 @@ export class OrderConfirmPage implements OnInit {
     public sharedDataProvider: SharedDataProvider,
     public ob: ObjectUtils,
     public productService: ProductService,
+    public orderService: OrderService,
     public paymentMethodService: PaymentMethodService,
     public uiProvider: UIProvider,
     private formBuilder: FormBuilder
-  ) { 
+  ) {
     this.todo = this.formBuilder.group({
       order_remark: ['', ""],
       customer_street_address: ['', Validators.required],
@@ -47,8 +49,25 @@ export class OrderConfirmPage implements OnInit {
   }
 
   async ngOnInit() {
+    await this.uiProvider.presentLoadingDefault();
     // Get Default Address
     this.postModel = new postModel;
+    // Get QueryParams
+    await this.queryParams();
+    // Get DefaultAddress
+    await this.getPersonData();
+    // Get DefaultAddress
+    await this.getDefaultAddressId();
+    // Get DefaultPaymentMethod
+    await this.getDefaultPaymentMethodId();
+    // Get CartProduct
+    await this.getCartProduct();
+
+    console.log("carts 2: " + JSON.stringify(this.carts));
+    await this.uiProvider.dismissLoadingDefault();
+  }
+
+  async queryParams() {
     this.route.queryParams.subscribe(params => {
       if (params && params.backPath) {
         this.backPath = params.backPath;
@@ -66,26 +85,33 @@ export class OrderConfirmPage implements OnInit {
         this.postModel.payment_method_default_image = selected_method.default_image;
       }
     });
-    // console.log("postModel 1: " + JSON.stringify(this.postModel))
-
-    await this.getDefaultAddressId();
-    await this.getDefaultPaymentMethodId();
-
-    await this.uiProvider.presentLoadingDefault();
-
-  
-    // Get CartProduct
-    await this.getCartProduct();  
-
-    // console.log("postModel 2: " +JSON.stringify(this.postModel));
-    await this.uiProvider.dismissLoadingDefault();
   }
-
-  async submit_order(){
-    // console.log(this.todo.value);
-    console.log("submit_order : " + JSON.stringify(this.postModel));
+  async submit_order() {
+    const result = await this.orderService.addOrder(this.postModel);
+    if (result.status) {
+      this.uiProvider.presentSingleAlert("訂單狀態", "提交成功", "確定", async () => {
+        // console.log("submit_order : " + JSON.stringify(result));
+        await this.sharedDataProvider.remove_storage_key('cart');
+        let navigationExtras: NavigationExtras = {
+          queryParams: {
+          },
+          skipLocationChange: true,
+          replaceUrl: true
+        };
+        this.router.navigate(['/home/tab1'], navigationExtras);
+      });
+    } else {
+      this.uiProvider.presentSingleAlert("訂單狀態", "提交失敗<br/>" + result.message, "確定", () => {
+      });
+    }
   }
-  async getCartProduct(){
+  async getPersonData() {
+    this.person_data = await this.sharedDataProvider.get_storage_key('person_data');
+    if (!this.ob.isEmptyField(this.person_data) && !this.ob.isEmptyField(this.person_data.email)) {
+      this.postModel.email = this.person_data.email;
+    }
+  }
+  async getCartProduct() {
     this.carts = await this.sharedDataProvider.get_storage_key('cart');
     if (!this.ob.isEmptyField(this.carts.cart_product)) {
       let att_ids = [];
@@ -97,10 +123,10 @@ export class OrderConfirmPage implements OnInit {
     // console.log("carts : " + JSON.stringify(this.carts));
   }
 
-  async getDefaultPaymentMethodId(){
+  async getDefaultPaymentMethodId() {
     this.payment_methods = await this.sharedDataProvider.get_storage_key("payment_methods");
     this.payment_methods.forEach(element => {
-      if(element.is_default == 'yes' && this.ob.isEmptyField(this.postModel.payment_method_id)){
+      if (element.is_default == 'yes' && this.ob.isEmptyField(this.postModel.payment_method_id)) {
         this.postModel.payment_method_id = element.payment_method_id;
         this.postModel.payment_method_name = element.name;
         this.postModel.payment_method_image = element.image;
@@ -108,10 +134,10 @@ export class OrderConfirmPage implements OnInit {
       }
     });
   }
-  async getDefaultAddressId(){
+  async getDefaultAddressId() {
     this.customer_address = await this.sharedDataProvider.get_storage_key("customer_address");
     this.customer_address.forEach(element => {
-      if(element.is_default == 'yes' && this.ob.isEmptyField(this.postModel.customer_address_id)){
+      if (element.is_default == 'yes' && this.ob.isEmptyField(this.postModel.customer_address_id)) {
         this.postModel.customer_address_id = element.id;
         this.postModel.customer_country = element.country_name;
         this.postModel.customer_city = element.city_name;
@@ -147,7 +173,8 @@ export class OrderConfirmPage implements OnInit {
       this.carts = await this.sharedDataProvider.get_storage_key('cart');
     }
     // Adding CartProduct to PostModel
-    this.postModel.orderProduct = this.carts.cart_product;
+    this.postModel.order_products = this.carts.cart_product;
+    this.postModel.order_price = this.carts.final_total_price;
     // Sending Order To Server
     console.log("postModel : " + JSON.stringify(this.postModel));
   }
@@ -163,8 +190,7 @@ export class OrderConfirmPage implements OnInit {
     this.router.navigate(['/home/cart'], navigationExtras);
 
   }
-  open_order_address(){
-    console.log("open_order_address");
+  open_order_address() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         // backPath: "/home/cart",
@@ -175,8 +201,7 @@ export class OrderConfirmPage implements OnInit {
     this.router.navigate(['/order-address'], navigationExtras);
   }
 
-  open_order_payment_method(){
-    console.log("open_order_payment_method");
+  open_order_payment_method() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         // backPath: "/home/cart",

@@ -7,7 +7,7 @@ import { NavController } from '@ionic/angular';
 import { DatePipe } from '@angular/common'
 import { ObjectUtils } from '../providers/ObjectUtils';
 import { Storage } from '@ionic/storage';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { SharedDataProvider } from '../providers/shared-data';
 import { AuthService } from '../services/AuthService';
 
@@ -54,7 +54,11 @@ export class LoginPage {
     const result = await this.AuthService.login(login_profile);
     await this.uiProvider.dismissLoadingDefault();
     if(result.status){
-      this.router.navigateByUrl("/home/tab1", { replaceUrl: true });
+      let navigationExtras: NavigationExtras = {
+        skipLocationChange: true,
+        replaceUrl: true
+      };
+      this.router.navigate(["/home/tab1"], navigationExtras);
     }else {
       this.errorMessage = result.message;
     }
