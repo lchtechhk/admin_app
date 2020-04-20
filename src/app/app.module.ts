@@ -27,6 +27,7 @@ import { IonicSelectableModule } from 'ionic-selectable';
 import { CategoryService } from './services/CategoryService';
 import { ProductService } from './services/ProductService';
 import { PaymentMethodService } from './services/PaymentMethodService';
+import { OrderService } from './services/OrderService';
 
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
@@ -56,6 +57,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
     PhotoViewer,
     ToastService,
     AddressService,
+    OrderService,
     // FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

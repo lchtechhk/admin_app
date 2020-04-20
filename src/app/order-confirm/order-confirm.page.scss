@@ -44,6 +44,10 @@ ion-content {
         }
       }
     }
+    .validator-error{
+      background-color: #f84e4e; 
+      text-align: center;
+    }
     .row-product {
       border-bottom: solid lightgray;
       border-width: 0.2px;

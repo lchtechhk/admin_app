@@ -62,7 +62,7 @@ export class ProfilePage {
     if(!this.ObjectUtils.isEmptyField(this.person_data.picture)){
       this.person_data.picture = this.config.img_url+this.person_data.picture;
     }
-
+    console.log("person_data : " + JSON.stringify(this.person_data));
     // console.log("customer_address : " + JSON.stringify(this.customer_address));
 
   }

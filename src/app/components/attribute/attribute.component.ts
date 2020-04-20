@@ -28,6 +28,8 @@ export class AttributeComponent implements OnInit {
   ngOnInit() {
     this.attribute = this.navParams.data.attribute;
     this.original_image = this.navParams.data.original_image;
+    console.log("attribute : " + JSON.stringify(this.attribute));
+
   }
 
   onItemClick(index: any,att:any) {
@@ -39,6 +41,7 @@ export class AttributeComponent implements OnInit {
     const att_id = this.current_att.product_attribute_id;
     const obj = {att_id : att_id, qty : this.qty, att : this.current_att}
     this.sharedDataProvider.addToCart(obj);
+    await this.closeModal();
   }
 
   qunatityMinus(){

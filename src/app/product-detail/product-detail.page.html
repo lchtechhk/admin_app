@@ -7,7 +7,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<!-- <ion-content class="product-detail-page">
+<ion-content class="product-detail-page">
   <div class="product-tags-top">
     <div class="product-tag-new">New</div>
   </div>
@@ -27,66 +27,23 @@
       <ion-text color="dark" [innerHTML]="product.name"></ion-text>
       <ion-text [innerHTML]="product.description"></ion-text>
     </ion-card-content>
-
   </ion-card>
 
   <ion-list lines="none">
     <ion-card style="background-color: #f5f6f9" *ngFor=" let att of product.attribute">
-        <ion-item button >
-          <ion-thumbnail slot="start" style="padding: 10px;">
-            <img src="{{config.img_url+att.image}}">
-          </ion-thumbnail>
-          <ion-label>{{att.product_attribute_name}}</ion-label>
-        </ion-item>
+      <ion-item button>
+        <ion-thumbnail slot="start" style="padding: 10px;">
+          <img src="{{config.img_url+att.image}}">
+        </ion-thumbnail>
+        <ion-label>{{att.product_attribute_name}}</ion-label>
+      </ion-item>
     </ion-card>
-  </ion-list> -->
+  </ion-list>
+</ion-content>
 
+<ion-footer class="product-detail-footer">
   <ion-button (click)="presentModal(product.attribute)">
-    Open Modal (Bottom)
+    加入購物車
     <ion-icon mode="ios" name="arrow-forward"></ion-icon>
   </ion-button>
-  
-  <!-- <ion-grid class="product-detail-content ion-no-padding" *ngIf="product.attributes.length!=0">
-    <ion-row class="top-icon-header heading">
-      <ion-button fill="clear">
-        <ion-icon slot="start" name="md-list"></ion-icon>
-        {{'Techincal details'|translate}}
-      </ion-button>
-    </ion-row>
-
-
-
-    <ion-row>
-      <ion-col size="12" style="padding:0 10px">
-        <div class="product-description" [innerHTML]="product.products_description"></div>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
-
-  <!-- <ion-list>
-    <ion-radio-group *ngFor=" let att of product.attributes">
-      <ion-list-header>
-        <ion-label>{{att.option.name}}</ion-label>
-      </ion-list-header>
-      <ion-item *ngFor=" let val of att.values; let i = index">
-        <ion-label>{{val.value+' '+val.price_prefix+val.price+' '+config.currency}}</ion-label>
-        <ion-radio slot="start" [value]="val" [checked]="i==0" (ionSelect)="fillAttributes(val,att.option.id)">
-        </ion-radio>
-      </ion-item>
-    </ion-radio-group>
-  </ion-list> -->
-
-<!-- </ion-content> -->
-<!-- <ion-footer class="product-detail-footer">
-
-  <ion-button expand="full" color="secondary" *ngIf="cartButton=='addToCart' && !is_upcomming"
-    (click)="addToCartProduct()">
-    {{'Add to Cart'|translate}}</ion-button>
-  <ion-button expand="full" color="danger" *ngIf="cartButton=='outOfStock' && !is_upcomming">
-    {{'OUT OF STOCK'|translate}}</ion-button>
-  <ion-button expand="full" color="secondary" *ngIf="cartButton=='external' && !is_upcomming"
-    (click)="openProductUrl()">
-    {{'VIEW PRODUCT'|translate}}</ion-button>
-
-  <ion-button expand="full" color="danger" *ngIf="is_upcomming">{{'Up Coming'|translate}}</ion-button>
-</ion-footer> -->
+</ion-footer>

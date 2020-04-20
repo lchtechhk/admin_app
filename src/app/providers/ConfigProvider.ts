@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { UIProvider } from '../providers/UIProvider';
 import { ObjectUtils } from '../providers/ObjectUtils';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { ResponseModel } from '../models/ResponseModel';
 
@@ -83,7 +83,12 @@ export class ConfigProvider {
     switch (message){
       case 'The token has been blacklisted' :
       case 'Token has expired' :
-        this.router.navigateByUrl("", { replaceUrl: true });
+        let navigationExtras: NavigationExtras = {
+          skipLocationChange: true,
+          replaceUrl: true
+        };
+        this.router.navigate([""], navigationExtras);
+        // this.router.navigateByUrl("", { replaceUrl: true });
       return '登入逾時';
       case 'We cant find an account with this credentials.':
       return '登入失敗,用戶不存在';
