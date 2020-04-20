@@ -26,8 +26,6 @@ export class OrderConfirmPage implements OnInit {
   private todo: FormGroup;
 
   public postModel = new postModel;
-  public orderProductModel = new orderProductModel;
-
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -87,18 +85,22 @@ export class OrderConfirmPage implements OnInit {
     });
   }
   async submit_order() {
+        
+    // Sending Order To Server    
+    console.log("postModel : " + JSON.stringify(this.postModel));
+
     const result = await this.orderService.addOrder(this.postModel);
     if (result.status) {
       this.uiProvider.presentSingleAlert("訂單狀態", "提交成功", "確定", async () => {
         // console.log("submit_order : " + JSON.stringify(result));
-        await this.sharedDataProvider.remove_storage_key('cart');
+        // await this.sharedDataProvider.remove_storage_key('cart');
         let navigationExtras: NavigationExtras = {
           queryParams: {
           },
           skipLocationChange: true,
           replaceUrl: true
         };
-        this.router.navigate(['/home/tab1'], navigationExtras);
+        // this.router.navigate(['/home/tab1'], navigationExtras);
       });
     } else {
       this.uiProvider.presentSingleAlert("訂單狀態", "提交失敗<br/>" + result.message, "確定", () => {
@@ -162,21 +164,26 @@ export class OrderConfirmPage implements OnInit {
     // Server get new Attu 
     const products = await this.productService.getProductByAttIds_key(att_ids);
     if (!this.ob.isEmptyField(products)) {
+      let order_products : Array<orderProductModel> = Array<orderProductModel>()
       this.carts.cart_product.forEach(element => {
         let att_id = element.att_id;
         if (!this.ob.isEmptyField(products[att_id])) {
           // update cart attu detail
           element.att = products[att_id];
+          let order_product = new orderProductModel
+          order_product.product_attribute_id = att_id;
+          order_product.product_quantity = element.qty;
+          order_product.product_price = element.att.final_price;
+          order_product.final_price = element.sub_total;
+          order_products.push(order_product);
         }
       });
       await this.sharedDataProvider.arrangeCart(this.carts);
       this.carts = await this.sharedDataProvider.get_storage_key('cart');
+      // Adding CartProduct to PostModel
+      this.postModel.order_products = order_products;
+      this.postModel.order_price = this.carts.final_total_price;
     }
-    // Adding CartProduct to PostModel
-    this.postModel.order_products = this.carts.cart_product;
-    this.postModel.order_price = this.carts.final_total_price;
-    // Sending Order To Server
-    console.log("postModel : " + JSON.stringify(this.postModel));
   }
 
   pop() {
