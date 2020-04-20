@@ -39,7 +39,7 @@ export class OrderConfirmPage implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.todo = this.formBuilder.group({
-      order_remark: ['', ""],
+      customer_remark: ['', ""],
       customer_street_address: ['', Validators.required],
       payment_method_name: ['', Validators.required],
 
