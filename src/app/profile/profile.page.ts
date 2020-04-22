@@ -76,15 +76,30 @@ export class ProfilePage {
         skipLocationChange: true,
         replaceUrl: true
     };
-    this.navCtrl.navigateForward("/signature",navigationExtras);
-
-    console.log(JSON.stringify(this.orders.pending))
+    this.navCtrl.navigateForward("/order-record",navigationExtras);
+    // console.log(JSON.stringify(this.orders.pending))
   }
   async go_transport_order_page(){
-    console.log(JSON.stringify(this.orders.transport))
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        order: this.orders.transport,
+        },
+        skipLocationChange: true,
+        replaceUrl: true
+    };
+    this.navCtrl.navigateForward("/order-record",navigationExtras);
+    // console.log(JSON.stringify(this.orders.transport))
   }
   async go_received_order_page(){
-    console.log(JSON.stringify(this.orders.received))
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        order: this.orders.received,
+        },
+        skipLocationChange: true,
+        replaceUrl: true
+    };
+    this.navCtrl.navigateForward("/order-record",navigationExtras);
+    // console.log(JSON.stringify(this.orders.received))
   }
   async getAllOrderRecord(){
     const orders = await this.OrderService.getAllOrderRecord();
