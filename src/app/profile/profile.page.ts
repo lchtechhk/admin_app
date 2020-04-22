@@ -24,26 +24,26 @@ CommonProvider
   styleUrls: ['profile.page.scss']
 })
 export class ProfilePage {
-  public person_data : any = {};
-  public customer_address : any = [];
-  public orders : any = {} ;
+  public person_data: any = {};
+  public customer_address: any = [];
+  public orders: any = {};
   public backPath: any = '/home/profile';
 
   constructor(
-    public AuthService : AuthService,
-    public AddressService : AddressService,
-    public OrderService : OrderService,
-    public config : ConfigProvider,
-    public ObjectUtils : ObjectUtils,
+    public AuthService: AuthService,
+    public AddressService: AddressService,
+    public OrderService: OrderService,
+    public config: ConfigProvider,
+    public ObjectUtils: ObjectUtils,
     public navCtrl: NavController,
-    public sharedDataProvider : SharedDataProvider,
-    public uiProvider : UIProvider,
+    public sharedDataProvider: SharedDataProvider,
+    public uiProvider: UIProvider,
     public route: ActivatedRoute,
     public modalController: ModalController,
 
-    ) {
+  ) {
     this.route.queryParams.subscribe(async params => {
-      if(params["signatureImage"] != undefined){
+      if (params["signatureImage"] != undefined) {
         this.person_data.user_signature = JSON.parse(params["signatureImage"]);
         await this.uiProvider.presentLoadingDefault();
         // this.config.post(this.config.url+'save_user_signature','',{signature_image : this.person_data.user_signature, user_id : this.sharedDataProvider.person_id},(res:any)=>{
@@ -59,7 +59,7 @@ export class ProfilePage {
 
   }
 
-  async ngOnInit(){
+  async ngOnInit() {
     await this.uiProvider.presentLoadingDefault();
 
     await this.queryParams();
@@ -68,62 +68,71 @@ export class ProfilePage {
     await this.uiProvider.dismissLoadingDefault();
   }
 
-  async go_pending_order_page(){
+  async go_pending_order_page() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        order: this.orders.pending,
-        },
-        skipLocationChange: true,
-        replaceUrl: true
+        pending_orders: this.orders.pending,
+        transport_orders: this.orders.transport,
+        received_orders: this.orders.received,
+        target: 'pending'
+      },
+      skipLocationChange: true,
+      replaceUrl: true
     };
-    this.navCtrl.navigateForward("/order-record",navigationExtras);
+    this.navCtrl.navigateForward("/order-record", navigationExtras);
     // console.log(JSON.stringify(this.orders.pending))
   }
-  async go_transport_order_page(){
+  async go_transport_order_page() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        order: this.orders.transport,
-        },
-        skipLocationChange: true,
-        replaceUrl: true
+        pending_orders: this.orders.pending,
+        transport_orders: this.orders.transport,
+        received_orders: this.orders.received,
+        target: 'transport'
+      },
+      skipLocationChange: true,
+      replaceUrl: true
     };
-    this.navCtrl.navigateForward("/order-record",navigationExtras);
+    this.navCtrl.navigateForward("/order-record", navigationExtras);
     // console.log(JSON.stringify(this.orders.transport))
   }
-  async go_received_order_page(){
+  async go_received_order_page() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        order: this.orders.received,
-        },
-        skipLocationChange: true,
-        replaceUrl: true
+        pending_orders: this.orders.pending,
+        transport_orders: this.orders.transport,
+        received_orders: this.orders.received,
+        target: 'received'
+      },
+      skipLocationChange: true,
+      replaceUrl: true
     };
-    this.navCtrl.navigateForward("/order-record",navigationExtras);
+    this.navCtrl.navigateForward("/order-record", navigationExtras);
     // console.log(JSON.stringify(this.orders.received))
   }
-  async getAllOrderRecord(){
+  async getAllOrderRecord() {
     const orders = await this.OrderService.getAllOrderRecord();
-    if(orders.status && !this.ObjectUtils.isEmptyField(orders.data) && !this.ObjectUtils.isEmptyField(orders.data.orders)){
+    if (orders.status && !this.ObjectUtils.isEmptyField(orders.data) && !this.ObjectUtils.isEmptyField(orders.data.orders)) {
       this.orders = orders.data.orders;
       // console.log("getAllOrderRecord : " + JSON.stringify(this.orders));
     }
   }
 
-  async queryParams(){
+  async queryParams() {
     this.person_data = await this.sharedDataProvider.get_storage_key("person_data");
     this.customer_address = await this.sharedDataProvider.get_storage_key("customer_address");
-    if(!this.ObjectUtils.isEmptyField(this.person_data.picture)){
-      this.person_data.picture = this.config.img_url+this.person_data.picture;
+    if (!this.ObjectUtils.isEmptyField(this.person_data.picture)) {
+      this.person_data.picture = this.config.img_url + this.person_data.picture;
     }
     // console.log("person_data : " + JSON.stringify(this.person_data));
   }
 
-  
+
   async open_add_address_modal() {
     let modal = await this.modalController.create({
       component: AddressComponent,
       componentProps: {
-        "operation" : "add",
+        "operation": "add",
         "backPath": this.backPath,
       },
       // cssClass: "wideModal"
@@ -137,7 +146,7 @@ export class ProfilePage {
       component: AddressComponent,
       componentProps: {
         "address": address,
-        "operation" : "edit",
+        "operation": "edit",
         "backPath": this.backPath,
       },
       // cssClass: "wideModal"
@@ -145,30 +154,30 @@ export class ProfilePage {
     await this.dismissModal(modal);
     return await modal.present();
   }
-  
-  async dismissModal(modal:any){
-    modal.onDidDismiss().then(async data=>{
+
+  async dismissModal(modal: any) {
+    modal.onDidDismiss().then(async data => {
       await this.uiProvider.presentLoadingDefault();
-      if(await this.AddressService.getAddressByToken()){
+      if (await this.AddressService.getAddressByToken()) {
         this.customer_address = await this.sharedDataProvider.get_storage_key("customer_address");
         console.log("customer_address : " + JSON.stringify(this.customer_address));
       }
       await this.uiProvider.dismissLoadingDefault();
     });
   }
-  open_address_page(){
+  open_address_page() {
     console.log("open_address_page");
   }
-  open_signature(){
+  open_signature() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         destinationPage: "home/profile",
-        },
-        skipLocationChange: true
+      },
+      skipLocationChange: true
     };
-    this.navCtrl.navigateForward("/signature",navigationExtras);
+    this.navCtrl.navigateForward("/signature", navigationExtras);
   }
-  logout(){
+  logout() {
     this.AuthService.logout();
   }
 
