@@ -13,3 +13,15 @@
       margin: 10px auto;
     }
   }
+
+  .button-icon-top {
+    height: 5em;
+    .button-inner {
+      flex-flow: column;
+  
+      .icon {
+        margin-bottom: 10px;
+        font-size: 2em;
+      }
+    }
+  }

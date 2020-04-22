@@ -68,11 +68,29 @@ export class ProfilePage {
     await this.uiProvider.dismissLoadingDefault();
   }
 
+  async go_pending_order_page(){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        order: this.orders.pending,
+        },
+        skipLocationChange: true,
+        replaceUrl: true
+    };
+    this.navCtrl.navigateForward("/signature",navigationExtras);
+
+    console.log(JSON.stringify(this.orders.pending))
+  }
+  async go_transport_order_page(){
+    console.log(JSON.stringify(this.orders.transport))
+  }
+  async go_received_order_page(){
+    console.log(JSON.stringify(this.orders.received))
+  }
   async getAllOrderRecord(){
     const orders = await this.OrderService.getAllOrderRecord();
     if(orders.status && !this.ObjectUtils.isEmptyField(orders.data) && !this.ObjectUtils.isEmptyField(orders.data.orders)){
       this.orders = orders.data.orders;
-      console.log("getAllOrderRecord : " + JSON.stringify(this.orders));
+      // console.log("getAllOrderRecord : " + JSON.stringify(this.orders));
     }
   }
 
@@ -82,7 +100,7 @@ export class ProfilePage {
     if(!this.ObjectUtils.isEmptyField(this.person_data.picture)){
       this.person_data.picture = this.config.img_url+this.person_data.picture;
     }
-    console.log("person_data : " + JSON.stringify(this.person_data));
+    // console.log("person_data : " + JSON.stringify(this.person_data));
   }
 
   
