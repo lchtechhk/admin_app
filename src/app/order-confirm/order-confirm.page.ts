@@ -23,7 +23,7 @@ export class OrderConfirmPage implements OnInit {
   public customer_address;
   public payment_methods;
   public person_data;
-  private todo: FormGroup;
+  public todo: FormGroup;
 
   public postModel = new postModel;
   constructor(

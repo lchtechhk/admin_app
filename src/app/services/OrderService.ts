@@ -25,20 +25,17 @@ export class OrderService {
 
     ) {
     }
-    async listingAllOrder() {
+    async getAllOrderRecord() {
         const token = await this.sharedDataProvider.getToken();
-        const result : ResponseModel = await this.config.get(this.config.url+'listingOrder',token);
-        if(result.status && !this.ObjectUtils.isEmptyField(result.data.districts)){
-            return result.data.districts;
-        }
-        return [];
+        const result : ResponseModel = await this.config.post(this.config.url+'getAllOrderRecord',token,{});
+        return result;
     }
 
     async addOrder(param){
         console.log("addOrder : " + JSON.stringify(param));
         const token = await this.sharedDataProvider.getToken();
         const result : ResponseModel = await this.config.post(this.config.url+'addOrder',token,param);
-        return result
+        return result;
     }
 
     // async updateOrder(param){

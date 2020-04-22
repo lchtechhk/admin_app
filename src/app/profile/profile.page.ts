@@ -14,6 +14,7 @@ import { AuthService } from '../services/AuthService';
 import { ModalController } from '@ionic/angular';
 import { AddressComponent } from '../components/address/address.component';
 import { AddressService } from '../services/AddressService';
+import { OrderService } from '../services/OrderService';
 
 
 CommonProvider
@@ -25,11 +26,13 @@ CommonProvider
 export class ProfilePage {
   public person_data : any = {};
   public customer_address : any = [];
+  public orders : any = {} ;
   public backPath: any = '/home/profile';
 
   constructor(
     public AuthService : AuthService,
     public AddressService : AddressService,
+    public OrderService : OrderService,
     public config : ConfigProvider,
     public ObjectUtils : ObjectUtils,
     public navCtrl: NavController,
@@ -57,16 +60,32 @@ export class ProfilePage {
   }
 
   async ngOnInit(){
+    await this.uiProvider.presentLoadingDefault();
+
+    await this.queryParams();
+    await this.getAllOrderRecord();
+
+    await this.uiProvider.dismissLoadingDefault();
+  }
+
+  async getAllOrderRecord(){
+    const orders = await this.OrderService.getAllOrderRecord();
+    if(orders.status && !this.ObjectUtils.isEmptyField(orders.data) && !this.ObjectUtils.isEmptyField(orders.data.orders)){
+      this.orders = orders.data.orders;
+      console.log("getAllOrderRecord : " + JSON.stringify(this.orders));
+    }
+  }
+
+  async queryParams(){
     this.person_data = await this.sharedDataProvider.get_storage_key("person_data");
     this.customer_address = await this.sharedDataProvider.get_storage_key("customer_address");
     if(!this.ObjectUtils.isEmptyField(this.person_data.picture)){
       this.person_data.picture = this.config.img_url+this.person_data.picture;
     }
     console.log("person_data : " + JSON.stringify(this.person_data));
-    // console.log("customer_address : " + JSON.stringify(this.customer_address));
-
   }
 
+  
   async open_add_address_modal() {
     let modal = await this.modalController.create({
       component: AddressComponent,
