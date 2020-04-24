@@ -3,4 +3,12 @@ export class orderProductModel{
     product_price:String= "";
     product_quantity:String= "";
     final_price:String= "";
+    customer_remark:String= "";
+
+    // 
+    image : String="";
+    product_name : String = "";
+    product_attribute_name : String = "";
+    sub_total : String = "";
+
 }

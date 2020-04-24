@@ -25,7 +25,5 @@ export class postModel{
     shipping_method:String= "";
     order_price:String= "";
     date_purchased:String= "";
-    order_remark:String= "";
-    customer_remark:String= "";
     order_products: Array<orderProductModel> = Array<orderProductModel>();
 }

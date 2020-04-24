@@ -38,7 +38,7 @@ export class CartPage implements OnInit {
       this.carts.cart_product.forEach(element => {
         att_ids.push(element.att_id);
       });
-      this.updateCartProduct(att_ids);
+      await this.updateCartProduct(att_ids);
     }
     await this.uiProvider.dismissLoadingDefault();
   }

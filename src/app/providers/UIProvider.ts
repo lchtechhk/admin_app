@@ -5,8 +5,6 @@ import { SharedDataProvider } from '../providers/shared-data';
 
 @Injectable()
 export class UIProvider {
-  isLoading = false;
-
   constructor(
     private actionSheetController: ActionSheetController,
     private alertCtrl: AlertController,
@@ -51,22 +49,18 @@ export class UIProvider {
     }
 
     public async presentLoadingDefault() {
-      this.isLoading = true;
 
       return await this.loadingCtrl.create({
         duration: 5000,
-      }).then(a => {
-          a.present().then(() => {
-            if (!this.isLoading) {
-              a.dismiss().then(() => console.log('abort presenting'));
-            }
-          });
+      }).then(async a => {
+        await a.present().then(async () => {
+          console.log("presentLoadingDefault");
+        })
       });
     }
 
     public async dismissLoadingDefault() {
-      this.isLoading = false;
-      return await this.loadingCtrl.dismiss().then(() => console.log('dismissed'));
+      return await this.loadingCtrl.dismiss().then(async () => console.log('Loading dismissed'));
     }
 
 

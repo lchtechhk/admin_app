@@ -17,7 +17,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './order-confirm.page.html',
   styleUrls: ['./order-confirm.page.scss'],
 })
-export class OrderConfirmPage implements OnInit {
+export class OrderConfirmPage implements OnInit{
   public backPath: any = '/home/cart';
   public carts;
   public customer_address;
@@ -42,7 +42,6 @@ export class OrderConfirmPage implements OnInit {
       customer_remark: ['', ""],
       customer_street_address: ['', Validators.required],
       payment_method_name: ['', Validators.required],
-
     });
   }
 
@@ -61,7 +60,7 @@ export class OrderConfirmPage implements OnInit {
     // Get CartProduct
     await this.getCartProduct();
 
-    console.log("carts 2: " + JSON.stringify(this.carts));
+    // console.log("carts 2: " + JSON.stringify(this.carts));
     await this.uiProvider.dismissLoadingDefault();
   }
 
@@ -87,7 +86,7 @@ export class OrderConfirmPage implements OnInit {
   async submit_order() {
         
     // Sending Order To Server    
-    console.log("postModel : " + JSON.stringify(this.postModel));
+    console.log("submit_order : " + JSON.stringify(this.postModel));
 
     const result = await this.orderService.addOrder(this.postModel);
     if (result.status) {
@@ -120,7 +119,7 @@ export class OrderConfirmPage implements OnInit {
       this.carts.cart_product.forEach(element => {
         att_ids.push(element.att_id);
       });
-      this.updateCartProduct(att_ids);
+      await this.updateCartProduct(att_ids);
     }
     // console.log("carts : " + JSON.stringify(this.carts));
   }
@@ -175,6 +174,15 @@ export class OrderConfirmPage implements OnInit {
           order_product.product_quantity = element.qty;
           order_product.product_price = element.att.final_price;
           order_product.final_price = element.sub_total;
+          order_product.customer_remark = "";
+          // 
+          console.log("element : " + JSON.stringify(element));
+
+          order_product.image = element.att.image;
+          order_product.product_attribute_name = element.att.product_attribute_name;
+          order_product.product_name = element.att.product_name;
+          order_product.sub_total = element.sub_total;
+
           order_products.push(order_product);
         }
       });
@@ -184,6 +192,7 @@ export class OrderConfirmPage implements OnInit {
       this.postModel.order_products = order_products;
       this.postModel.order_price = this.carts.final_total_price;
     }
+    console.log("updateCartProduct postModel : " + JSON.stringify(this.postModel));
   }
 
   pop() {

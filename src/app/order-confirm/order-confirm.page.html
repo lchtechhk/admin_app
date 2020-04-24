@@ -55,38 +55,44 @@
       <ion-card-header>
         <h4>產品</h4>
       </ion-card-header>
-      <ion-card-content *ngFor="let cart_product of carts?.cart_product">
+      <ion-card-content *ngFor="let order_product of postModel?.order_products; let i = index">
         <ion-row class="row-product">
           <ion-col>
-            <h3>{{cart_product?.att?.product_attribute_name}}
+            <h3>{{order_product?.product_attribute_name}}
               <br>
-              <small style="background-color: cornsilk;">{{cart_product?.att?.product_name}}</small>
+              <small style="background-color: cornsilk;">{{order_product?.product_name}}</small>
             </h3>
           </ion-col>
         </ion-row>
-        <ion-item lines="full">
+        <ion-item>
           <ion-thumbnail slot="start">
-            <img *ngIf="cart_product?.att?.image" src="{{this.config.img_url + cart_product?.att?.image}}">
+            <img *ngIf="order_product?.image" src="{{this.config.img_url + order_product?.image}}">
           </ion-thumbnail>
           <ion-label>
             <ion-row>
               <ion-col class="ion-text-left" size="6">Price&nbsp;:&nbsp;</ion-col>
-              <ion-col class="ion-text-right" size="6">{{cart_product?.att?.final_price}}</ion-col>
+              <ion-col class="ion-text-right" size="6">{{order_product?.final_price}}</ion-col>
             </ion-row>
 
             <ion-row>
               <ion-col class="ion-text-left" size="6">Quantity&nbsp;:&nbsp;</ion-col>
-              <ion-col class="ion-text-right" size="6">{{cart_product?.qty}}</ion-col>
+              <ion-col class="ion-text-right" size="6">{{order_product?.product_quantity}}</ion-col>
             </ion-row>
 
             <ion-row>
               <ion-col class="ion-text-left" size="6">
                 <strong>Total</strong>&nbsp;:&nbsp;</ion-col>
               <ion-col class="ion-text-right" size="6">
-                <strong>{{cart_product?.sub_total}}</strong>
+                <strong>{{order_product?.sub_total}}</strong>
               </ion-col>
             </ion-row>
           </ion-label>
+        </ion-item>
+        <ion-item lines="full">
+          <h4>訂單備註</h4>
+          <h4 style="padding-left: 0.5cm;">
+            <ion-input *ngIf="order_product" placeholder="填選" formControlName="customer_remark" [(ngModel)]="order_product.customer_remark"></ion-input>
+          </h4>
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -112,18 +118,6 @@
             shipping_cost
           </ion-col>
         </ion-row> -->
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card>
-      <ion-card-header>
-        備註
-      </ion-card-header>
-      <ion-card-content>
-        <ion-item>
-          <ion-textarea formControlName="customer_remark" [(ngModel)]="postModel.customer_remark" name="customer_remark">
-          </ion-textarea>
-        </ion-item>
       </ion-card-content>
     </ion-card>
     <ion-button type="submit" expand="full" class="button-footer" color="secondary" [disabled]="!todo.valid">提交
