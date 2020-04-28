@@ -72,8 +72,8 @@ export class ProfilePage {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         pending_orders: this.orders.pending,
-        transport_orders: this.orders.transport,
-        received_orders: this.orders.received,
+        complete_orders: this.orders.complete,
+        cancel_orders: this.orders.cancel,
         target: 'pending'
       },
       skipLocationChange: true,
@@ -82,13 +82,13 @@ export class ProfilePage {
     this.navCtrl.navigateForward("/order-record", navigationExtras);
     // console.log(JSON.stringify(this.orders.pending))
   }
-  async go_transport_order_page() {
+  async go_complete_order_page() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         pending_orders: this.orders.pending,
-        transport_orders: this.orders.transport,
-        received_orders: this.orders.received,
-        target: 'transport'
+        complete_orders: this.orders.complete,
+        cancel_orders: this.orders.cancel,
+        target: 'complete'
       },
       skipLocationChange: true,
       replaceUrl: true
@@ -96,25 +96,24 @@ export class ProfilePage {
     this.navCtrl.navigateForward("/order-record", navigationExtras);
     // console.log(JSON.stringify(this.orders.transport))
   }
-  async go_received_order_page() {
+  async go_cancel_order_page() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         pending_orders: this.orders.pending,
-        transport_orders: this.orders.transport,
-        received_orders: this.orders.received,
-        target: 'received'
+        complete_orders: this.orders.complete,
+        cancel_orders: this.orders.cancel,
+        target: 'cancel'
       },
       skipLocationChange: true,
       replaceUrl: true
     };
     this.navCtrl.navigateForward("/order-record", navigationExtras);
-    // console.log(JSON.stringify(this.orders.received))
   }
   async getAllOrderRecord() {
     const orders = await this.OrderService.getAllOrderRecord();
     if (orders.status && !this.ObjectUtils.isEmptyField(orders.data) && !this.ObjectUtils.isEmptyField(orders.data.orders)) {
       this.orders = orders.data.orders;
-      // console.log("getAllOrderRecord : " + JSON.stringify(this.orders));
+      console.log("getAllOrderRecord : " + JSON.stringify(this.orders));
     }
   }
 

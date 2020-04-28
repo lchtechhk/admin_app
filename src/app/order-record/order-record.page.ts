@@ -15,8 +15,8 @@ export class OrderRecordPage implements OnInit {
   @ViewChild('slides', { static: true }) slider: IonSlides;
 
   public pending_orders : any = [];
-  public transport_orders : any = [];
-  public received_orders : any = [];
+  public complete_orders : any = [];
+  public cancel_orders : any = [];
   public target : string = "";
   slideOpts = {
     initialSlide: 0,
@@ -47,18 +47,18 @@ export class OrderRecordPage implements OnInit {
     if(index == 0){
       this.target = 'pending'
     }else if(index == 1){
-      this.target = 'transport'
+      this.target = 'complete'
     }else if(index == 2){
-      this.target = 'received'
+      this.target = 'cancel'
     }
   }
 
   async initial_seg_slide(){
     if(this.target == 'pending'){
       await this.slider.slideTo(0);
-    }else if(this.target == 'transport'){
+    }else if(this.target == 'complete'){
       await this.slider.slideTo(1);
-    }else if(this.target == 'received'){
+    }else if(this.target == 'cancel'){
       await this.slider.slideTo(2);
     }
   }
@@ -67,19 +67,19 @@ export class OrderRecordPage implements OnInit {
       if (params && params.pending_orders) {
         this.pending_orders = params.pending_orders;
       }
-      if (params && params.transport_orders) {
-        this.transport_orders = params.transport_orders;
+      if (params && params.complete_orders) {
+        this.complete_orders = params.complete_orders;
       }
-      if (params && params.received_orders) {
-        this.received_orders = params.received_orders;
+      if (params && params.cancel_orders) {
+        this.cancel_orders = params.cancel_orders;
       }
       if (params && params.target) {
         this.target = params.target;
       }
     });
     console.log("pending_orders : " + JSON.stringify(this.pending_orders));
-    // console.log("transport_orders : " + JSON.stringify(this.transport_orders));
-    // console.log("received_orders : " + JSON.stringify(this.received_orders));
+    // console.log("complete_orders : " + JSON.stringify(this.complete_orders));
+    // console.log("cancel_orders : " + JSON.stringify(this.cancel_orders));
 
   }
   

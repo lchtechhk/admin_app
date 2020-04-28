@@ -38,21 +38,21 @@
                     <ion-tab-button >
                         <ion-badge style="background-color: #3dc2ff;">{{orders?.pending_qty}}</ion-badge>
                         <ion-icon color="danger" style="zoom:1.5;" name="albums"></ion-icon>
-                        <ion-label>待發貨</ion-label>
+                        <ion-label>處理中</ion-label>
                     </ion-tab-button>
                 </ion-col>
-                <ion-col size="4" (click)="go_transport_order_page()">
+                <ion-col size="4" (click)="go_complete_order_page()">
                     <ion-tab-button >
-                        <ion-badge style="background-color: #3dc2ff;">{{orders?.transport_qty}}</ion-badge>
-                        <ion-icon color="danger" style="zoom:1.5;" name="car"></ion-icon>
-                        <ion-label>運送中</ion-label>
-                    </ion-tab-button>
-                </ion-col>
-                <ion-col size="4" (click)="go_received_order_page()">
-                    <ion-tab-button >
-                        <ion-badge style="background-color: #3dc2ff;">{{orders?.received_qty}}</ion-badge>
+                        <ion-badge style="background-color: #3dc2ff;">{{orders?.complete_qty}}</ion-badge>
                         <ion-icon color="danger" style="zoom:1.5;" name="checkmark-circle"></ion-icon>
                         <ion-label>已收貸</ion-label>
+                    </ion-tab-button>
+                </ion-col>
+                <ion-col size="4" (click)="go_cancel_order_page()">
+                    <ion-tab-button >
+                        <ion-badge style="background-color: #3dc2ff;">{{orders?.cancel_qty}}</ion-badge>
+                        <ion-icon color="danger" style="zoom:1.5;" name="car"></ion-icon>
+                        <ion-label>己取消</ion-label>
                     </ion-tab-button>
                 </ion-col>
             </ion-row>
