@@ -71,9 +71,6 @@ export class ProfilePage {
   async go_pending_order_page() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        pending_orders: this.orders.pending,
-        complete_orders: this.orders.complete,
-        cancel_orders: this.orders.cancel,
         target: 'pending'
       },
       skipLocationChange: true,
@@ -85,9 +82,6 @@ export class ProfilePage {
   async go_complete_order_page() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        pending_orders: this.orders.pending,
-        complete_orders: this.orders.complete,
-        cancel_orders: this.orders.cancel,
         target: 'complete'
       },
       skipLocationChange: true,
@@ -99,9 +93,6 @@ export class ProfilePage {
   async go_cancel_order_page() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        pending_orders: this.orders.pending,
-        complete_orders: this.orders.complete,
-        cancel_orders: this.orders.cancel,
         target: 'cancel'
       },
       skipLocationChange: true,
@@ -113,7 +104,7 @@ export class ProfilePage {
     const orders = await this.OrderService.getAllOrderRecord();
     if (orders.status && !this.ObjectUtils.isEmptyField(orders.data) && !this.ObjectUtils.isEmptyField(orders.data.orders)) {
       this.orders = orders.data.orders;
-      console.log("getAllOrderRecord : " + JSON.stringify(this.orders));
+      // console.log("getAllOrderRecord : " + JSON.stringify(this.orders));
     }
   }
 

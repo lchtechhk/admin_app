@@ -5,6 +5,7 @@ import { ObjectUtils } from '../providers/ObjectUtils';
 import { ActivatedRoute } from "@angular/router";
 import { IonSlides } from '@ionic/angular';
 import { ConfigProvider } from '../providers/ConfigProvider';
+import { OrderService } from '../services/OrderService';
 
 @Component({
   selector: 'app-order-record',
@@ -29,17 +30,39 @@ export class OrderRecordPage implements OnInit {
     public ObjectUtils : ObjectUtils,
     public route: ActivatedRoute,
     public config : ConfigProvider,
+    public OrderService: OrderService,
   ) { }
 
   async ngOnInit() {
     await this.uiProvider.presentLoadingDefault();
     await this.queryParams();
     await this.initial_seg_slide();
+    await this.getAllOrderRecord();
     await this.uiProvider.dismissLoadingDefault();
   }
 
-  async goOrderDetailPage(){
-    
+  async go_orderDetailPage(order:any){
+    // console.log("order : " + JSON.stringify(order));
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        // backPath: this.backPath,
+        order : order,
+        target : this.target
+      },
+      skipLocationChange: true,
+      replaceUrl: true
+    };
+    this.router.navigate(['/order-detail-record'], navigationExtras);
+  }
+
+  async getAllOrderRecord() {
+    const orders = await this.OrderService.getAllOrderRecord();
+    if (orders.status && !this.ObjectUtils.isEmptyField(orders.data) && !this.ObjectUtils.isEmptyField(orders.data.orders)) {
+      if(orders.data.orders.pending) this.pending_orders = orders.data.orders.pending;
+      if(orders.data.orders.complete) this.complete_orders = orders.data.orders.complete;
+      if(orders.data.orders.cancel) this.cancel_orders = orders.data.orders.cancel;
+      // console.log("getAllOrderRecord : " + JSON.stringify(orders.data.orders));
+    }
   }
   async segmentChanged(){
      this.initial_seg_slide();
@@ -67,23 +90,10 @@ export class OrderRecordPage implements OnInit {
   }
   async queryParams(){
     this.route.queryParams.subscribe(async params => {
-      if (params && params.pending_orders) {
-        this.pending_orders = params.pending_orders;
-      }
-      if (params && params.complete_orders) {
-        this.complete_orders = params.complete_orders;
-      }
-      if (params && params.cancel_orders) {
-        this.cancel_orders = params.cancel_orders;
-      }
       if (params && params.target) {
         this.target = params.target;
       }
     });
-    console.log("pending_orders : " + JSON.stringify(this.pending_orders));
-    // console.log("complete_orders : " + JSON.stringify(this.complete_orders));
-    // console.log("cancel_orders : " + JSON.stringify(this.cancel_orders));
-
   }
   
   pop(){
