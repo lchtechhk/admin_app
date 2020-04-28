@@ -25,7 +25,7 @@
   <ion-slide>
     <ion-list style="height: 100%;width: 100%;">
       <ion-content>
-        <ion-card *ngFor="let order of pending_orders; let i = index">
+        <ion-card *ngFor="let order of pending_orders; let i = index" (click)="goOrderDetailPage();">
           <ion-card-content>
             <ion-row class="row-product">
               <ion-col>

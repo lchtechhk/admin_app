@@ -38,6 +38,9 @@ export class OrderRecordPage implements OnInit {
     await this.uiProvider.dismissLoadingDefault();
   }
 
+  async goOrderDetailPage(){
+    
+  }
   async segmentChanged(){
      this.initial_seg_slide();
   }
