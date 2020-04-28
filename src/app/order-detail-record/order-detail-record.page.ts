@@ -4,6 +4,7 @@ import { UIProvider } from '../providers/UIProvider';
 import { ObjectUtils } from '../providers/ObjectUtils';
 import { ActivatedRoute } from "@angular/router";
 import { ConfigProvider } from '../providers/ConfigProvider';
+import { OrderService } from '../services/OrderService';
 
 @Component({
   selector: 'app-order-detail-record',
@@ -12,32 +13,44 @@ import { ConfigProvider } from '../providers/ConfigProvider';
 })
 export class OrderDetailRecordPage implements OnInit {
 
-  public order : any;
-  public order_id : string;
-  public target : string = "";
-
+  public order: any;
+  public order_id: string;
+  public target: string = "";
+  public order_items: any = [];
   constructor(
     public router: Router,
-    public uiProvider : UIProvider,
-    public ObjectUtils : ObjectUtils,
+    public uiProvider: UIProvider,
+    public ObjectUtils: ObjectUtils,
     public route: ActivatedRoute,
-    public config : ConfigProvider,
+    public config: ConfigProvider,
+    public OrderService: OrderService,
   ) { }
 
   async ngOnInit() {
     await this.uiProvider.presentLoadingDefault();
     await this.queryParams();
+    await this.getOrderItem();
     await this.uiProvider.dismissLoadingDefault();
 
   }
 
-  async queryParams(){
+  async getOrderItem() {
+    if (!this.ObjectUtils.isEmptyField(this.order_id)) {
+      const items = await this.OrderService.getOrderItem(this.order_id);
+      console.log("items : " + JSON.stringify(items));
+      // if (orders.status && !this.ObjectUtils.isEmptyField(orders.data) && !this.ObjectUtils.isEmptyField(orders.data.items)) {
+      //   this.order_items = orders.data.items;
+      //   console.log("items : " + JSON.stringify(this.order_items));
+      // }
+    }
+  }
+
+
+  async queryParams() {
     this.route.queryParams.subscribe(params => {
       if (params && params.order) {
         this.order = JSON.parse(params.order);
         this.order_id = this.order.order_id;
-        console.log(this.order_id);
-
       }
       if (params && params.target) {
         this.target = params.target;
@@ -46,11 +59,11 @@ export class OrderDetailRecordPage implements OnInit {
 
   }
 
-  pop(){
+  pop() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         // backPath: this.backPath,
-              target : this.target
+        target: this.target
       },
       skipLocationChange: true,
       replaceUrl: true

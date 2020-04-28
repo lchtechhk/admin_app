@@ -30,7 +30,11 @@ export class OrderService {
         const result : ResponseModel = await this.config.post(this.config.url+'getAllOrderRecord',token,{});
         return result;
     }
-
+    async getOrderItem(order_id:any){
+        const token = await this.sharedDataProvider.getToken();
+        const result : ResponseModel = await this.config.post(this.config.url+'getOrderItem',token,{order_id:order_id});
+        return result;
+    }
     async addOrder(param){
         console.log("addOrder : " + JSON.stringify(param));
         const token = await this.sharedDataProvider.getToken();
