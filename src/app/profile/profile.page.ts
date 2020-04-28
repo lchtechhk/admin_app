@@ -77,7 +77,6 @@ export class ProfilePage {
       replaceUrl: true
     };
     this.navCtrl.navigateForward("/order-record", navigationExtras);
-    // console.log(JSON.stringify(this.orders.pending))
   }
   async go_complete_order_page() {
     let navigationExtras: NavigationExtras = {
@@ -88,7 +87,6 @@ export class ProfilePage {
       replaceUrl: true
     };
     this.navCtrl.navigateForward("/order-record", navigationExtras);
-    // console.log(JSON.stringify(this.orders.transport))
   }
   async go_cancel_order_page() {
     let navigationExtras: NavigationExtras = {
@@ -104,7 +102,6 @@ export class ProfilePage {
     const orders = await this.OrderService.getAllOrderRecord();
     if (orders.status && !this.ObjectUtils.isEmptyField(orders.data) && !this.ObjectUtils.isEmptyField(orders.data.orders)) {
       this.orders = orders.data.orders;
-      // console.log("getAllOrderRecord : " + JSON.stringify(this.orders));
     }
   }
 
@@ -114,7 +111,6 @@ export class ProfilePage {
     if (!this.ObjectUtils.isEmptyField(this.person_data.picture)) {
       this.person_data.picture = this.config.img_url + this.person_data.picture;
     }
-    // console.log("person_data : " + JSON.stringify(this.person_data));
   }
 
 

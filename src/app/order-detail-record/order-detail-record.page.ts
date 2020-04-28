@@ -13,7 +13,7 @@ import { ConfigProvider } from '../providers/ConfigProvider';
 export class OrderDetailRecordPage implements OnInit {
 
   public order : any;
-  public order_id : String;
+  public order_id : string;
   public target : string = "";
 
   constructor(
@@ -32,19 +32,17 @@ export class OrderDetailRecordPage implements OnInit {
   }
 
   async queryParams(){
-    this.route.queryParams.subscribe(async params => {
+    this.route.queryParams.subscribe(params => {
       if (params && params.order) {
-        console.log("order : " + this.order);
-        this.order_id = params.order;
-        // this.order = this.order.order_id;
+        this.order = JSON.parse(params.order);
+        this.order_id = this.order.order_id;
+        console.log(this.order_id);
+
       }
       if (params && params.target) {
         this.target = params.target;
       }
     });
-    // console.log("order_info : " + JSON.stringify(this.order_info));
-    // console.log("complete_orders : " + JSON.stringify(this.complete_orders));
-    // console.log("cancel_orders : " + JSON.stringify(this.cancel_orders));
 
   }
 

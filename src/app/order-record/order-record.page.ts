@@ -18,7 +18,7 @@ export class OrderRecordPage implements OnInit {
   public pending_orders : any = [];
   public complete_orders : any = [];
   public cancel_orders : any = [];
-  public target : string = "";
+  public target : string = "pending";
   slideOpts = {
     initialSlide: 0,
     speed: 100
@@ -46,7 +46,7 @@ export class OrderRecordPage implements OnInit {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         // backPath: this.backPath,
-        order : order,
+        order : JSON.stringify(order),
         target : this.target
       },
       skipLocationChange: true,
