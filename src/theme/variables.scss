@@ -17,6 +17,7 @@ $colors: (
  light:      #f4f4f4,
  dark:       #222,
  blue:   #6ab0f1,
+ gloomy:   #f0f0f0,
 );
 :root {
 
@@ -67,6 +68,14 @@ $colors: (
   --ion-color-danger-contrast-rgb: 255, 255, 255;
   --ion-color-danger-shade: #cf3c4f;
   --ion-color-danger-tint: #ed576b;
+
+  /** gloomy **/
+  --ion-color-gloomy: #f0f0f0;
+  --ion-color-gloomy-rgb: 235, 68, 90;
+  --ion-color-gloomy-contrast: #000000;
+  --ion-color-gloomy-contrast-rgb: 0, 0, 0;
+  --ion-color-gloomy-shade: #b3b5bd;
+  --ion-color-gloomy-tint: #f0f0f0;
 
   /** dark **/
   --ion-color-dark: #222428;
@@ -243,4 +252,13 @@ $colors: (
   ion-title.title-large {
     --color: white;
   }
+}
+
+.ion-color-gloomy {
+  --ion-color-base: var(--ion-color-gloomy);
+  --ion-color-base-rgb: var(--ion-color-gloomy-rgb);
+  --ion-color-contrast: var(--ion-color-gloomy-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-gloomy-contrast-rgb);
+  --ion-color-shade: var(--ion-color-gloomy-shade);
+  --ion-color-tint: var(--ion-color-gloomy-tint);
 }

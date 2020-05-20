@@ -17,6 +17,9 @@ export class OrderDetailRecordPage implements OnInit {
   public order_id: string;
   public target: string = "";
   public order_items: any = [];
+  public pending_item: any = [];
+  public transport_items: any = [];
+  public received_items: any = [];
   constructor(
     public router: Router,
     public uiProvider: UIProvider,
@@ -37,11 +40,15 @@ export class OrderDetailRecordPage implements OnInit {
   async getOrderItem() {
     if (!this.ObjectUtils.isEmptyField(this.order_id)) {
       const items = await this.OrderService.getOrderItem(this.order_id);
-      console.log("items : " + JSON.stringify(items));
-      // if (orders.status && !this.ObjectUtils.isEmptyField(orders.data) && !this.ObjectUtils.isEmptyField(orders.data.items)) {
-      //   this.order_items = orders.data.items;
-      //   console.log("items : " + JSON.stringify(this.order_items));
-      // }
+      if (items.status && !this.ObjectUtils.isEmptyField(items.data) && !this.ObjectUtils.isEmptyField(items.data)) {
+        this.order_items = items.data.orders;
+        this.pending_item = items.data.orders.pending;
+        this.transport_items = items.data.orders.transport;
+        this.received_items = items.data.orders.received;
+        console.log("pending_item : " + JSON.stringify(this.pending_item));
+
+        // console.log("order_items : " + JSON.stringify(this.order_items));
+      }
     }
   }
 
@@ -56,7 +63,7 @@ export class OrderDetailRecordPage implements OnInit {
         this.target = params.target;
       }
     });
-
+    console.log(JSON.stringify(this.order));
   }
 
   pop() {

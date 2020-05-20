@@ -10,5 +10,162 @@
 </ion-header>
 
 <ion-content>
-{{order_id}}
+  <ion-item >
+    <ion-label style="font-weight: bold;" color="dark">訂單編號:#{{order_id}}</ion-label>
+  </ion-item>
+  <!-- Order Info -->
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold;" color="primary" position="stacked">訂單日期：</ion-label>
+          <ion-input readonly>{{order?.date_purchased}}</ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold;" color="primary" position="stacked">送貨地址：</ion-label>
+          <ion-input readonly>{{order?.customer_street_address}}</ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold;" color="primary" position="stacked">付款詳情：</ion-label>
+          <ion-input readonly>{{order?.payment_method_name}}</ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Order Item -->
+  <ion-item>
+    <ion-label style="font-weight: bold;" color="dark">貨品詳情</ion-label>
+  </ion-item>
+  <!-- 待發貨 -->
+  <ion-list *ngIf="pending_item.length > 0">
+    <ion-item lines="none" color="primary">
+      <ion-label style="font-weight: bold;" color="light">待發貨</ion-label>
+    </ion-item>
+    <ion-card>
+      <ion-card-content style="padding: 0px !important;">
+        <ion-list *ngFor="let p of pending_item; let i = index">
+          <ion-item lines="none">
+            <ion-thumbnail slot="start">
+              <img *ngIf="p?.image" src="{{this.config.img_url + p?.image}}">
+            </ion-thumbnail>
+            <ion-label>
+              <ion-row>
+                <ion-col class="col-price" size="9">
+                  <p>{{p?.product_attribute_name}}</p>
+                  <p>$ {{p?.final_price}}</p>
+                  <p>數量:{{p?.product_quantity}}</p>
+                </ion-col>
+              </ion-row>
+            </ion-label>
+          </ion-item>
+          <ion-item color="gloomy" lines="none">
+            <ion-label>
+              <ion-row>
+                <ion-col class="col-price" size="9">
+                  <p *ngIf="p?.order_product_status === 'pending' ">狀態: 待發貨</p>
+                  <p *ngIf="p?.order_product_status === 'transport' ">狀態: 運送中</p>
+                  <p *ngIf="p?.order_product_status === 'received' ">狀態: 交易完成</p>
+                  <p>狀態更新時間: {{p?.edit_date}}</p>
+                </ion-col>
+              </ion-row>
+            </ion-label>
+
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <!-- 運送中 -->
+  <ion-list *ngIf="transport_items.length > 0">
+    <ion-item lines="none" color="primary">
+      <ion-label style="font-weight: bold;" color="light">運送中</ion-label>
+    </ion-item>
+    <ion-card>
+      <ion-card-content style="padding: 0px !important;">
+        <ion-list *ngFor="let p of transport_items; let i = index">
+          <ion-item lines="none">
+            <ion-thumbnail slot="start">
+              <img *ngIf="p?.image" src="{{this.config.img_url + p?.image}}">
+            </ion-thumbnail>
+            <ion-label>
+              <ion-row>
+                <ion-col class="col-price" size="9">
+                  <p>{{p?.product_attribute_name}}</p>
+                  <p>$ {{p?.final_price}}</p>
+                  <p>數量:{{p?.product_quantity}}</p>
+                </ion-col>
+              </ion-row>
+            </ion-label>
+          </ion-item>
+          <ion-item color="gloomy" lines="none">
+            <ion-label>
+              <ion-row>
+                <ion-col class="col-price" size="9">
+                  <p *ngIf="p?.order_product_status === 'pending' ">狀態: 待發貨</p>
+                  <p *ngIf="p?.order_product_status === 'transport' ">狀態: 運送中</p>
+                  <p *ngIf="p?.order_product_status === 'received' ">狀態: 交易完成</p>
+                  <p>狀態更新時間: {{p?.edit_date}}</p>
+                </ion-col>
+              </ion-row>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <!-- 交易完成 -->
+  <ion-list *ngIf="received_items.length > 0">
+    <ion-item lines="none" color="primary">
+      <ion-label style="font-weight: bold;" color="light">交易完成</ion-label>
+    </ion-item>
+    <ion-card>
+      <ion-card-content style="padding: 0px !important;">
+        <ion-list *ngFor="let p of received_items; let i = index">
+          <ion-item lines="none">
+            <ion-thumbnail slot="start">
+              <img *ngIf="p?.image" src="{{this.config.img_url + p?.image}}">
+            </ion-thumbnail>
+            <ion-label>
+              <ion-row>
+                <ion-col class="col-price" size="9">
+                  <p>{{p?.product_attribute_name}}</p>
+                  <p>$ {{p?.final_price}}</p>
+                  <p>數量:{{p?.product_quantity}}</p>
+                </ion-col>
+              </ion-row>
+            </ion-label>
+          </ion-item>
+          <ion-item color="gloomy" lines="none">
+            <ion-label>
+              <ion-row>
+                <ion-col class="col-price" size="9">
+                  <p *ngIf="p?.order_product_status === 'pending' ">狀態: 待發貨</p>
+                  <p *ngIf="p?.order_product_status === 'transport' ">狀態: 運送中</p>
+                  <p *ngIf="p?.order_product_status === 'received' ">狀態: 交易完成</p>
+                  <p>狀態更新時間: {{p?.edit_date}}</p>
+                </ion-col>
+              </ion-row>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <!-- 總金額 -->
+  <ion-list>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <strong>訂單總金額</strong>
+          </ion-col>
+          <ion-col size="6" class="ion-text-right">
+            <strong>{{order?.order_price}}</strong>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  
 </ion-content>
