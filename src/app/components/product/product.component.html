@@ -12,23 +12,15 @@
       <ion-img id="newimage" src="assets/badge_new.svg" *ngIf="checkProductNew()"></ion-img>
       <img style="height: 150px; width:100%;" id="image" src="{{this.config.img_url + p.image}}"
         (click)="showProductDetail(p)">
-      <p (click)="showProductDetail(p)">{{p.name}}</p>
+      <p style="text-align:center;min-height: 30px;white-space: normal;" (click)="showProductDetail(p)">{{p.name}}</p>
+      <!-- <ion-label style="text-align:center;" (click)="showProductDetail(p)">{{p.name}}</ion-label> -->
       <ion-row class="ion-no-padding">
-        <!-- <ion-col size="10" class="ion-no-padding" *ngIf="type!='flash'">
-          <h4 class="card-price-normal" *ngIf="p.special_price==null">{{p.price}}</h4>
-          <h4 class="card-price-normal-through" *ngIf="p.special_price!=null">{{p.price}}</h4>
-          <h4 class="card-price-normal" *ngIf="p.special_price!=null">{{p.special_price}}</h4>
-        </ion-col> -->
-        <!-- <ion-col size="10" class="ion-no-padding" *ngIf="type=='flash'">
-          <h4 class="card-price-normal-through">{{p.price}}</h4>
-          <h4 class="card-price-normal">{{p.price}}</h4>
-        </ion-col> -->
       </ion-row>
-      <ion-row class="ion-no-padding" >
+      <!-- <ion-row class="ion-no-padding" >
         <ion-button color="secondary" color="danger">
           {{'OUT OF STOCK'}}
         </ion-button>
-      </ion-row>
+      </ion-row> -->
     </ion-card>
   </div>
 

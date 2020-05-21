@@ -46,6 +46,8 @@ export class OrderDetailRecordPage implements OnInit {
         this.transport_items = items.data.orders.transport;
         this.received_items = items.data.orders.received;
         console.log("pending_item : " + JSON.stringify(this.pending_item));
+        console.log("transport_items : " + JSON.stringify(this.transport_items));
+        console.log("received_items : " + JSON.stringify(this.received_items));
 
         // console.log("order_items : " + JSON.stringify(this.order_items));
       }

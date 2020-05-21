@@ -92,14 +92,14 @@ export class OrderConfirmPage implements OnInit{
     if (result.status) {
       this.uiProvider.presentSingleAlert("訂單狀態", "提交成功", "確定", async () => {
         // console.log("submit_order : " + JSON.stringify(result));
-        // await this.sharedDataProvider.remove_storage_key('cart');
+        await this.sharedDataProvider.remove_storage_key('cart');
         let navigationExtras: NavigationExtras = {
           queryParams: {
           },
           skipLocationChange: true,
           replaceUrl: true
         };
-        // this.router.navigate(['/home/tab1'], navigationExtras);
+        this.router.navigate(['/home/tab1'], navigationExtras);
       });
     } else {
       this.uiProvider.presentSingleAlert("訂單狀態", "提交失敗<br/>" + result.message, "確定", () => {

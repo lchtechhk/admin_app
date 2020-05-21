@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-grid class="ion-no-padding grid-empty" *ngIf="carts?.cart_product.length==0">
+  <ion-grid class="ion-no-padding grid-empty" *ngIf="carts == undefined || carts?.cart_product?.length==0">
     <ion-row class="ion-no-padding">
       <ion-col size="12" class="ion-no-padding">
         <ion-icon name="basket"></ion-icon>
@@ -12,40 +12,41 @@
     </ion-row>
     <ion-row class="ion-no-padding">
       <ion-col size="12" class="ion-no-padding">
-        <h4>Your cart is empty</h4>
+        <h4>您的購物車是空的</h4>
       </ion-col>
     </ion-row>
     <ion-row class="ion-no-padding">
       <ion-col size="12" class="ion-no-padding">
-        <h5>continue shopping</h5>
+        <h5>繼續購物</h5>
       </ion-col>
     </ion-row>
     <ion-row class="ion-no-padding">
       <ion-col size="12" class="ion-no-padding">
-        <ion-button color="secondary" (click)="openProductsPage()">Explore</ion-button>
+        <ion-button color="secondary" (click)="openProductsPage()">探索</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-card class="ion-padding" *ngFor=" let cart_product of carts?.cart_product; let i = index; trackBy:trackByFn" >
+  <ion-card class="ion-padding" *ngFor=" let cart_product of carts?.cart_product; let i = index; trackBy:trackByFn">
     <ion-card-header class="ion-no-padding">
       <ion-card-subtitle>
-        <h3>{{cart_product?.att?.product_attribute_name}}</h3>
+        <h3>{{cart_product?.att?.product_name}}
+          {{cart_product?.att?.product_attribute_name}}</h3>
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <ion-grid style="padding:10px;"class="ion-no-padding">
+      <ion-grid style="padding:10px;" class="ion-no-padding">
         <ion-row>
           <ion-col size="3">
             <ion-img src="{{this.config.img_url + cart_product?.att?.image}}"></ion-img>
           </ion-col>
           <ion-col class="col-price" size="5">
-            <p>Price</p>
-            <p>Quantity</p>
-            <p><b>Sub Total</b></p>
+            <p>價錢</p>
+            <p>數量</p>
+            <p><b>小計</b></p>
           </ion-col>
           <ion-col class="col-price-ori" size="4">
-            <p class="para-del">{{cart_product?.att?.final_price}}</p>
+            <p class="para-del">$ {{cart_product?.att?.final_price}}</p>
             <div class="div-btn">
               <ion-button size="small" fill="outline" (click)="qunatityMinus(i)">
                 <p>-</p>
@@ -56,16 +57,16 @@
               </ion-button>
             </div>
             <br /><br />
-            <p class="para-price-ori">{{cart_product?.sub_total}}</p>
+            <p class="para-price-ori">$ {{cart_product?.sub_total}}</p>
           </ion-col>
         </ion-row>
         <ion-row style="padding:10px;">
           <ion-col size="2.5">
-            <ion-button color="secondary" (click)="viewProductDetail(cart_product.att.product_id)">View
+            <ion-button color="secondary" (click)="viewProductDetail(cart_product.att.product_id)">視圖
             </ion-button>
           </ion-col>
           <ion-col size="8.5">
-            <ion-button fill="clear" color="danger" (click)="removeCart(cart_product.att_id);">Remove
+            <ion-button fill="clear" color="danger" (click)="removeCart(cart_product.att_id);">清除
             </ion-button>
           </ion-col>
         </ion-row>
@@ -73,21 +74,21 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card *ngIf="carts?.cart_product.length!=0" style="padding:10px;" >
+  <ion-card *ngIf="ccarts != undefined && arts?.cart_product.length!=0" style="padding:10px;">
     <ion-card-content>
       <ion-row>
         <ion-col size="6">
-          <strong> Total</strong>
+          <strong> 總額</strong>
         </ion-col>
         <ion-col size="6" class="ion-text-right">
-          <strong>{{carts?.final_total_price}}</strong>
+          <strong>$ {{carts?.final_total_price}}</strong>
         </ion-col>
       </ion-row>
     </ion-card-content>
   </ion-card>
 </ion-content>
 
-<ion-footer *ngIf="carts?.cart_product.length!=0">
+<ion-footer *ngIf="carts != undefined && carts?.cart_product.length!=0">
   <ion-button expand="full" solid block color="secondary" (click)="proceedToCheckOut()">
     去支付
   </ion-button>
